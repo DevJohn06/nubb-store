@@ -67,17 +67,16 @@ export default function ComingSoonPage() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-start justify-end space-y-2"
         >
-          {/* Animated SVG Brand Mark Emblem (Scaled Up) */}
+          {/* Perpetually Spinning SVG Brand Mark Emblem */}
           <motion.div
             animate={{
-              y: [0, -4, 0],
+              rotate: 360,
             }}
             transition={{
-              duration: 4,
+              duration: 20,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "linear",
             }}
-            whileHover={{ rotate: 180, transition: { duration: 0.8 } }}
             className="cursor-pointer mb-3"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -88,7 +87,7 @@ export default function ComingSoonPage() {
             />
           </motion.div>
 
-          {/* SVG NUBB Logo (Scaled Up) */}
+          {/* SVG NUBB Logo */}
           <div className="mb-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -106,7 +105,7 @@ export default function ComingSoonPage() {
             the things we carry.
           </p>
 
-          {/* Brand Manifesto Paragraph (Scaled Up) */}
+          {/* Brand Manifesto Paragraph */}
           <div className="font-arial text-sm sm:text-base md:text-lg text-[#4D3F15] leading-relaxed max-w-lg space-y-4 font-bold pt-1">
             <p>
               NUBB is about making small objects that become part of how you move through life. Handmade objects that blur the line between art and utility.
@@ -147,7 +146,7 @@ export default function ComingSoonPage() {
             </p>
           </div>
 
-          {/* Email Subscription Form (Scaled Up) */}
+          {/* Email Subscription Form */}
           <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-lg pt-3">
             <div>
               <input
