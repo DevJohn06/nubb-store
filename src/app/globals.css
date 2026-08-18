@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --nubb-cream: #E8E6D8;
+    --nubb-orange: #892F1A;
+    --nubb-crimson: #640017;
+    --nubb-brown: #4D3F15;
+    --nubb-dark: #624A41;
+  }
+}
+
+@theme {
+  --color-nubb-cream: #E8E6D8;
+  --color-nubb-orange: #892F1A;
+  --color-nubb-crimson: #640017;
+  --color-nubb-brown: #4D3F15;
+  --color-nubb-dark: #624A41;
+
+  --font-lekton: var(--font-lekton), monospace;
+  --font-spray: var(--font-spray), cursive, sans-serif;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+}
+
+body {
+  background-color: var(--nubb-cream);
+  color: var(--nubb-brown);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Utilities for Brutalist / Tactile UI Aesthetics */
+.nubb-border {
+  border: 2px solid var(--nubb-brown);
+}
+
+.nubb-shadow {
+  box-shadow: 4px 4px 0px var(--nubb-brown);
+}
+
+.nubb-shadow-lg {
+  box-shadow: 6px 6px 0px var(--nubb-brown);
+}
+
+.nubb-shadow-crimson {
+  box-shadow: 6px 6px 0px var(--nubb-crimson);
+}
+
+.nubb-shadow-orange {
+  box-shadow: 6px 6px 0px var(--nubb-orange);
+}
+
+.nubb-shadow-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nubb-shadow-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--nubb-brown);
+}
+
+.nubb-shadow-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--nubb-brown);
+}
+
+/* Subtle background grain texture */
+.bg-grain {
+  background-image: radial-gradient(rgba(77, 63, 21, 0.12) 1px, transparent 0);
+  background-size: 24px 24px;
+}
