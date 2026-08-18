@@ -17,15 +17,28 @@
   --color-nubb-brown: #4D3F15;
   --color-nubb-dark: #624A41;
 
-  --font-lekton: var(--font-lekton), monospace;
   --font-spray: var(--font-spray), cursive, sans-serif;
-  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-lekton: var(--font-lekton), monospace;
+  --font-arial: "Arial Nova", "Arial", sans-serif;
+  --font-sans: "Arial Nova", "Arial", sans-serif;
+}
+
+.font-main {
+  font-family: var(--font-spray);
+}
+
+.font-subtitle {
+  font-family: var(--font-lekton);
+}
+
+.font-body {
+  font-family: var(--font-arial);
 }
 
 body {
   background-color: var(--nubb-cream);
   color: var(--nubb-brown);
-  font-family: var(--font-sans);
+  font-family: var(--font-arial);
   overflow-x: hidden;
   min-height: 100vh;
 }
