@@ -6,7 +6,9 @@ const fromEmail = process.env.RESEND_FROM_EMAIL || "NUBB <onboarding@resend.dev>
 
 export async function sendWelcomeEmail(toEmail: string) {
   if (!resendClient) {
-    console.log(`[Resend Mock] Welcome email queued for ${toEmail} (Add RESEND_API_KEY to .env.local to send live emails).`);
+    console.log(
+      `[Resend Mock] Welcome email queued for ${toEmail} (Add RESEND_API_KEY to .env.local to send live emails).`
+    );
     return { success: true, mock: true };
   }
 
@@ -107,7 +109,34 @@ export async function sendWelcomeEmail(toEmail: string) {
     return { success: true, data };
   } catch (error) {
     console.error("[Resend Error] Failed to send welcome email:", error);
-    // Don't fail the subscriber action if email fails (e.g. unverified domain on free tier)
+    return { success: false, error };
+  }
+}
+
+export async function sendEmail({
+  to,
+  subject,
+  html,
+}: {
+  to: string;
+  subject: string;
+  html: string;
+}) {
+  if (!resendClient) {
+    console.log(`[Resend Mock] Email to ${to} ("${subject}") queued.`);
+    return { success: true, mock: true };
+  }
+
+  try {
+    const data = await resendClient.emails.send({
+      from: fromEmail,
+      to: [to],
+      subject,
+      html,
+    });
+    return { success: true, data };
+  } catch (error) {
+    console.error("[Resend Error] Failed to send email:", error);
     return { success: false, error };
   }
 }
