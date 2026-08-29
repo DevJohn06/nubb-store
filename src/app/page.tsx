@@ -65,7 +65,7 @@ export default function ComingSoonPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-start justify-end space-y-2"
+          className="flex flex-col items-start justify-end space-y-3"
         >
           {/* Perpetually Spinning SVG Brand Mark Emblem */}
           <motion.div
@@ -77,7 +77,7 @@ export default function ComingSoonPage() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="cursor-pointer mb-3"
+            className="cursor-pointer"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -88,7 +88,7 @@ export default function ComingSoonPage() {
           </motion.div>
 
           {/* SVG NUBB Logo */}
-          <div className="mb-5">
+          <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/logo-dark-brown.svg?v=3"
@@ -99,14 +99,14 @@ export default function ComingSoonPage() {
 
           {/* Tagline */}
           <p
-            className="font-lekton font-bold tracking-wider text-[#4D3F15] lowercase mb-5"
-            style={{ fontSize: "30px", lineHeight: "0.6" }}
+            className="font-lekton font-bold tracking-wider text-[#4D3F15] lowercase"
+            style={{ fontSize: "30px", lineHeight: "1.1" }}
           >
             the things we carry.
           </p>
 
           {/* Brand Manifesto Paragraph */}
-          <div className="font-arial text-sm sm:text-base md:text-lg text-[#4D3F15] leading-relaxed max-w-lg space-y-4 font-bold pt-1">
+          <div className="font-arial text-sm sm:text-base md:text-lg text-[#4D3F15] leading-relaxed max-w-lg space-y-3 font-bold pt-1">
             <p>
               NUBB is about making small objects that become part of how you move through life. Handmade objects that blur the line between art and utility.
             </p>
@@ -126,21 +126,21 @@ export default function ComingSoonPage() {
           <div>
             <h1
               className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#4D3F15] tracking-wide block"
-              style={{ lineHeight: "0.8" }}
+              style={{ lineHeight: "0.95" }}
             >
               Be the first to know.
             </h1>
 
             <h2
               className="font-lekton font-bold text-[#4D3F15] tracking-wide block"
-              style={{ paddingTop: "14px", fontSize: "30px" }}
+              style={{ paddingTop: "8px", fontSize: "30px", lineHeight: "1.1" }}
             >
               We are getting the shop ready
             </h2>
 
             <p
               className="font-arial font-bold text-[#4D3F15] text-base sm:text-lg block"
-              style={{ fontWeight: "bold", lineHeight: "0.6", paddingTop: "14px" }}
+              style={{ fontWeight: "bold", lineHeight: "1.25", paddingTop: "8px" }}
             >
               Drop your email and get notified as soon as we launch.
             </p>
