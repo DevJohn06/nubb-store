@@ -12,12 +12,18 @@ import {
   Plus,
   Layers,
   CheckCircle2,
+  Mail,
+  Users,
 } from "lucide-react";
+
+import { BrandLoader } from "@/components/common/BrandLoader";
 
 interface Metrics {
   totalRevenue: number;
   totalOrders: number;
   pendingOrders: number;
+  totalSubscribers?: number;
+  activeSubscribers?: number;
   lowStockProducts: any[];
   recentOrders: any[];
 }
@@ -43,12 +49,11 @@ export default function AdminDashboardPage() {
 
   if (loading || !metrics) {
     return (
-      <div className="py-20 flex flex-col items-center justify-center space-y-4">
-        <div className="w-10 h-10 border-4 border-[#4D3F15] border-t-transparent animate-spin" />
-        <p className="font-lekton font-bold uppercase tracking-wider text-xs">
-          Loading Studio Metrics...
-        </p>
-      </div>
+      <BrandLoader
+        size="lg"
+        label="Loading Studio Metrics..."
+        className="py-24"
+      />
     );
   }
 
@@ -64,6 +69,13 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="flex items-center gap-3 font-lekton text-xs font-bold">
+          <Link
+            href="/admin/subscribers"
+            className="px-4 py-2.5 bg-white border-2 border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors flex items-center gap-2"
+          >
+            <Mail className="w-4 h-4 text-[#892F1A]" />
+            <span>Subscribers List</span>
+          </Link>
           <Link
             href="/admin/products"
             className="px-4 py-2.5 bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A] transition-colors flex items-center gap-2 nubb-shadow"
@@ -82,7 +94,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {/* Total Revenue */}
         <div className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2">
           <div className="flex items-center justify-between">
@@ -133,9 +145,31 @@ export default function AdminDashboardPage() {
             {metrics.pendingOrders}
           </div>
           <p className="font-arial text-xs text-amber-800 font-bold">
-            Awaiting verification / packing
+            Awaiting verification
           </p>
         </div>
+
+        {/* Subscribers */}
+        <Link
+          href="/admin/subscribers"
+          className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2 hover:bg-[#F6F5EE] transition-colors block group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70 group-hover:text-[#892F1A]">
+              Subscribers
+            </span>
+            <div className="p-2 bg-emerald-50 border border-emerald-700">
+              <Users className="w-4 h-4 text-emerald-800" />
+            </div>
+          </div>
+          <div className="font-lekton font-bold text-3xl text-emerald-800">
+            {metrics.totalSubscribers ?? 0}
+          </div>
+          <p className="font-arial text-xs text-[#4D3F15]/70 font-bold flex items-center justify-between">
+            <span>Launch email audience</span>
+            <span className="text-[#892F1A] font-lekton">&rarr;</span>
+          </p>
+        </Link>
 
         {/* Low Stock Alerts */}
         <div className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2">
@@ -151,7 +185,7 @@ export default function AdminDashboardPage() {
             {metrics.lowStockProducts.length}
           </div>
           <p className="font-arial text-xs text-rose-800 font-bold">
-            Items with &le; 5 units in studio
+            Items &le; 5 units in studio
           </p>
         </div>
       </div>

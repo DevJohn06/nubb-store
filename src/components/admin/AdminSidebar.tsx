@@ -8,6 +8,7 @@ import {
   Package,
   Layers,
   ShoppingBag,
+  Mail,
   Settings,
   ExternalLink,
   Users,
@@ -21,6 +22,7 @@ export function AdminSidebar() {
     { href: "/admin/products", label: "Products", icon: Package },
     { href: "/admin/inventory", label: "Inventory", icon: Layers },
     { href: "/admin/orders", label: "Orders & Sales", icon: ShoppingBag },
+    { href: "/admin/subscribers", label: "Subscribers", icon: Mail },
     { href: "/admin/settings", label: "Store Settings", icon: Settings },
   ];
 

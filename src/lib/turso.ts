@@ -34,10 +34,18 @@ export async function initAllTables() {
     CREATE TABLE IF NOT EXISTS subscribers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       email TEXT UNIQUE NOT NULL,
+      name TEXT,
       status TEXT DEFAULT 'active',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  // Migration: ensure name column exists in existing database
+  try {
+    await db.execute(`ALTER TABLE subscribers ADD COLUMN name TEXT;`);
+  } catch {
+    // Column already exists or table freshly created
+  }
 
   // 2. Admin users table
   await db.execute(`
@@ -384,15 +392,24 @@ async function seedDefaultData(db: Client) {
 // SUBSCRIBERS
 // ----------------------------------------------------
 
-export async function addSubscriber(email: string) {
+export interface Subscriber {
+  id: number;
+  email: string;
+  name: string | null;
+  status: string;
+  created_at: string;
+}
+
+export async function addSubscriber(email: string, name?: string) {
   await initAllTables();
   const db = getTursoClient();
   const normalizedEmail = email.trim().toLowerCase();
+  const trimmedName = name?.trim() || null;
 
   try {
     await db.execute({
-      sql: "INSERT INTO subscribers (email) VALUES (?)",
-      args: [normalizedEmail],
+      sql: "INSERT INTO subscribers (email, name) VALUES (?, ?)",
+      args: [normalizedEmail, trimmedName],
     });
     return { success: true, isNew: true };
   } catch (error: any) {
@@ -402,10 +419,100 @@ export async function addSubscriber(email: string) {
       errorMessage.includes("already exists") ||
       errorMessage.includes("constraint failed")
     ) {
+      if (trimmedName) {
+        try {
+          await db.execute({
+            sql: "UPDATE subscribers SET name = ? WHERE email = ?",
+            args: [trimmedName, normalizedEmail],
+          });
+        } catch {}
+      }
       return { success: true, isNew: false, message: "You're already on the list!" };
     }
     throw error;
   }
+}
+
+export async function getSubscribers(
+  search?: string,
+  status?: string
+): Promise<Subscriber[]> {
+  await initAllTables();
+  const db = getTursoClient();
+
+  let query = "SELECT * FROM subscribers WHERE 1=1";
+  const args: any[] = [];
+
+  if (status && status !== "all") {
+    query += " AND status = ?";
+    args.push(status);
+  }
+
+  if (search && search.trim()) {
+    query += " AND (email LIKE ? OR name LIKE ?)";
+    const wildcard = `%${search.trim()}%`;
+    args.push(wildcard, wildcard);
+  }
+
+  query += " ORDER BY created_at DESC";
+
+  const result = await db.execute({ sql: query, args });
+  return result.rows as unknown as Subscriber[];
+}
+
+export async function getSubscriberById(id: number): Promise<Subscriber | null> {
+  await initAllTables();
+  const db = getTursoClient();
+  const result = await db.execute({
+    sql: "SELECT * FROM subscribers WHERE id = ?",
+    args: [id],
+  });
+  if (result.rows.length === 0) return null;
+  return result.rows[0] as unknown as Subscriber;
+}
+
+export async function deleteSubscriber(id: number): Promise<boolean> {
+  await initAllTables();
+  const db = getTursoClient();
+  const result = await db.execute({
+    sql: "DELETE FROM subscribers WHERE id = ?",
+    args: [id],
+  });
+  return result.rowsAffected > 0;
+}
+
+export async function updateSubscriber(
+  id: number,
+  data: { status?: string; name?: string; email?: string }
+): Promise<boolean> {
+  await initAllTables();
+  const db = getTursoClient();
+
+  const updates: string[] = [];
+  const args: any[] = [];
+
+  if (data.status !== undefined) {
+    updates.push("status = ?");
+    args.push(data.status);
+  }
+  if (data.name !== undefined) {
+    updates.push("name = ?");
+    args.push(data.name.trim() || null);
+  }
+  if (data.email !== undefined) {
+    updates.push("email = ?");
+    args.push(data.email.trim().toLowerCase());
+  }
+
+  if (updates.length === 0) return false;
+
+  args.push(id);
+  const result = await db.execute({
+    sql: `UPDATE subscribers SET ${updates.join(", ")} WHERE id = ?`,
+    args,
+  });
+
+  return result.rowsAffected > 0;
 }
 
 export async function getSubscribersCount() {
@@ -1063,10 +1170,17 @@ export async function getDashboardMetrics() {
     "SELECT * FROM orders ORDER BY created_at DESC LIMIT 6"
   );
 
+  const totalSubscribersRes = await db.execute("SELECT COUNT(*) as count FROM subscribers");
+  const activeSubscribersRes = await db.execute(
+    "SELECT COUNT(*) as count FROM subscribers WHERE status = 'active'"
+  );
+
   return {
     totalRevenue: Number(totalSalesRes.rows[0]?.total ?? 0),
     totalOrders: Number(totalOrdersRes.rows[0]?.count ?? 0),
     pendingOrders: Number(pendingOrdersRes.rows[0]?.count ?? 0),
+    totalSubscribers: Number(totalSubscribersRes.rows[0]?.count ?? 0),
+    activeSubscribers: Number(activeSubscribersRes.rows[0]?.count ?? 0),
     lowStockProducts: lowStockRes.rows as unknown as Product[],
     recentOrders: recentOrdersRes.rows as unknown as Order[],
   };

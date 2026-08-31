@@ -6,12 +6,19 @@ import confetti from "canvas-confetti";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function ComingSoonPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!name.trim()) {
+      setStatus("error");
+      setMessage("Please enter your name.");
+      return;
+    }
 
     if (!email || !email.includes("@")) {
       setStatus("error");
@@ -28,7 +35,7 @@ export default function ComingSoonPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: email.trim(), name: name.trim() }),
       });
 
       const data = await res.json();
@@ -39,6 +46,7 @@ export default function ComingSoonPage() {
 
       setStatus("success");
       setMessage(data.message);
+      setName("");
       setEmail("");
 
       // Trigger celebratory confetti burst
@@ -150,7 +158,20 @@ export default function ComingSoonPage() {
           <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-lg pt-3">
             <div>
               <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={status === "loading"}
+                required
+                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40"
+              />
+            </div>
+
+            <div>
+              <input
                 type="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === "loading"}

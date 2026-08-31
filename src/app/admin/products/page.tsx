@@ -14,6 +14,7 @@ import {
   ExternalLink,
   ShoppingBag,
 } from "lucide-react";
+import { BrandLoader } from "@/components/common/BrandLoader";
 
 interface Product {
   id: number;
@@ -285,12 +286,7 @@ export default function AdminProductsPage() {
       {/* Products Table */}
       <div className="bg-white border-2 border-[#4D3F15] nubb-shadow overflow-hidden">
         {loading ? (
-          <div className="py-16 text-center">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#4D3F15]" />
-            <p className="font-lekton text-xs font-bold uppercase tracking-wider mt-3">
-              Loading Products...
-            </p>
-          </div>
+          <BrandLoader size="lg" label="Loading Products..." className="py-20" />
         ) : filteredProducts.length === 0 ? (
           <div className="py-16 text-center font-arial text-sm font-bold text-[#4D3F15]/70">
             No products found matching your filter.

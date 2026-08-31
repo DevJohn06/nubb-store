@@ -16,6 +16,7 @@ import {
   Shield,
   QrCode,
 } from "lucide-react";
+import { BrandLoader } from "@/components/common/BrandLoader";
 
 interface AdminUser {
   id: number;
@@ -301,9 +302,7 @@ export default function AdminSettingsPage() {
 
           <div className="bg-white border-2 border-[#4D3F15] nubb-shadow overflow-hidden">
             {loadingUsers ? (
-              <div className="py-12 text-center font-lekton text-xs font-bold uppercase">
-                Loading users...
-              </div>
+              <BrandLoader size="md" label="Loading users..." className="py-12" />
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left font-lekton text-xs">

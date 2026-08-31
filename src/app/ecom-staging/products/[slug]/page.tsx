@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingBag, ArrowLeft, Check, Shield, Truck, Flame, Plus, Minus } from "lucide-react";
 import { useCart } from "@/components/store/CartContext";
+import { BrandLoader } from "@/components/common/BrandLoader";
 
 interface Product {
   id: number;
@@ -59,14 +60,7 @@ export default function ProductDetailPage({
   }, [slug]);
 
   if (loading) {
-    return (
-      <div className="py-20 flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 border-4 border-[#4D3F15] border-t-transparent animate-spin" />
-        <p className="font-lekton font-bold uppercase tracking-wider text-sm">
-          Loading Product...
-        </p>
-      </div>
-    );
+    return <BrandLoader size="lg" label="Loading Product..." className="py-24" />;
   }
 
   if (!product) {

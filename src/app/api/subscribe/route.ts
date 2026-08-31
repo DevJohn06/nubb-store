@@ -5,7 +5,7 @@ import { sendWelcomeEmail } from "@/lib/resend";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email } = body;
+    const { email, name } = body;
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
       return NextResponse.json(
@@ -23,12 +23,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const trimmedName = typeof name === "string" ? name.trim() : undefined;
+
     // Add to Turso database
-    const dbResult = await addSubscriber(email);
+    const dbResult = await addSubscriber(email, trimmedName);
 
     // Send welcome email if new subscription
     if (dbResult.isNew) {
-      await sendWelcomeEmail(email.trim());
+      await sendWelcomeEmail(email.trim(), trimmedName);
     }
 
     const currentCount = await getSubscribersCount();

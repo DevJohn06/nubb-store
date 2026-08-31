@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Layers, Plus, Minus, Check, Loader2, AlertTriangle, Search } from "lucide-react";
+import { BrandLoader } from "@/components/common/BrandLoader";
 
 interface InventoryItem {
   id: number;
@@ -128,12 +129,7 @@ export default function AdminInventoryPage() {
       {/* Inventory Table */}
       <div className="bg-white border-2 border-[#4D3F15] nubb-shadow overflow-hidden">
         {loading ? (
-          <div className="py-16 text-center">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#4D3F15]" />
-            <p className="font-lekton text-xs font-bold uppercase tracking-wider mt-3">
-              Loading Inventory...
-            </p>
-          </div>
+          <BrandLoader size="lg" label="Loading Inventory..." className="py-20" />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left font-lekton text-xs">
