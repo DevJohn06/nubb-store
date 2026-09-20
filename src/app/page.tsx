@@ -164,7 +164,7 @@ export default function ComingSoonPage() {
                 onChange={(e) => setName(e.target.value)}
                 disabled={status === "loading"}
                 required
-                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40"
+                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40 rounded-[10px]"
               />
             </div>
 
@@ -176,7 +176,7 @@ export default function ComingSoonPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === "loading"}
                 required
-                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40"
+                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40 rounded-[10px]"
               />
             </div>
 
@@ -184,7 +184,7 @@ export default function ComingSoonPage() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="px-10 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75"
+                className="px-10 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75 rounded-[10px]"
               >
                 {status === "loading" ? (
                   <>
@@ -208,7 +208,7 @@ export default function ComingSoonPage() {
                 className="pt-2 w-full max-w-lg font-arial text-sm sm:text-base"
               >
                 <div
-                  className={`flex items-start gap-2 p-3.5 border-2 ${
+                  className={`flex items-start gap-2 p-3.5 border-2 rounded-[10px] ${
                     status === "success"
                       ? "bg-emerald-50 text-emerald-900 border-emerald-700"
                       : "bg-rose-50 text-rose-900 border-[#640017]"

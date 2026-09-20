@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white border-3 border-[#4D3F15] p-8 sm:p-10 nubb-shadow-lg space-y-6"
+        className="w-full max-w-md bg-white border-3 border-[#4D3F15] p-8 sm:p-10 nubb-shadow-lg space-y-6 rounded-[10px]"
       >
         {/* Header & Emblem */}
         <div className="flex flex-col items-center text-center space-y-3">
@@ -70,7 +70,7 @@ export default function AdminLoginPage() {
         </div>
 
         {error && (
-          <div className="p-3 bg-rose-50 border-2 border-[#640017] text-[#640017] flex items-center gap-2 font-arial text-xs font-bold">
+          <div className="p-3 bg-rose-50 border-2 border-[#640017] text-[#640017] flex items-center gap-2 font-arial text-xs font-bold rounded-[10px]">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -88,7 +88,7 @@ export default function AdminLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="admin or admin@nubb.store"
-                className="w-full pl-10 pr-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-sm font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40"
+                className="w-full pl-10 pr-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-sm font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
               />
               <User className="absolute left-3.5 top-3.5 w-4 h-4 text-[#4D3F15]/50" />
             </div>
@@ -105,7 +105,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full pl-10 pr-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-sm font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40"
+                className="w-full pl-10 pr-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-sm font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
               />
               <KeyRound className="absolute left-3.5 top-3.5 w-4 h-4 text-[#4D3F15]/50" />
             </div>
@@ -114,7 +114,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base font-bold uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-2 nubb-shadow-hover cursor-pointer disabled:opacity-50"
+            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-sm font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50 mt-2 rounded-[10px]"
           >
             {loading ? (
               <>

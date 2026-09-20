@@ -51,7 +51,7 @@ export function PinGateModal() {
       <motion.div
         animate={isShaking ? { x: [-10, 10, -8, 8, -4, 4, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-[#FFFFFF] border-3 border-[#4D3F15] p-8 nubb-shadow-lg"
+        className="w-full max-w-md bg-[#FFFFFF] border-3 border-[#4D3F15] p-8 nubb-shadow-lg rounded-[10px]"
       >
         {/* Emblem & Title */}
         <div className="flex flex-col items-center text-center space-y-4 mb-6">
@@ -98,7 +98,7 @@ export function PinGateModal() {
                 placeholder="Enter PIN (e.g. nubb2026)"
                 autoFocus
                 disabled={loading}
-                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40"
+                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
               />
               <KeyRound className="absolute right-3.5 top-3.5 w-5 h-5 text-[#4D3F15]/50" />
             </div>
@@ -113,7 +113,7 @@ export function PinGateModal() {
           <button
             type="submit"
             disabled={loading || !pin}
-            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
+            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50 rounded-[10px]"
           >
             {loading ? (
               <>
