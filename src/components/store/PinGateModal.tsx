@@ -48,7 +48,7 @@ export function PinGateModal() {
       <motion.div
         animate={isShaking ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-[#F6F5EE] border-3 border-[#4D3F15] p-6 sm:p-8 nubb-shadow-lg text-[#4D3F15]"
+        className="w-full max-w-md bg-[#FFFFFF] border-3 border-[#4D3F15] p-8 nubb-shadow-lg rounded-[10px]"
       >
         <div className="flex items-center justify-center w-14 h-14 bg-[#E8E6D8] border-2 border-[#4D3F15] mx-auto mb-5 rounded-full">
           <Lock className="w-7 h-7 text-[#892F1A]" />
@@ -73,7 +73,8 @@ export function PinGateModal() {
                 onChange={(e) => setPin(e.target.value)}
                 placeholder="Enter 4 or 6-digit PIN"
                 autoFocus
-                className="w-full pl-11 pr-4 py-2.5 bg-white border-2 border-[#4D3F15] font-lekton font-bold text-sm tracking-widest text-[#4D3F15] placeholder-[#4D3F15]/30 focus:outline-none focus:ring-2 focus:ring-[#892F1A]"
+                disabled={loading}
+                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
               />
             </div>
             {error && (
@@ -86,7 +87,7 @@ export function PinGateModal() {
           <button
             type="submit"
             disabled={loading || !pin}
-            className="w-full py-3 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center justify-center gap-2 cursor-pointer nubb-shadow disabled:opacity-50"
+            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50 rounded-[10px]"
           >
             {loading ? (
               <>

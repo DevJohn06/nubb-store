@@ -46,26 +46,32 @@ body {
 /* Custom Utilities for Brutalist / Tactile UI Aesthetics */
 .nubb-border {
   border: 2px solid var(--nubb-brown);
+  border-radius: 10px;
 }
 
 .nubb-shadow {
   box-shadow: 4px 4px 0px var(--nubb-brown);
+  border-radius: 10px;
 }
 
 .nubb-shadow-lg {
   box-shadow: 6px 6px 0px var(--nubb-brown);
+  border-radius: 10px;
 }
 
 .nubb-shadow-crimson {
   box-shadow: 6px 6px 0px var(--nubb-crimson);
+  border-radius: 10px;
 }
 
 .nubb-shadow-orange {
   box-shadow: 6px 6px 0px var(--nubb-orange);
+  border-radius: 10px;
 }
 
 .nubb-shadow-hover {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 10px;
 }
 
 .nubb-shadow-hover:hover {
@@ -76,6 +82,40 @@ body {
 .nubb-shadow-hover:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px var(--nubb-brown);
+}
+
+/* Card components */
+.nubb-card,
+.card,
+[class*="card"] {
+  border-radius: 10px;
+}
+
+/* Base elements 10px border-radius */
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  border-radius: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  border-radius: 10px;
+}
+
+img,
+video,
+picture img {
+  border-radius: 10px;
 }
 
 /* Subtle background grain texture */
