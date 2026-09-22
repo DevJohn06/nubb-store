@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getProducts, createProduct, updateProduct, deleteProduct } from "@/lib/turso";
 import { ADMIN_COOKIE_NAME, verifySessionToken } from "@/lib/auth";
+import { ensureR2ProductImages } from "@/lib/r2";
 
 function checkAdminAuth(req: NextRequest) {
   const token = req.cookies.get(ADMIN_COOKIE_NAME)?.value;
@@ -21,8 +22,9 @@ export async function GET(req: NextRequest) {
   try {
     const products = await getProducts({ category, status });
     return NextResponse.json({ products });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to fetch products" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch products";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -57,6 +59,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const rawImages = Array.isArray(images) ? images : [];
+    const r2Images = await ensureR2ProductImages(rawImages);
+
     const result = await createProduct({
       name,
       slug,
@@ -67,15 +72,16 @@ export async function POST(req: NextRequest) {
       compare_at_price: compare_at_price ? Number(compare_at_price) : undefined,
       inventory: Number(inventory ?? 0),
       sku,
-      images: Array.isArray(images) ? images : [],
+      images: r2Images,
       features: Array.isArray(features) ? features : [],
       is_featured: is_featured ? 1 : 0,
       status: status || "active",
     });
 
     return NextResponse.json({ success: true, product: result });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to create product" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to create product";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -99,10 +105,15 @@ export async function PUT(req: NextRequest) {
     }
     if (data.inventory !== undefined) data.inventory = Number(data.inventory);
 
+    if (data.images && Array.isArray(data.images)) {
+      data.images = await ensureR2ProductImages(data.images);
+    }
+
     await updateProduct(id, data);
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to update product" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update product";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -122,7 +133,8 @@ export async function DELETE(req: NextRequest) {
 
     await deleteProduct(id);
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to delete product" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to delete product";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

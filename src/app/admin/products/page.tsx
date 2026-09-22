@@ -13,8 +13,10 @@ import {
   Search,
   ExternalLink,
   ShoppingBag,
+  Layers,
 } from "lucide-react";
 import { BrandLoader } from "@/components/common/BrandLoader";
+import { ProductMediaManager } from "@/components/admin/ProductMediaManager";
 
 interface Product {
   id: number;
@@ -43,7 +45,6 @@ export default function AdminProductsPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
   const [formError, setFormError] = useState("");
 
   // Form inputs
@@ -119,41 +120,6 @@ export default function AdminProductsPage() {
     setIsDrawerOpen(true);
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    setUploadingImage(true);
-    setFormError("");
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch("/api/admin/upload", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await res.json();
-        if (data.url) {
-          setImages((prev) => [...prev, data.url]);
-        } else {
-          setFormError(data.error || "Image upload failed");
-        }
-      } catch (err: any) {
-        setFormError(err.message || "Failed to upload image to Cloudflare R2");
-      }
-    }
-    setUploadingImage(false);
-  };
-
-  const removeImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-  };
-
   const addFeature = () => {
     if (!featureInput.trim()) return;
     setFeatures((prev) => [...prev, featureInput.trim()]);
@@ -208,8 +174,9 @@ export default function AdminProductsPage() {
 
       setIsDrawerOpen(false);
       loadProducts();
-    } catch (err: any) {
-      setFormError(err.message || "Failed to save product");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to save product";
+      setFormError(message);
     } finally {
       setSubmitting(false);
     }
@@ -523,50 +490,8 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
 
-                  {/* Cloudflare R2 Multi-Image Upload */}
-                  <div className="space-y-2">
-                    <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15] block">
-                      Product Images (Cloudflare R2 Storage)
-                    </label>
-
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                      {images.map((img, idx) => (
-                        <div key={idx} className="relative aspect-square border-2 border-[#4D3F15] bg-white group">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={img} alt="Upload" className="w-full h-full object-cover" />
-                          <button
-                            type="button"
-                            onClick={() => removeImage(idx)}
-                            className="absolute top-1 right-1 p-1 bg-red-700 text-white rounded-full opacity-90 hover:opacity-100 cursor-pointer"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ))}
-
-                      {/* Add Image Box */}
-                      <label className="aspect-square border-2 border-dashed border-[#4D3F15] bg-white/50 flex flex-col items-center justify-center cursor-pointer hover:bg-white transition-colors">
-                        {uploadingImage ? (
-                          <Loader2 className="w-6 h-6 animate-spin text-[#4D3F15]" />
-                        ) : (
-                          <>
-                            <Upload className="w-6 h-6 text-[#4D3F15]/60 mb-1" />
-                            <span className="font-lekton text-[10px] font-bold uppercase text-[#4D3F15]">
-                              Upload
-                            </span>
-                          </>
-                        )}
-                        <input
-                          type="file"
-                          multiple
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          disabled={uploadingImage}
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
-                  </div>
+                  {/* Cloudflare R2 Product Media Manager */}
+                  <ProductMediaManager images={images} onChange={setImages} />
 
                   {/* Description */}
                   <div className="space-y-1.5">

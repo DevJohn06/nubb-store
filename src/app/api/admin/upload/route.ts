@@ -9,39 +9,89 @@ export async function POST(req: NextRequest) {
 
   try {
     const formData = await req.formData();
-    const file = formData.get("file") as File | null;
     const isProofOfPayment = formData.get("purpose") === "payment_proof";
-
-    if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
-    }
 
     if (!isAdmin && !isProofOfPayment) {
       return NextResponse.json({ error: "Unauthorized upload" }, { status: 401 });
     }
 
-    // Check file size (max 8MB)
-    if (file.size > 8 * 1024 * 1024) {
-      return NextResponse.json({ error: "File size exceeds 8MB limit" }, { status: 400 });
+    // Support both single file ("file") and multiple files ("files")
+    const allFiles = formData.getAll("files") as File[];
+    const singleFile = formData.get("file") as File | null;
+
+    const filesToUpload: File[] = [];
+    if (allFiles && allFiles.length > 0) {
+      filesToUpload.push(...allFiles.filter((f) => f instanceof File && f.size > 0));
+    }
+    if (singleFile && singleFile instanceof File && singleFile.size > 0) {
+      if (!filesToUpload.some((f) => f.name === singleFile.name && f.size === singleFile.size)) {
+        filesToUpload.push(singleFile);
+      }
     }
 
-    // Check file type
-    if (!file.type.startsWith("image/")) {
-      return NextResponse.json({ error: "Only image uploads are allowed" }, { status: 400 });
+    if (filesToUpload.length === 0) {
+      return NextResponse.json({ error: "No valid image files provided" }, { status: 400 });
     }
 
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    const targetStorage = (formData.get("storage") as "r2" | "local" | "auto") || "auto";
+    const targetFolder = (formData.get("folder") as string) || (isProofOfPayment ? "payment-proofs" : "products");
 
-    const result = await uploadFile(buffer, file.name, file.type);
+    const uploadedResults = [];
+
+    for (const file of filesToUpload) {
+      // Check file size (max 12MB)
+      if (file.size > 12 * 1024 * 1024) {
+        return NextResponse.json(
+          { error: `File "${file.name}" exceeds the 12MB size limit` },
+          { status: 400 }
+        );
+      }
+
+      // Check file type
+      if (!file.type.startsWith("image/")) {
+        return NextResponse.json(
+          { error: `File "${file.name}" is not a recognized image format` },
+          { status: 400 }
+        );
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const result = await uploadFile(buffer, file.name, file.type, {
+        storage: targetStorage,
+        folder: targetFolder,
+      });
+      uploadedResults.push({
+        url: result.url,
+        key: result.key,
+        storage: result.storage,
+        size: result.size,
+        filename: result.filename || file.name,
+        folder: result.folder,
+      });
+    }
+
+    // If single file uploaded, maintain backward compatibility format
+    if (uploadedResults.length === 1) {
+      return NextResponse.json({
+        success: true,
+        url: uploadedResults[0].url,
+        key: uploadedResults[0].key,
+        storage: uploadedResults[0].storage,
+        size: uploadedResults[0].size,
+        filename: uploadedResults[0].filename,
+        files: uploadedResults,
+      });
+    }
 
     return NextResponse.json({
       success: true,
-      url: result.url,
-      key: result.key,
-      storage: result.storage,
+      files: uploadedResults,
+      count: uploadedResults.length,
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Upload failed" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

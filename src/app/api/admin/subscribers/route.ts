@@ -41,10 +41,11 @@ export async function GET(req: NextRequest) {
         unsubscribed: unsubscribedCount,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin Subscribers GET Error]:", error);
+    const message = error instanceof Error ? error.message : "Failed to fetch subscribers";
     return NextResponse.json(
-      { error: error.message || "Failed to fetch subscribers" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -191,10 +192,11 @@ export async function POST(req: NextRequest) {
         ? "Subscriber successfully added to the list."
         : "Subscriber is already registered.",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin Subscribers POST Error]:", error);
+    const message = error instanceof Error ? error.message : "Failed to process subscriber request";
     return NextResponse.json(
-      { error: error.message || "Failed to process subscriber request" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -220,10 +222,11 @@ export async function PATCH(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true, message: "Subscriber updated successfully." });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin Subscribers PATCH Error]:", error);
+    const message = error instanceof Error ? error.message : "Failed to update subscriber";
     return NextResponse.json(
-      { error: error.message || "Failed to update subscriber" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -249,10 +252,11 @@ export async function DELETE(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true, message: "Subscriber deleted successfully." });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin Subscribers DELETE Error]:", error);
+    const message = error instanceof Error ? error.message : "Failed to delete subscriber";
     return NextResponse.json(
-      { error: error.message || "Failed to delete subscriber" },
+      { error: message },
       { status: 500 }
     );
   }

@@ -58,9 +58,10 @@ export default function ComingSoonPage() {
           colors: ["#892F1A", "#640017", "#4D3F15", "#624A41"],
         });
       } catch {}
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus("error");
-      setMessage(err.message || "Something went wrong. Please try again.");
+      const errorMsg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setMessage(errorMsg);
     }
   };
 

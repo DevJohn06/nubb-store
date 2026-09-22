@@ -18,14 +18,29 @@ import {
 
 import { BrandLoader } from "@/components/common/BrandLoader";
 
+interface DashboardRecentOrder {
+  id: string;
+  customer_name: string;
+  total_amount: number;
+  payment_method: string;
+  order_status: string;
+}
+
+interface DashboardLowStockProduct {
+  id: number;
+  name: string;
+  category: string;
+  inventory: number;
+}
+
 interface Metrics {
   totalRevenue: number;
   totalOrders: number;
   pendingOrders: number;
   totalSubscribers?: number;
   activeSubscribers?: number;
-  lowStockProducts: any[];
-  recentOrders: any[];
+  lowStockProducts: DashboardLowStockProduct[];
+  recentOrders: DashboardRecentOrder[];
 }
 
 export default function AdminDashboardPage() {

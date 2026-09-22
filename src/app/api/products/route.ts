@@ -13,7 +13,8 @@ export async function GET(req: NextRequest) {
       featuredOnly: featured,
     });
     return NextResponse.json({ products });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to load products" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to load products";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

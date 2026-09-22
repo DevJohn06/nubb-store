@@ -90,8 +90,9 @@ export default function CheckoutPage() {
       }
 
       setProofUrl(data.url);
-    } catch (err: any) {
-      setError(err.message || "Failed to upload payment proof receipt.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to upload payment proof receipt.";
+      setError(message);
     } finally {
       setUploadingProof(false);
     }
@@ -150,8 +151,9 @@ export default function CheckoutPage() {
 
       clearCart();
       router.push(`/ecom-staging/order-success/${data.orderId}`);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please check your details.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please check your details.";
+      setError(message);
       setLoading(false);
     }
   };

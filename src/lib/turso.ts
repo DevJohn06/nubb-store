@@ -1,4 +1,4 @@
-import { createClient, Client } from "@libsql/client";
+import { createClient, Client, InValue } from "@libsql/client";
 import { hashPassword } from "./auth";
 
 let clientInstance: Client | null = null;
@@ -412,8 +412,8 @@ export async function addSubscriber(email: string, name?: string) {
       args: [normalizedEmail, trimmedName],
     });
     return { success: true, isNew: true };
-  } catch (error: any) {
-    const errorMessage = error?.message || String(error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     if (
       errorMessage.includes("UNIQUE constraint failed") ||
       errorMessage.includes("already exists") ||
@@ -441,7 +441,7 @@ export async function getSubscribers(
   const db = getTursoClient();
 
   let query = "SELECT * FROM subscribers WHERE 1=1";
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (status && status !== "all") {
     query += " AND status = ?";
@@ -489,7 +489,7 @@ export async function updateSubscriber(
   const db = getTursoClient();
 
   const updates: string[] = [];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (data.status !== undefined) {
     updates.push("status = ?");
@@ -603,7 +603,7 @@ export async function updateAdminUser(
   await initAllTables();
   const db = getTursoClient();
   const sets: string[] = ["updated_at = CURRENT_TIMESTAMP"];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (data.name) {
     sets.push("name = ?");
@@ -682,7 +682,7 @@ export async function getProducts(options?: {
   await initAllTables();
   const db = getTursoClient();
   const conditions: string[] = [];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (options?.category && options.category !== "all") {
     conditions.push("category = ?");
@@ -799,7 +799,7 @@ export async function updateProduct(
   await initAllTables();
   const db = getTursoClient();
   const sets: string[] = ["updated_at = CURRENT_TIMESTAMP"];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (data.name !== undefined) {
     sets.push("name = ?");
@@ -1008,7 +1008,7 @@ export async function updateOrderStatus(
   await initAllTables();
   const db = getTursoClient();
   const sets: string[] = ["updated_at = CURRENT_TIMESTAMP"];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (data.order_status) {
     sets.push("order_status = ?");
@@ -1072,7 +1072,7 @@ export async function updatePaymentMethod(
   await initAllTables();
   const db = getTursoClient();
   const sets: string[] = [];
-  const args: any[] = [];
+  const args: InValue[] = [];
 
   if (data.name !== undefined) {
     sets.push("name = ?");

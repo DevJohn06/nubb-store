@@ -28,8 +28,9 @@ export async function GET(req: NextRequest) {
     }));
 
     return NextResponse.json({ inventory: inventoryList });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to load inventory" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to load inventory";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -56,7 +57,8 @@ export async function PATCH(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to update inventory" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update inventory";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Lock, ArrowRight, Loader2, KeyRound } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -27,84 +28,56 @@ export function PinGateModal() {
       });
 
       const data = await res.json();
-      if (!res.ok) {
+      if (data.valid) {
+        // Successfully set cookie via api, refresh/redirect
+        router.refresh();
+      } else {
+        setError(data.error || "Incorrect access PIN");
         setIsShaking(true);
         setTimeout(() => setIsShaking(false), 500);
-        setError(data.error || "Incorrect PIN");
-        setLoading(false);
-        return;
       }
-
-      // Success! Refresh page to render staging storefront
-      router.refresh();
-      window.location.reload();
     } catch {
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 500);
-      setError("Verification failed. Please try again.");
+      setError("Failed to verify PIN. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#E8E6D8] text-[#4D3F15] flex flex-col items-center justify-center p-6 selection:bg-[#892F1A] selection:text-[#E8E6D8]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md font-arial">
       <motion.div
-        animate={isShaking ? { x: [-10, 10, -8, 8, -4, 4, 0] } : {}}
+        animate={isShaking ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-[#FFFFFF] border-3 border-[#4D3F15] p-8 nubb-shadow-lg"
+        className="w-full max-w-md bg-[#F6F5EE] border-3 border-[#4D3F15] p-6 sm:p-8 nubb-shadow-lg text-[#4D3F15]"
       >
-        {/* Emblem & Title */}
-        <div className="flex flex-col items-center text-center space-y-4 mb-6">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="w-20 h-20"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/brand-mark.svg?v=3"
-              alt="NUBB"
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
+        <div className="flex items-center justify-center w-14 h-14 bg-[#E8E6D8] border-2 border-[#4D3F15] mx-auto mb-5 rounded-full">
+          <Lock className="w-7 h-7 text-[#892F1A]" />
+        </div>
 
-          <div className="space-y-1">
-            <h1 className="font-spray text-3xl sm:text-4xl text-[#4D3F15] tracking-wide">
-              Staging Access
-            </h1>
-            <p className="font-lekton text-sm font-bold text-[#892F1A] uppercase tracking-wider">
-              Developer & Client Preview Only
-            </p>
-          </div>
-          <p className="font-arial text-sm text-[#4D3F15]/80">
-            Please enter the designated developer PIN to preview the NUBB e-commerce staging environment.
+        <div className="text-center mb-6">
+          <h2 className="font-spray text-3xl sm:text-4xl text-[#4D3F15] tracking-wide mb-2">
+            Staging Access
+          </h2>
+          <p className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]/70 font-bold max-w-xs mx-auto">
+            This storefront is currently password protected. Enter the admin PIN to explore the catalog.
           </p>
         </div>
 
-        {/* PIN Form */}
-        <form onSubmit={handleVerify} className="space-y-5">
-          <div>
-            <label className="font-lekton text-xs font-bold uppercase tracking-wider block mb-2 text-[#4D3F15]">
-              Developer PIN
-            </label>
+        <form onSubmit={handleVerify} className="space-y-4">
+          <div className="space-y-2">
             <div className="relative">
+              <KeyRound className="w-5 h-5 absolute left-3.5 top-3 text-[#4D3F15]/40" />
               <input
                 type="password"
                 value={pin}
-                onChange={(e) => {
-                  setPin(e.target.value);
-                  setError("");
-                }}
-                placeholder="Enter PIN (e.g. nubb2026)"
+                onChange={(e) => setPin(e.target.value)}
+                placeholder="Enter 4 or 6-digit PIN"
                 autoFocus
-                disabled={loading}
-                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40"
+                className="w-full pl-11 pr-4 py-2.5 bg-white border-2 border-[#4D3F15] font-lekton font-bold text-sm tracking-widest text-[#4D3F15] placeholder-[#4D3F15]/30 focus:outline-none focus:ring-2 focus:ring-[#892F1A]"
               />
-              <KeyRound className="absolute right-3.5 top-3.5 w-5 h-5 text-[#4D3F15]/50" />
             </div>
             {error && (
-              <p className="font-arial text-xs font-bold text-[#640017] mt-2 flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 shrink-0" />
+              <p className="font-lekton text-xs font-bold text-[#892F1A] mt-1 text-center">
                 {error}
               </p>
             )}
@@ -113,7 +86,7 @@ export function PinGateModal() {
           <button
             type="submit"
             disabled={loading || !pin}
-            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
+            className="w-full py-3 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center justify-center gap-2 cursor-pointer nubb-shadow disabled:opacity-50"
           >
             {loading ? (
               <>
@@ -123,19 +96,19 @@ export function PinGateModal() {
             ) : (
               <>
                 Unlock Storefront
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </>
             )}
           </button>
         </form>
 
         <div className="mt-8 pt-4 border-t border-[#4D3F15]/20 text-center">
-          <a
+          <Link
             href="/"
             className="font-lekton text-xs font-bold text-[#4D3F15]/70 hover:text-[#892F1A] transition-colors underline"
           >
             &larr; Return to Coming Soon Page
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>

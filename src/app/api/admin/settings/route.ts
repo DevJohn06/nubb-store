@@ -17,8 +17,9 @@ export async function GET(req: NextRequest) {
   try {
     const settings = await getStoreSettings();
     return NextResponse.json({ settings });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to load settings" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to load settings";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -41,7 +42,8 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to save settings" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to save settings";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

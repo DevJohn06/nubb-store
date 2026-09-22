@@ -33,8 +33,9 @@ export async function GET(req: NextRequest) {
 
     const orders = await getOrders(status);
     return NextResponse.json({ orders });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to fetch orders" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch orders";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -54,7 +55,8 @@ export async function PATCH(req: NextRequest) {
 
     await updateOrderStatus(id, { order_status, payment_status, tracking_number });
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to update order status" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update order status";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

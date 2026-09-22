@@ -33,8 +33,7 @@ export default function StagingStorefront() {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
-  const initialCat = searchParams.get("category") || "all";
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCat);
+  const selectedCategory = searchParams.get("category") || "all";
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -58,18 +57,11 @@ export default function StagingStorefront() {
     loadAllProducts();
   }, []);
 
-  // Sync selectedCategory if URL search param changes from outside (e.g. header link)
-  useEffect(() => {
-    const cat = searchParams.get("category") || "all";
-    setSelectedCategory(cat);
-  }, [searchParams]);
-
   // Instant smooth category switch without page jump or skeleton flash
   const handleCategorySelect = (catId: string) => {
-    setSelectedCategory(catId);
     startTransition(() => {
       const newUrl = catId === "all" ? "/ecom-staging" : `/ecom-staging?category=${catId}`;
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl, { scroll: false });
     });
   };
 

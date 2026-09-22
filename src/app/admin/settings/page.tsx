@@ -141,8 +141,9 @@ export default function AdminSettingsPage() {
       setUserEmail("");
       setUserPassword("");
       loadUsers();
-    } catch (err: any) {
-      setUserError(err.message || "Failed to create user");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to create user";
+      setUserError(message);
     } finally {
       setSubmittingUser(false);
     }
@@ -158,8 +159,9 @@ export default function AdminSettingsPage() {
         return;
       }
       loadUsers();
-    } catch (err: any) {
-      alert("Failed to delete user: " + err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      alert("Failed to delete user: " + message);
     }
   };
 

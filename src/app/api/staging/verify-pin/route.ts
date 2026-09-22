@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to verify PIN" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to verify PIN";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

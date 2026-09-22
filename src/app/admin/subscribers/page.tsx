@@ -150,8 +150,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to broadcast launch announcement");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to send launch emails", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to send launch emails";
+      showToast(message, "error");
     } finally {
       setBroadcastingLaunch(false);
     }
@@ -180,8 +181,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to send launch email");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to send launch email", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to send launch email";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -211,8 +213,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to send email");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to resend welcome email", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to resend welcome email";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -244,8 +247,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to update status");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to update subscriber status", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to update subscriber status";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -272,8 +276,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to delete subscriber");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to delete subscriber", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to delete subscriber";
+      showToast(message, "error");
     } finally {
       setIsDeleting(false);
     }
@@ -310,8 +315,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to add subscriber");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to add subscriber", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to add subscriber";
+      showToast(message, "error");
     } finally {
       setSubmittingAdd(false);
     }
