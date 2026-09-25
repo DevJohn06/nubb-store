@@ -231,6 +231,7 @@ async function seedDefaultData(db: Client) {
       { key: "free_shipping_threshold", value: "2000" },
       { key: "currency_symbol", value: "₱" },
       { key: "store_announcement", value: "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE" },
+      { key: "store_announcement_enabled", value: "true" },
     ];
     for (const s of defaultSettings) {
       await db.execute({
