@@ -116,7 +116,7 @@ export function CartDrawer() {
 
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="text-[#4D3F15]/60 hover:text-[#640017] p-1 transition-colors cursor-pointer"
+                            className="text-[#4D3F15]/60 hover:text-[#892F1A] p-1 transition-colors cursor-pointer"
                             title="Remove item"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -142,7 +142,7 @@ export function CartDrawer() {
                   <Link
                     href="/ecom-staging/checkout"
                     onClick={() => setIsCartOpen(false)}
-                    className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer block text-center"
+                    className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer block text-center"
                   >
                     Proceed to Checkout
                     <ArrowRight className="w-5 h-5" />

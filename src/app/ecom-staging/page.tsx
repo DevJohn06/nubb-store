@@ -4,7 +4,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Flame, Sparkles, ArrowRight, ShieldCheck, Tag } from "lucide-react";
+import { ShoppingBag, Flame, Sparkles, ArrowRight, Tag } from "lucide-react";
 import { useCart } from "@/components/store/CartContext";
 
 interface Product {
@@ -76,11 +76,6 @@ export default function StagingStorefront() {
       {/* Hero Section */}
       <div className="border-3 border-[#4D3F15] bg-[#FFFFFF] p-8 sm:p-12 md:p-16 nubb-shadow-lg relative overflow-hidden">
         <div className="max-w-3xl space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
-            <ShieldCheck className="w-4 h-4 text-[#892F1A]" />
-            <span>Handmade Studio Batch No. 01</span>
-          </div>
-
           <h1 className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#4D3F15] tracking-wide leading-none">
             the things we carry.
           </h1>
@@ -96,12 +91,12 @@ export default function StagingStorefront() {
                 const el = document.getElementById("catalog");
                 el?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="px-6 py-3.5 bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
+              className="px-6 py-3.5 bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A] transition-colors flex items-center gap-2 cursor-pointer"
             >
               Explore Collection
               <ArrowRight className="w-4 h-4" />
             </button>
-            <div className="px-6 py-3.5 border-2 border-[#4D3F15] bg-[#E8E6D8] flex items-center gap-2">
+            <div className="px-6 py-3.5 border-2 border-[#4D3F15] bg-[#E8E6D8] flex items-center gap-2 rounded-[10px]">
               <span>100% Handcrafted in Davao</span>
             </div>
           </div>
@@ -135,7 +130,7 @@ export default function StagingStorefront() {
                   onClick={() => handleCategorySelect(cat.id)}
                   className={`px-4 py-2 font-lekton text-xs sm:text-sm font-bold border-2 border-[#4D3F15] transition-all flex items-center gap-1.5 cursor-pointer relative ${
                     isActive
-                      ? "bg-[#4D3F15] text-[#E8E6D8] nubb-shadow scale-[1.02]"
+                      ? "bg-[#4D3F15] text-[#E8E6D8]"
                       : "bg-[#FFFFFF] text-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8]"
                   }`}
                 >
@@ -223,7 +218,7 @@ export default function StagingStorefront() {
                         {/* Stock Badge */}
                         <div className="absolute top-3 left-3 flex flex-col gap-1">
                           {isOutOfStock ? (
-                            <span className="px-2.5 py-1 bg-[#640017] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
+                            <span className="px-2.5 py-1 bg-[#892F1A] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
                               Sold Out
                             </span>
                           ) : product.inventory <= 5 ? (
@@ -277,7 +272,7 @@ export default function StagingStorefront() {
                       <button
                         onClick={() => addItem(product, 1)}
                         disabled={isOutOfStock}
-                        className="px-4 py-2.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center gap-1.5 nubb-shadow cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="px-4 py-2.5 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider nubb-shadow-hover flex items-center gap-1.5 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span>{isOutOfStock ? "Sold Out" : "Add to Bag"}</span>

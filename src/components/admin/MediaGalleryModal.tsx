@@ -623,7 +623,7 @@ export function MediaGalleryModal({
                             type="button"
                             onClick={() => handleMigrateToR2(activeItem)}
                             disabled={migratingKey === activeItem.key}
-                            className="w-full py-2 bg-[#892F1A] text-white font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#640017] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                            className="w-full py-2 bg-[#892F1A] text-white font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#4D3F15] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
                           >
                             {migratingKey === activeItem.key ? (
                               <>
@@ -1042,7 +1042,7 @@ export function MediaGalleryModal({
                 type="button"
                 onClick={handleConfirmSelection}
                 disabled={selectedUrls.length === 0}
-                className="flex-1 sm:flex-none px-6 py-2.5 bg-[#892F1A] text-white border-2 border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#640017] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 sm:flex-none px-6 py-2.5 bg-[#892F1A] text-white border-2 border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#4D3F15] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <span>Insert {selectedUrls.length > 0 ? `(${selectedUrls.length})` : ""} Into Product</span>
                 <ArrowRight className="w-3.5 h-3.5" />

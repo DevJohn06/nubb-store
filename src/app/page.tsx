@@ -55,7 +55,7 @@ export default function ComingSoonPage() {
           particleCount: 90,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ["#892F1A", "#640017", "#4D3F15", "#624A41"],
+          colors: ["#892F1A", "#4D3F15", "#624A41", "#E8E6D8"],
         });
       } catch {}
     } catch (err: unknown) {
@@ -185,7 +185,7 @@ export default function ComingSoonPage() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="px-10 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75 rounded-[10px]"
+                className="px-10 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75 rounded-[10px]"
               >
                 {status === "loading" ? (
                   <>
@@ -212,13 +212,13 @@ export default function ComingSoonPage() {
                   className={`flex items-start gap-2 p-3.5 border-2 rounded-[10px] ${
                     status === "success"
                       ? "bg-emerald-50 text-emerald-900 border-emerald-700"
-                      : "bg-rose-50 text-rose-900 border-[#640017]"
+                      : "bg-rose-50 text-rose-900 border-[#892F1A]"
                   }`}
                 >
                   {status === "success" ? (
                     <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
                   ) : (
-                    <AlertCircle className="w-5 h-5 text-[#640017] shrink-0 mt-0.5" />
+                    <AlertCircle className="w-5 h-5 text-[#892F1A] shrink-0 mt-0.5" />
                   )}
                   <span>{message}</span>
                 </div>

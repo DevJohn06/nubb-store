@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
         </div>
 
         {error && (
-          <div className="p-3 bg-rose-50 border-2 border-[#640017] text-[#640017] flex items-center gap-2 font-arial text-xs font-bold rounded-[10px]">
+          <div className="p-3 bg-rose-50 border-2 border-[#892F1A] text-[#892F1A] flex items-center gap-2 font-arial text-xs font-bold rounded-[10px]">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-sm font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50 mt-2 rounded-[10px]"
+            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-sm font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50 mt-2 rounded-[10px]"
           >
             {loading ? (
               <>

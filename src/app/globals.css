@@ -13,7 +13,7 @@
 @theme {
   --color-nubb-cream: #E8E6D8;
   --color-nubb-orange: #892F1A;
-  --color-nubb-crimson: #640017;
+  --color-nubb-crimson: #892F1A;
   --color-nubb-brown: #4D3F15;
   --color-nubb-dark: #624A41;
 
@@ -65,6 +65,11 @@ body {
 }
 
 .nubb-shadow-orange {
+  box-shadow: 4px 4px 0px var(--nubb-orange);
+  border-radius: 10px;
+}
+
+.nubb-shadow-orange-lg {
   box-shadow: 6px 6px 0px var(--nubb-orange);
   border-radius: 10px;
 }

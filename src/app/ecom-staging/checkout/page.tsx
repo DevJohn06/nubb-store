@@ -199,7 +199,7 @@ export default function CheckoutPage() {
       </div>
 
       {error && (
-        <div className="p-4 bg-rose-50 border-2 border-[#640017] text-[#640017] flex items-center gap-3 font-arial text-sm font-bold">
+        <div className="p-4 bg-rose-50 border-2 border-[#892F1A] text-[#892F1A] flex items-center gap-3 font-arial text-sm font-bold">
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{error}</span>
         </div>
@@ -496,7 +496,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
+              className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
             >
               {loading ? (
                 <>

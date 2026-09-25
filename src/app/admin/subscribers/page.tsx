@@ -376,13 +376,13 @@ export default function AdminSubscribersPage() {
           className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 border-2 nubb-shadow font-arial text-sm font-bold animate-in fade-in slide-in-from-bottom-5 ${
             toastMessage.type === "success"
               ? "bg-emerald-50 text-emerald-900 border-emerald-700"
-              : "bg-rose-50 text-rose-900 border-[#640017]"
+              : "bg-rose-50 text-rose-900 border-[#892F1A]"
           }`}
         >
           {toastMessage.type === "success" ? (
             <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-[#640017] shrink-0" />
+            <AlertCircle className="w-5 h-5 text-[#892F1A] shrink-0" />
           )}
           <span>{toastMessage.text}</span>
           <button
@@ -409,7 +409,7 @@ export default function AdminSubscribersPage() {
           {/* Send "We Have Launched!" Broadcast Button */}
           <button
             onClick={() => setIsLaunchModalOpen(true)}
-            className="px-4 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
+            className="px-4 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
           >
             <Rocket className="w-4 h-4" />
             <span>Send Launch Announcement</span>
@@ -684,7 +684,7 @@ export default function AdminSubscribersPage() {
                             onClick={() => handleSendLaunchSingle(sub)}
                             disabled={isActionActive}
                             title="Send Store Launch announcement to this subscriber"
-                            className="px-2.5 py-1.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                            className="px-2.5 py-1.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
                           >
                             {isActionActive && actionType === "launch_single" ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -822,7 +822,7 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleBroadcastLaunch}
                 disabled={broadcastingLaunch || stats.active === 0}
-                className="px-6 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors cursor-pointer flex items-center gap-2 nubb-shadow disabled:opacity-50"
+                className="px-6 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors cursor-pointer flex items-center gap-2 nubb-shadow disabled:opacity-50"
               >
                 {broadcastingLaunch ? (
                   <>
@@ -964,7 +964,7 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleDeleteSubscriber}
                 disabled={isDeleting}
-                className="px-5 py-2 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
+                className="px-5 py-2 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
               >
                 {isDeleting ? (
                   <>

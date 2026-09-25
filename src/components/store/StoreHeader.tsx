@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShoppingBag, Menu, X, ShieldAlert } from "lucide-react";
+import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "./CartContext";
 
 export function StoreHeader() {
@@ -12,11 +12,7 @@ export function StoreHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#E8E6D8] border-b-2 border-[#4D3F15]">
-      {/* Announcement Bar */}
-      <div className="bg-[#4D3F15] text-[#E8E6D8] py-1.5 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2">
-        <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
-        <span>NUBB E-COMMERCE STAGING PREVIEW — HANDMADE IN SMALL BATCHES</span>
-      </div>
+
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand / Logo */}

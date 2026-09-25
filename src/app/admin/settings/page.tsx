@@ -343,7 +343,7 @@ export default function AdminSettingsPage() {
                         <td className="p-4 text-right">
                           <button
                             onClick={() => handleDeleteUser(u.id)}
-                            className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#640017] hover:text-[#E8E6D8] hover:border-[#640017] transition-colors cursor-pointer"
+                            className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
                             title="Delete user"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

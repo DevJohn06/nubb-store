@@ -69,7 +69,7 @@ export async function sendWelcomeEmail(toEmail: string, name?: string) {
               }
               .badge {
                 display: inline-block;
-                background-color: #640017;
+                background-color: #892F1A;
                 color: #E8E6D8;
                 padding: 6px 16px;
                 border-radius: 999px;

@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Lock, ArrowRight, Loader2, KeyRound } from "lucide-react";
+import { Lock, ArrowRight, Loader2, KeyRound, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function PinGateModal() {
   const [pin, setPin] = useState("");
+  const [showPin, setShowPin] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
@@ -28,9 +29,10 @@ export function PinGateModal() {
       });
 
       const data = await res.json();
-      if (data.valid) {
-        // Successfully set cookie via api, refresh/redirect
+      if (res.ok && (data.success || data.valid)) {
+        // Successfully set cookie via api, refresh and reload to immediately unlock
         router.refresh();
+        window.location.reload();
       } else {
         setError(data.error || "Incorrect access PIN");
         setIsShaking(true);
@@ -66,16 +68,24 @@ export function PinGateModal() {
         <form onSubmit={handleVerify} className="space-y-4">
           <div className="space-y-2">
             <div className="relative">
-              <KeyRound className="w-5 h-5 absolute left-3.5 top-3 text-[#4D3F15]/40" />
+              <KeyRound className="w-5 h-5 absolute left-3.5 top-3.5 text-[#4D3F15]/40" />
               <input
-                type="password"
+                type={showPin ? "text" : "password"}
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="Enter 4 or 6-digit PIN"
+                placeholder="Enter staging PIN (e.g. nubb2026)"
                 autoFocus
                 disabled={loading}
-                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
+                className="w-full pl-11 pr-12 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-base sm:text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
               />
+              <button
+                type="button"
+                onClick={() => setShowPin(!showPin)}
+                className="absolute right-3.5 top-3.5 text-[#4D3F15]/50 hover:text-[#4D3F15] cursor-pointer"
+                title={showPin ? "Hide PIN" : "Show PIN"}
+              >
+                {showPin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
             </div>
             {error && (
               <p className="font-lekton text-xs font-bold text-[#892F1A] mt-1 text-center">
@@ -87,7 +97,7 @@ export function PinGateModal() {
           <button
             type="submit"
             disabled={loading || !pin}
-            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50 rounded-[10px]"
+            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50 rounded-[10px]"
           >
             {loading ? (
               <>
