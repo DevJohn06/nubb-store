@@ -8,13 +8,33 @@ import {
 import fs from "fs";
 import path from "path";
 
-const accountId = process.env.R2_ACCOUNT_ID;
-const accessKeyId = process.env.R2_ACCESS_KEY_ID;
-const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-const bucketName = process.env.R2_BUCKET_NAME;
-const publicUrl = process.env.R2_PUBLIC_URL?.replace(/\/$/, "");
+export interface R2Config {
+  accountId?: string;
+  accessKeyId?: string;
+  secretAccessKey?: string;
+  bucketName?: string;
+  publicUrl?: string;
+}
 
-let r2Client: S3Client | null = null;
+export function getR2Config(): R2Config {
+  return {
+    accountId: process.env.R2_ACCOUNT_ID?.trim(),
+    accessKeyId: process.env.R2_ACCESS_KEY_ID?.trim(),
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY?.trim(),
+    bucketName: process.env.R2_BUCKET_NAME?.trim(),
+    publicUrl: process.env.R2_PUBLIC_URL?.trim().replace(/\/$/, ""),
+  };
+}
+
+export function getMissingR2Variables(): string[] {
+  const { accountId, accessKeyId, secretAccessKey, bucketName } = getR2Config();
+  const missing: string[] = [];
+  if (!accountId) missing.push("R2_ACCOUNT_ID");
+  if (!accessKeyId) missing.push("R2_ACCESS_KEY_ID");
+  if (!secretAccessKey) missing.push("R2_SECRET_ACCESS_KEY");
+  if (!bucketName) missing.push("R2_BUCKET_NAME");
+  return missing;
+}
 
 export interface MediaItem {
   key: string;
@@ -31,39 +51,40 @@ export interface StorageStatus {
   provider: "r2" | "local";
   bucket: string | null;
   publicUrl: string | null;
+  missingVariables?: string[];
 }
 
 export function isR2Configured(): boolean {
-  return Boolean(accountId && accessKeyId && secretAccessKey && bucketName);
+  return getMissingR2Variables().length === 0;
 }
 
 export function getStorageStatus(): StorageStatus {
-  const configured = isR2Configured();
+  const { bucketName, publicUrl } = getR2Config();
+  const missing = getMissingR2Variables();
+  const configured = missing.length === 0;
   return {
     configured,
     provider: configured ? "r2" : "local",
     bucket: bucketName || null,
     publicUrl: publicUrl || null,
+    missingVariables: missing.length > 0 ? missing : undefined,
   };
 }
 
 export function getR2Client(): S3Client | null {
-  if (!isR2Configured()) {
+  const { accountId, accessKeyId, secretAccessKey } = getR2Config();
+  if (!isR2Configured() || !accountId || !accessKeyId || !secretAccessKey) {
     return null;
   }
 
-  if (!r2Client) {
-    r2Client = new S3Client({
-      region: "auto",
-      endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
-      credentials: {
-        accessKeyId: accessKeyId!,
-        secretAccessKey: secretAccessKey!,
-      },
-    });
-  }
-
-  return r2Client;
+  return new S3Client({
+    region: "auto",
+    endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+  });
 }
 
 export interface UploadOptions {
@@ -96,7 +117,17 @@ export async function uploadFile(
   const size = fileBuffer.length;
   const targetStorage = options?.storage || "auto";
 
+  const { accountId, bucketName, publicUrl } = getR2Config();
   const client = getR2Client();
+  const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === "production");
+
+  // If user requested R2 explicitly, ensure R2 is configured
+  if (targetStorage === "r2" && (!client || !bucketName)) {
+    const missing = getMissingR2Variables();
+    throw new Error(
+      `Cloudflare R2 is not configured on this server. Missing environment variables: ${missing.join(", ")}. Please add them to your Vercel Project Settings > Environment Variables and redeploy.`
+    );
+  }
 
   // If user requested R2 (or auto when R2 is configured)
   if (targetStorage !== "local" && client && bucketName) {
@@ -122,15 +153,24 @@ export async function uploadFile(
         filename: sanitizedFilename,
         folder,
       };
-    } catch (err) {
-      if (targetStorage === "r2") {
-        throw err;
+    } catch (err: unknown) {
+      if (targetStorage === "r2" || isServerless) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        throw new Error(`Cloudflare R2 upload error: ${errorMsg}`);
       }
       console.warn("Cloudflare R2 upload failed, falling back to local storage:", err);
     }
   }
 
-  // Local fallback / target: Save into public/uploads/{folder}
+  // Local fallback: In serverless environments (Vercel), local disk is read-only
+  if (isServerless) {
+    const missing = getMissingR2Variables();
+    throw new Error(
+      `Serverless production cannot write to local disk. Cloudflare R2 is required. Missing environment variables: ${missing.length > 0 ? missing.join(", ") : "R2 credentials"}. Please add them to your Vercel Project Settings > Environment Variables.`
+    );
+  }
+
+  // Local storage (local development only): Save into public/uploads/{folder}
   const uploadDir = path.join(process.cwd(), "public", "uploads", folder);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
@@ -255,6 +295,7 @@ export async function listMediaFiles(prefix?: string): Promise<MediaItem[]> {
   const mediaMap = new Map<string, MediaItem>();
 
   // 1. Fetch from Cloudflare R2 if configured
+  const { accountId, bucketName, publicUrl } = getR2Config();
   const client = getR2Client();
   if (client && bucketName) {
     try {
@@ -377,6 +418,8 @@ export async function deleteFile(keyOrUrl: string): Promise<boolean> {
     }
     return false;
   }
+
+  const { bucketName, publicUrl } = getR2Config();
 
   // Handle R2 key or public URL
   let key = keyOrUrl;
