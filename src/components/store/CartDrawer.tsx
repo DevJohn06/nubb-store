@@ -36,7 +36,7 @@ export function CartDrawer() {
                 <div className="flex items-center gap-3">
                   <ShoppingBag className="w-6 h-6 text-[#4D3F15]" />
                   <h2 className="font-lekton font-bold text-2xl uppercase tracking-wider">
-                    Your Carry ({totalCount})
+                    Your Bag ({totalCount})
                   </h2>
                 </div>
                 <button

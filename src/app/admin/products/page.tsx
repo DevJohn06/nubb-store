@@ -638,7 +638,7 @@ export default function AdminProductsPage() {
                         onChange={(e) => setIsFeatured(e.target.checked)}
                         className="accent-[#892F1A] w-4 h-4"
                       />
-                      <span>Featured Carry</span>
+                      <span>Featured Product</span>
                     </label>
 
                     <label className="flex items-center gap-2 cursor-pointer">

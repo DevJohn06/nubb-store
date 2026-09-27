@@ -164,7 +164,7 @@ export default function CheckoutPage() {
         <ShoppingBag className="w-12 h-12 mx-auto text-[#4D3F15]/40" />
         <h2 className="font-spray text-3xl">Your Bag is Empty</h2>
         <p className="font-arial text-sm text-[#4D3F15]/80">
-          Add some handcrafted items to your carry before checking out.
+          Add some handcrafted items to your bag before checking out.
         </p>
         <Link
           href="/ecom-staging"

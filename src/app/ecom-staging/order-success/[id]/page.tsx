@@ -41,7 +41,7 @@ export default function OrderSuccessPage({
             Order Secured!
           </h1>
           <p className="font-lekton text-sm font-bold text-[#892F1A] uppercase tracking-wider">
-            Thank you for carrying NUBB
+            Thank you for choosing NUBB
           </p>
         </div>
 

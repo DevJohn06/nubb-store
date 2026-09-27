@@ -107,7 +107,7 @@ export default function ComingSoonPage() {
 
           {/* Tagline */}
           <p
-            className="font-lekton font-bold tracking-wider text-[#4D3F15] lowercase"
+            className="font-lekton font-bold tracking-wider text-[#892F1A] lowercase"
             style={{ fontSize: "30px", lineHeight: "1.1" }}
           >
             the things we carry.

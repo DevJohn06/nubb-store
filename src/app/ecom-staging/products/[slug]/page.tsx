@@ -260,7 +260,7 @@ export default function ProductDetailPage({
                     {isOutOfStock
                       ? "Sold Out"
                       : addedAnimation
-                      ? "Added to Carry!"
+                      ? "Added to Bag!"
                       : `Add to Bag • ₱${(product.price * quantity).toLocaleString()}`}
                   </span>
                 </button>

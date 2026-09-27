@@ -13,7 +13,7 @@ export function StoreFooter() {
             alt="NUBB"
             className="h-8 w-auto object-contain"
           />
-          <p className="font-lekton font-bold text-lg lowercase tracking-wider text-[#4D3F15]">
+          <p className="font-lekton font-bold text-lg lowercase tracking-wider text-[#892F1A]">
             the things we carry.
           </p>
           <p className="font-arial text-sm text-[#4D3F15]/80 max-w-md leading-relaxed font-bold">

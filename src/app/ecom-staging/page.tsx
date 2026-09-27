@@ -89,7 +89,7 @@ export default function StagingStorefront() {
             <span>Handmade Studio Batch No. 01</span>
           </div>
 
-          <h1 className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#4D3F15] tracking-wide leading-none">
+          <h1 className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#892F1A] tracking-wide leading-none">
             the things we carry.
           </h1>
 
@@ -242,7 +242,7 @@ export default function StagingStorefront() {
 
                           {product.is_featured ? (
                             <span className="px-2.5 py-1 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
-                              Featured Carry
+                              Featured Product
                             </span>
                           ) : null}
                         </div>

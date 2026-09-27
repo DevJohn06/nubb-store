@@ -9,7 +9,7 @@ import { CartDrawer } from "@/components/store/CartDrawer";
 
 export const metadata = {
   title: "NUBB Staging Store | Handmade Lighter Covers & Paracord Bracelets",
-  description: "Exclusive staging preview for NUBB handcrafted lifestyle carry items.",
+  description: "Exclusive staging preview for NUBB handcrafted lifestyle products.",
 };
 
 export default async function EcomStagingLayout({

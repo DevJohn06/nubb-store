@@ -79,7 +79,7 @@ export function StoreHeader() {
             aria-label="Open cart drawer"
           >
             <ShoppingBag className="w-4 h-4" />
-            <span className="hidden sm:inline uppercase">Carry</span>
+            <span className="hidden sm:inline uppercase">Bag</span>
             <span className="bg-[#892F1A] text-[#E8E6D8] px-2 py-0.5 text-xs font-bold rounded-xs">
               {totalCount}
             </span>
