@@ -12,6 +12,7 @@ import {
   Settings,
   ExternalLink,
   Users,
+  Image as ImageIcon,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -20,6 +21,7 @@ export function AdminSidebar() {
   const links = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
     { href: "/admin/products", label: "Products", icon: Package },
+    { href: "/admin/media", label: "Media Library", icon: ImageIcon },
     { href: "/admin/inventory", label: "Inventory", icon: Layers },
     { href: "/admin/orders", label: "Orders & Sales", icon: ShoppingBag },
     { href: "/admin/subscribers", label: "Subscribers", icon: Mail },

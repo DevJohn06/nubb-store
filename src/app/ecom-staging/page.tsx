@@ -4,7 +4,11 @@ import React, { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+<<<<<<< HEAD
 import { ShoppingBag, Flame, Sparkles, ArrowRight, Tag, Plus, Hand, MapPin, Waves, LayoutGrid } from "lucide-react";
+=======
+import { ShoppingBag, Flame, Sparkles, ArrowRight, Tag } from "lucide-react";
+>>>>>>> refs/remotes/origin/main
 import { useCart } from "@/components/store/CartContext";
 import { Stamp } from "@/components/store/Stamp";
 
@@ -44,8 +48,7 @@ export default function StagingStorefront() {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
-  const initialCat = searchParams.get("category") || "all";
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCat);
+  const selectedCategory = searchParams.get("category") || "all";
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -69,18 +72,11 @@ export default function StagingStorefront() {
     loadAllProducts();
   }, []);
 
-  // Sync selectedCategory if URL search param changes from outside (e.g. header link)
-  useEffect(() => {
-    const cat = searchParams.get("category") || "all";
-    setSelectedCategory(cat);
-  }, [searchParams]);
-
   // Instant smooth category switch without page jump or skeleton flash
   const handleCategorySelect = (catId: string) => {
-    setSelectedCategory(catId);
     startTransition(() => {
       const newUrl = catId === "all" ? "/ecom-staging" : `/ecom-staging?category=${catId}`;
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl, { scroll: false });
     });
   };
 
@@ -90,6 +86,7 @@ export default function StagingStorefront() {
       ? allProducts
       : allProducts.filter((p) => p.category === selectedCategory);
 
+<<<<<<< HEAD
   const featured = allProducts.find((p) => p.is_featured) || allProducts[0];
   const heroImage: string = featured ? (JSON.parse(featured.images || "[]")[0] || "") : "";
 
@@ -100,6 +97,14 @@ export default function StagingStorefront() {
         <div className="space-y-6 py-4">
           <p className="nubb-eyebrow">Handmade studio · Batch No. 01</p>
           <h1 className="font-display text-[clamp(3.25rem,7vw,6.5rem)] leading-[0.92] text-balance">
+=======
+  return (
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <div className="border-3 border-[#4D3F15] bg-[#FFFFFF] p-8 sm:p-12 md:p-16 nubb-shadow-lg relative overflow-hidden">
+        <div className="max-w-3xl space-y-6 relative z-10">
+          <h1 className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#4D3F15] tracking-wide leading-none">
+>>>>>>> refs/remotes/origin/main
             the things we carry.
           </h1>
           <span className="nubb-wave" aria-hidden="true" style={{ width: 150 }} />
@@ -109,13 +114,27 @@ export default function StagingStorefront() {
           </p>
           <div className="pt-2 flex flex-wrap items-center gap-4">
             <button
+<<<<<<< HEAD
               onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}
               className="nubb-btn-primary"
+=======
+              onClick={() => {
+                const el = document.getElementById("catalog");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-6 py-3.5 bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A] transition-colors flex items-center gap-2 cursor-pointer"
+>>>>>>> refs/remotes/origin/main
             >
               Explore the collection
               <ArrowRight className="w-4 h-4" />
             </button>
+<<<<<<< HEAD
             <span className="font-lekton text-sm font-bold tracking-wide">100% handcrafted in Davao</span>
+=======
+            <div className="px-6 py-3.5 border-2 border-[#4D3F15] bg-[#E8E6D8] flex items-center gap-2 rounded-[10px]">
+              <span>100% Handcrafted in Davao</span>
+            </div>
+>>>>>>> refs/remotes/origin/main
           </div>
         </div>
 
@@ -160,6 +179,7 @@ export default function StagingStorefront() {
         ))}
       </section>
 
+<<<<<<< HEAD
       {/* Catalog */}
       <section id="catalog" className="space-y-8 scroll-mt-28">
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 pb-7 border-b border-nubb-brown/15">
@@ -167,6 +187,28 @@ export default function StagingStorefront() {
             <p className="nubb-eyebrow">The collection</p>
             <h2 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-none">Small things, made well.</h2>
             <span className="nubb-wave" aria-hidden="true" style={{ width: 96 }} />
+=======
+          {/* Category Filter Pills (Instant 0ms Switch) */}
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              const Icon = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => handleCategorySelect(cat.id)}
+                  className={`px-4 py-2 font-lekton text-xs sm:text-sm font-bold border-2 border-[#4D3F15] transition-all flex items-center gap-1.5 cursor-pointer relative ${
+                    isActive
+                      ? "bg-[#4D3F15] text-[#E8E6D8]"
+                      : "bg-[#FFFFFF] text-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8]"
+                  }`}
+                >
+                  {Icon && <Icon className="w-3.5 h-3.5" />}
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
+>>>>>>> refs/remotes/origin/main
           </div>
           <p className="font-body text-base leading-relaxed text-nubb-dark max-w-sm">
             Where art meets utility. Each piece is shaped, tied and finished by hand.
@@ -238,6 +280,7 @@ export default function StagingStorefront() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="nubb-surface transition-[translate] duration-200 hover:-translate-y-0.5 flex flex-col overflow-hidden group"
                   >
+<<<<<<< HEAD
                     <Link
                       href={`/ecom-staging/products/${product.slug}`}
                       className={`block relative aspect-square overflow-hidden ${backdrop}`}
@@ -252,6 +295,44 @@ export default function StagingStorefront() {
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <ShoppingBag className="w-12 h-12 text-nubb-cream/50" />
+=======
+                    <div>
+                      {/* Image Container with Badge */}
+                      <Link
+                        href={`/ecom-staging/products/${product.slug}`}
+                        className="block relative aspect-square bg-[#E8E6D8] overflow-hidden border-b-2 border-[#4D3F15]"
+                      >
+                        {mainImage ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src={mainImage}
+                            alt={product.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <ShoppingBag className="w-12 h-12 text-[#4D3F15]/30" />
+                          </div>
+                        )}
+
+                        {/* Stock Badge */}
+                        <div className="absolute top-3 left-3 flex flex-col gap-1">
+                          {isOutOfStock ? (
+                            <span className="px-2.5 py-1 bg-[#892F1A] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
+                              Sold Out
+                            </span>
+                          ) : product.inventory <= 5 ? (
+                            <span className="px-2.5 py-1 bg-[#892F1A] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
+                              Only {product.inventory} Left
+                            </span>
+                          ) : null}
+
+                          {product.is_featured ? (
+                            <span className="px-2.5 py-1 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider">
+                              Featured Carry
+                            </span>
+                          ) : null}
+>>>>>>> refs/remotes/origin/main
                         </div>
                       )}
 
@@ -301,7 +382,34 @@ export default function StagingStorefront() {
                         </button>
                       </div>
                     </div>
+<<<<<<< HEAD
                   </motion.article>
+=======
+
+                    {/* Pricing and Action Footer */}
+                    <div className="p-5 pt-0 border-t border-[#4D3F15]/10 mt-2 flex items-center justify-between gap-3">
+                      <div className="font-lekton font-bold">
+                        <div className="text-xl text-[#4D3F15]">
+                          ₱{product.price.toLocaleString()}
+                        </div>
+                        {product.compare_at_price && (
+                          <div className="text-xs text-[#4D3F15]/50 line-through">
+                            ₱{product.compare_at_price.toLocaleString()}
+                          </div>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => addItem(product, 1)}
+                        disabled={isOutOfStock}
+                        className="px-4 py-2.5 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider nubb-shadow-hover flex items-center gap-1.5 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>{isOutOfStock ? "Sold Out" : "Add to Bag"}</span>
+                      </button>
+                    </div>
+                  </motion.div>
+>>>>>>> refs/remotes/origin/main
                 );
               })}
             </AnimatePresence>

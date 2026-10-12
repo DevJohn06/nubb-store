@@ -150,8 +150,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to broadcast launch announcement");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to send launch emails", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to send launch emails";
+      showToast(message, "error");
     } finally {
       setBroadcastingLaunch(false);
     }
@@ -180,8 +181,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to send launch email");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to send launch email", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to send launch email";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -211,8 +213,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to send email");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to resend welcome email", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to resend welcome email";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -244,8 +247,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to update status");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to update subscriber status", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to update subscriber status";
+      showToast(message, "error");
     } finally {
       setActionInProgressId(null);
       setActionType(null);
@@ -272,8 +276,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to delete subscriber");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to delete subscriber", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to delete subscriber";
+      showToast(message, "error");
     } finally {
       setIsDeleting(false);
     }
@@ -310,8 +315,9 @@ export default function AdminSubscribersPage() {
       } else {
         throw new Error(data.error || "Failed to add subscriber");
       }
-    } catch (err: any) {
-      showToast(err.message || "Failed to add subscriber", "error");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to add subscriber";
+      showToast(message, "error");
     } finally {
       setSubmittingAdd(false);
     }
@@ -369,14 +375,23 @@ export default function AdminSubscribersPage() {
         <div
           className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-[12px] border-[1.5px] font-body text-sm font-bold animate-in fade-in slide-in-from-bottom-5 ${
             toastMessage.type === "success"
+<<<<<<< HEAD
               ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
               : "bg-nubb-crimson/10 text-nubb-crimson border-nubb-crimson"
+=======
+              ? "bg-emerald-50 text-emerald-900 border-emerald-700"
+              : "bg-rose-50 text-rose-900 border-[#892F1A]"
+>>>>>>> refs/remotes/origin/main
           }`}
         >
           {toastMessage.type === "success" ? (
             <CheckCircle2 className="w-5 h-5 text-nubb-brown shrink-0" />
           ) : (
+<<<<<<< HEAD
             <AlertCircle className="w-5 h-5 text-nubb-crimson shrink-0" />
+=======
+            <AlertCircle className="w-5 h-5 text-[#892F1A] shrink-0" />
+>>>>>>> refs/remotes/origin/main
           )}
           <span>{toastMessage.text}</span>
           <button
@@ -403,7 +418,11 @@ export default function AdminSubscribersPage() {
           {/* Send "We Have Launched!" Broadcast Button */}
           <button
             onClick={() => setIsLaunchModalOpen(true)}
+<<<<<<< HEAD
             className="nubb-btn-primary nubb-btn-sm"
+=======
+            className="px-4 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
+>>>>>>> refs/remotes/origin/main
           >
             <Rocket className="w-4 h-4" />
             <span>Send Launch Announcement</span>
@@ -678,7 +697,11 @@ export default function AdminSubscribersPage() {
                             onClick={() => handleSendLaunchSingle(sub)}
                             disabled={isActionActive}
                             title="Send Store Launch announcement to this subscriber"
+<<<<<<< HEAD
                             className="px-2.5 py-1.5 bg-nubb-orange text-nubb-cream hover:bg-nubb-crimson transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+=======
+                            className="px-2.5 py-1.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+>>>>>>> refs/remotes/origin/main
                           >
                             {isActionActive && actionType === "launch_single" ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -816,7 +839,11 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleBroadcastLaunch}
                 disabled={broadcastingLaunch || stats.active === 0}
+<<<<<<< HEAD
                 className="nubb-btn-primary nubb-btn-sm"
+=======
+                className="px-6 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors cursor-pointer flex items-center gap-2 nubb-shadow disabled:opacity-50"
+>>>>>>> refs/remotes/origin/main
               >
                 {broadcastingLaunch ? (
                   <>
@@ -958,7 +985,11 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleDeleteSubscriber}
                 disabled={isDeleting}
+<<<<<<< HEAD
                 className="nubb-btn-primary nubb-btn-sm"
+=======
+                className="px-5 py-2 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#4D3F15] transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
+>>>>>>> refs/remotes/origin/main
               >
                 {isDeleting ? (
                   <>

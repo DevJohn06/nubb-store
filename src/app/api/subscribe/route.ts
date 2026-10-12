@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
       isNew: dbResult.isNew,
       subscriberCount: currentCount,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Subscribe API Error]:", error);
     return NextResponse.json(
       { error: "Failed to save email. Please try again in a moment." },

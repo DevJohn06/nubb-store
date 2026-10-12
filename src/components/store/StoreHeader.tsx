@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "./CartContext";
 
+<<<<<<< HEAD
 const NAV = [
   { href: "/ecom-staging", label: "All Pieces" },
   { href: "/ecom-staging?category=lighter-covers", label: "Lighter Covers" },
@@ -13,15 +14,37 @@ const NAV = [
 ];
 
 export function StoreHeader() {
+=======
+export interface StoreHeaderProps {
+  announcement?: string;
+  showAnnouncement?: boolean;
+}
+
+export function StoreHeader({
+  announcement = "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE",
+  showAnnouncement = true,
+}: StoreHeaderProps) {
+>>>>>>> refs/remotes/origin/main
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
+<<<<<<< HEAD
     <header className="sticky top-0 z-40 w-full bg-nubb-cream/95 backdrop-blur-sm border-b border-nubb-brown/15">
       {/* Staging notice */}
       <div className="bg-nubb-brown text-nubb-cream py-1.5 px-4 text-center font-lekton text-xs font-bold tracking-[0.14em] uppercase">
         Staging preview · Handmade in small batches
       </div>
+=======
+    <header className="sticky top-0 z-40 w-full bg-[#E8E6D8] border-b-2 border-[#4D3F15]">
+      {/* Announcement Bar */}
+      {showAnnouncement && Boolean(announcement?.trim()) && (
+        <div className="bg-black text-[#E8E6D8] py-1.5 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2 border-b border-[#4D3F15]/40">
+          <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
+          <span>{announcement}</span>
+        </div>
+      )}
+>>>>>>> refs/remotes/origin/main
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
         {/* Desktop navigation (left) */}

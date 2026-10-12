@@ -11,11 +11,11 @@ export async function POST(req: NextRequest) {
 
     const validPin = await getStoreSetting("staging_pin", process.env.DEV_STAGING_PIN || "nubb2026");
 
-    if (pin.trim() !== validPin.trim()) {
-      return NextResponse.json({ error: "Invalid developer PIN" }, { status: 401 });
+    if (pin.trim().toLowerCase() !== validPin.trim().toLowerCase()) {
+      return NextResponse.json({ error: "Invalid developer PIN", valid: false, success: false }, { status: 401 });
     }
 
-    const response = NextResponse.json({ success: true, message: "Staging unlocked" });
+    const response = NextResponse.json({ success: true, valid: true, message: "Staging unlocked" });
 
     // Set cookie valid for 30 days
     response.cookies.set({
@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to verify PIN" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to verify PIN";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

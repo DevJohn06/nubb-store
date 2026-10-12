@@ -13,8 +13,10 @@ import {
   Search,
   ExternalLink,
   ShoppingBag,
+  Layers,
 } from "lucide-react";
 import { BrandLoader } from "@/components/common/BrandLoader";
+import { ProductMediaManager } from "@/components/admin/ProductMediaManager";
 
 interface Product {
   id: number;
@@ -43,7 +45,6 @@ export default function AdminProductsPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
   const [formError, setFormError] = useState("");
 
   // Form inputs
@@ -119,41 +120,6 @@ export default function AdminProductsPage() {
     setIsDrawerOpen(true);
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    setUploadingImage(true);
-    setFormError("");
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch("/api/admin/upload", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await res.json();
-        if (data.url) {
-          setImages((prev) => [...prev, data.url]);
-        } else {
-          setFormError(data.error || "Image upload failed");
-        }
-      } catch (err: any) {
-        setFormError(err.message || "Failed to upload image to Cloudflare R2");
-      }
-    }
-    setUploadingImage(false);
-  };
-
-  const removeImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-  };
-
   const addFeature = () => {
     if (!featureInput.trim()) return;
     setFeatures((prev) => [...prev, featureInput.trim()]);
@@ -208,8 +174,9 @@ export default function AdminProductsPage() {
 
       setIsDrawerOpen(false);
       loadProducts();
-    } catch (err: any) {
-      setFormError(err.message || "Failed to save product");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to save product";
+      setFormError(message);
     } finally {
       setSubmitting(false);
     }
@@ -373,7 +340,11 @@ export default function AdminProductsPage() {
                         </button>
                         <button
                           onClick={() => handleDeleteProduct(p.id)}
+<<<<<<< HEAD
                           className="p-1.5 bg-nubb-cream border border-nubb-brown hover:bg-nubb-crimson hover:text-nubb-cream hover:border-nubb-crimson transition-colors cursor-pointer"
+=======
+                          className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
+>>>>>>> refs/remotes/origin/main
                           title="Archive Product"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -523,6 +494,7 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
 
+<<<<<<< HEAD
                   {/* Cloudflare R2 Multi-Image Upload */}
                   <div className="space-y-2">
                     <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown block">
@@ -567,6 +539,10 @@ export default function AdminProductsPage() {
                       </label>
                     </div>
                   </div>
+=======
+                  {/* Cloudflare R2 Product Media Manager */}
+                  <ProductMediaManager images={images} onChange={setImages} />
+>>>>>>> refs/remotes/origin/main
 
                   {/* Description */}
                   <div className="space-y-1.5">

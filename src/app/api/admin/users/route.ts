@@ -17,8 +17,9 @@ export async function GET(req: NextRequest) {
   try {
     const users = await getAdminUsers();
     return NextResponse.json({ users });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to fetch users" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch users";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -52,8 +53,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, user: result });
-  } catch (error: any) {
-    const msg = error.message || String(error);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
     if (msg.includes("UNIQUE constraint failed") || msg.includes("already exists")) {
       return NextResponse.json({ error: "Username or email already in use" }, { status: 400 });
     }
@@ -82,8 +83,9 @@ export async function PUT(req: NextRequest) {
 
     await updateAdminUser(id, { name, email, password, role, status });
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to update user" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update user";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -111,7 +113,8 @@ export async function DELETE(req: NextRequest) {
 
     await deleteAdminUser(id);
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to delete user" }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to delete user";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -38,7 +38,11 @@ export function AdminHeader({
 
         <button
           onClick={handleLogout}
+<<<<<<< HEAD
           className="nubb-btn-secondary nubb-btn-sm hover:bg-nubb-crimson hover:border-nubb-crimson"
+=======
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E8E6D8] border border-[#4D3F15] text-[#4D3F15] font-lekton text-xs font-bold hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
+>>>>>>> refs/remotes/origin/main
           title="Sign Out"
         >
           <LogOut className="w-3.5 h-3.5" />

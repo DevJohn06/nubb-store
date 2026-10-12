@@ -33,8 +33,9 @@ export default function AdminLoginPage() {
 
       router.push("/admin");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to sign in.";
+      setError(message);
       setLoading(false);
     }
   };
@@ -70,7 +71,11 @@ export default function AdminLoginPage() {
         </div>
 
         {error && (
+<<<<<<< HEAD
           <div className="p-3 rounded-[12px] bg-nubb-crimson/10 border-[1.5px] border-nubb-crimson text-nubb-crimson flex items-center gap-2 font-body text-xs font-bold">
+=======
+          <div className="p-3 bg-rose-50 border-2 border-[#892F1A] text-[#892F1A] flex items-center gap-2 font-arial text-xs font-bold rounded-[10px]">
+>>>>>>> refs/remotes/origin/main
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -114,7 +119,11 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
+<<<<<<< HEAD
             className="nubb-btn-primary w-full mt-2"
+=======
+            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-sm font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50 mt-2 rounded-[10px]"
+>>>>>>> refs/remotes/origin/main
           >
             {loading ? (
               <>

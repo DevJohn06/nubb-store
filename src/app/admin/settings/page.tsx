@@ -15,6 +15,9 @@ import {
   KeyRound,
   Shield,
   QrCode,
+  Eye,
+  EyeOff,
+  ShieldAlert,
 } from "lucide-react";
 import { BrandLoader } from "@/components/common/BrandLoader";
 
@@ -64,6 +67,7 @@ export default function AdminSettingsPage() {
   const [loadingSettings, setLoadingSettings] = useState(true);
   const [savingSettings, setSavingSettings] = useState(false);
   const [settingsSaved, setSettingsSaved] = useState(false);
+  const [togglingBanner, setTogglingBanner] = useState(false);
 
   const loadUsers = async () => {
     setLoadingUsers(true);
@@ -141,8 +145,9 @@ export default function AdminSettingsPage() {
       setUserEmail("");
       setUserPassword("");
       loadUsers();
-    } catch (err: any) {
-      setUserError(err.message || "Failed to create user");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to create user";
+      setUserError(message);
     } finally {
       setSubmittingUser(false);
     }
@@ -158,8 +163,9 @@ export default function AdminSettingsPage() {
         return;
       }
       loadUsers();
-    } catch (err: any) {
-      alert("Failed to delete user: " + err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      alert("Failed to delete user: " + message);
     }
   };
 
@@ -222,6 +228,29 @@ export default function AdminSettingsPage() {
       console.error("Failed to save settings", err);
     } finally {
       setSavingSettings(false);
+    }
+  };
+
+  const handleToggleBannerVisibility = async () => {
+    const isCurrentlyVisible = settings.store_announcement_enabled !== "false";
+    const nextState = isCurrentlyVisible ? "false" : "true";
+    const updated = { ...settings, store_announcement_enabled: nextState };
+    setSettings(updated);
+    setTogglingBanner(true);
+
+    try {
+      await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ settings: updated }),
+      });
+
+      setSettingsSaved(true);
+      setTimeout(() => setSettingsSaved(false), 2500);
+    } catch (err) {
+      console.error("Failed to update banner visibility", err);
+    } finally {
+      setTogglingBanner(false);
     }
   };
 
@@ -341,7 +370,11 @@ export default function AdminSettingsPage() {
                         <td className="p-4 text-right">
                           <button
                             onClick={() => handleDeleteUser(u.id)}
+<<<<<<< HEAD
                             className="p-1.5 bg-nubb-cream border border-nubb-brown hover:bg-nubb-crimson hover:text-nubb-cream hover:border-nubb-crimson transition-colors cursor-pointer"
+=======
+                            className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
+>>>>>>> refs/remotes/origin/main
                             title="Delete user"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -708,6 +741,7 @@ export default function AdminSettingsPage() {
               </div>
             </div>
 
+<<<<<<< HEAD
             <div className="space-y-1.5">
               <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown block">
                 Storefront Top Announcement Banner
@@ -721,6 +755,90 @@ export default function AdminSettingsPage() {
                 placeholder="HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"
                 className="nubb-input"
               />
+=======
+            {/* Storefront Top Announcement Banner with Hide / Unhide Controls */}
+            <div className="space-y-3 p-4 bg-[#E8E6D8]/25 border-2 border-[#4D3F15]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15] block font-bold">
+                      Storefront Top Announcement Banner
+                    </label>
+                    <span
+                      className={`font-lekton text-[11px] font-bold px-2 py-0.5 border uppercase tracking-wider ${
+                        settings.store_announcement_enabled !== "false"
+                          ? "bg-emerald-100 text-emerald-900 border-emerald-500"
+                          : "bg-stone-200 text-stone-600 border-stone-400"
+                      }`}
+                    >
+                      {settings.store_announcement_enabled !== "false" ? "● Visible" : "○ Hidden"}
+                    </span>
+                  </div>
+                  <p className="font-arial text-xs text-[#4D3F15]/70 mt-0.5">
+                    Pinned black notification bar displayed at the very top of the storefront header.
+                  </p>
+                </div>
+
+                {/* Hide / Unhide Toggle Button */}
+                <button
+                  type="button"
+                  onClick={handleToggleBannerVisibility}
+                  disabled={togglingBanner}
+                  className={`px-3.5 py-1.5 font-lekton text-xs font-bold uppercase tracking-wider transition-all border-2 border-[#4D3F15] flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shrink-0 ${
+                    settings.store_announcement_enabled !== "false"
+                      ? "bg-[#892F1A] text-[#E8E6D8] hover:bg-[#6e2515]"
+                      : "bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A]"
+                  }`}
+                  title={settings.store_announcement_enabled !== "false" ? "Hide banner from storefront" : "Unhide banner on storefront"}
+                >
+                  {togglingBanner ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : settings.store_announcement_enabled !== "false" ? (
+                    <>
+                      <EyeOff className="w-3.5 h-3.5" />
+                      <span>Hide Banner</span>
+                    </>
+                  ) : (
+                    <>
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Unhide Banner</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  value={settings.store_announcement || ""}
+                  onChange={(e) =>
+                    setSettings({ ...settings, store_announcement: e.target.value })
+                  }
+                  placeholder="HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"
+                  className="w-full px-4 py-2.5 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white text-sm font-lekton font-bold"
+                />
+              </div>
+
+              {/* Live Preview */}
+              <div className="pt-1 space-y-1">
+                <div className="flex items-center justify-between text-[11px] font-lekton text-[#4D3F15]/70 uppercase">
+                  <span>Storefront Banner Preview:</span>
+                  <span>{settings.store_announcement_enabled !== "false" ? "Status: Active / Visible" : "Status: Inactive / Hidden"}</span>
+                </div>
+                <div
+                  className={`py-2 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2 border border-black transition-all ${
+                    settings.store_announcement_enabled === "false"
+                      ? "bg-stone-300 text-stone-500 opacity-60 line-through"
+                      : "bg-black text-[#E8E6D8]"
+                  }`}
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
+                  <span>
+                    {settings.store_announcement || "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"}
+                  </span>
+                </div>
+              </div>
+>>>>>>> refs/remotes/origin/main
             </div>
 
             <div className="pt-4 flex items-center gap-4">

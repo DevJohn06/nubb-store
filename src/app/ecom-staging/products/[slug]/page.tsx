@@ -217,10 +217,16 @@ export default function ProductDetailPage({
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex items-center justify-between sm:justify-start border-[1.5px] border-nubb-brown rounded-[8px] overflow-hidden">
                 <button
+<<<<<<< HEAD
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   disabled={quantity <= 1 || isOutOfStock}
                   aria-label="Decrease quantity"
                   className="w-12 h-12 inline-flex items-center justify-center rounded-none hover:bg-nubb-brown hover:text-nubb-cream transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-nubb-brown cursor-pointer disabled:cursor-not-allowed"
+=======
+                  onClick={handleAddToCart}
+                  disabled={isOutOfStock}
+                  className="flex-1 py-3.5 px-6 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-base uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-2.5 nubb-shadow-hover cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+>>>>>>> refs/remotes/origin/main
                 >
                   <Minus className="w-4 h-4" />
                 </button>
