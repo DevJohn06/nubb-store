@@ -55,9 +55,11 @@ export function HeroShowcase<T extends ShowcaseProduct>({
   const isOutOfStock = product ? product.inventory <= 0 : false;
 
   return (
-    <div className="relative min-h-[380px] sm:min-h-[520px] lg:min-h-[600px] mb-8 lg:mb-0">
+    // On desktop the image scales with the screen height so the hero and trust strip fit in one view.
+    <div className="relative min-h-[380px] sm:min-h-[520px] lg:min-h-0 lg:h-[clamp(360px,calc(100svh-var(--store-header-h,108px)-240px),680px)] short-desktop:h-[clamp(340px,calc(100svh-var(--store-header-h,108px)-200px),680px)] mb-8 lg:mb-0">
+      {/* clip-path keeps the crossfading (transformed) images inside the rounded shape */}
       <div
-        className="group absolute inset-0 bg-nubb-orange rounded-[240px_28px_28px_120px] overflow-hidden flex items-center justify-center"
+        className="group absolute inset-0 isolate bg-nubb-orange rounded-[240px_28px_28px_120px] [clip-path:inset(0_round_240px_28px_28px_120px)] overflow-hidden flex items-center justify-center"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}

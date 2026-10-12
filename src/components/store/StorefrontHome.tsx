@@ -88,50 +88,53 @@ export function StorefrontHome() {
 
   return (
     <div className="pb-20 sm:pb-24">
-      {/* Hero */}
-      <section className="nubb-container pt-8 sm:pt-12 pb-14 sm:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-        <div className="space-y-6 py-4">
-          <p className="nubb-eyebrow">Handmade studio · Batch No. 01</p>
-          <h1 className="font-display text-[clamp(3.25rem,7vw,6.5rem)] leading-[0.92] text-balance">
-            the things we carry.
-          </h1>
-          <span className="nubb-wave" aria-hidden="true" style={{ width: 150 }} />
-          <p className="font-body text-lg leading-relaxed max-w-[32ch]">
-            Small objects that become part of how you move through life. Sculpted lighter covers,
-            mil-spec paracord, rugged everyday gear.
-          </p>
-          <div className="pt-2 flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}
-              className="nubb-btn-primary"
-            >
-              Explore the collection
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <span className="font-lekton text-sm font-bold tracking-wide">100% handcrafted in Davao</span>
-          </div>
-        </div>
-
-        <HeroShowcase products={heroProducts} onAdd={(product) => addItem(product, 1)} />
-      </section>
-
-      {/* Trust strip */}
-      <section aria-label="Why NUBB" className="bg-nubb-brown text-nubb-cream">
-        <div className="nubb-container py-7 grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {TRUST.map(({ icon: Icon, label, sub }) => (
-            <div key={label} className="flex items-center gap-3.5">
-              <span className="w-11 h-11 shrink-0 rounded-full border-[1.6px] border-nubb-mustard text-nubb-mustard flex items-center justify-center">
-                <Icon className="w-5 h-5" strokeWidth={1.6} />
-              </span>
-              <span className="font-body text-[13px] font-bold leading-snug tracking-[0.06em] uppercase">
-                {label}
-                <br />
-                {sub}
-              </span>
+      {/* Hero + trust strip fill the first screen below the sticky header (--store-header-h is set by StoreHeader) */}
+      <div className="flex flex-col min-h-[calc(100svh-var(--store-header-h,108px))]">
+        {/* Hero */}
+        <section className="flex-1 nubb-container pt-8 pb-14 sm:pt-12 sm:pb-16 lg:py-12 short-desktop:py-8 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center content-center">
+          <div className="space-y-6 py-4 short-desktop:space-y-4 short-desktop:py-0">
+            <p className="nubb-eyebrow">Handmade studio · Batch No. 01</p>
+            <h1 className="font-display text-[clamp(3.25rem,7vw,6.5rem)] short-desktop:text-[clamp(3rem,9vh,5rem)] leading-[0.92] text-balance">
+              the things we carry.
+            </h1>
+            <span className="nubb-wave" aria-hidden="true" style={{ width: 150 }} />
+            <p className="font-body text-lg leading-relaxed max-w-[32ch]">
+              Small objects that become part of how you move through life. Sculpted lighter covers,
+              mil-spec paracord, rugged everyday gear.
+            </p>
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}
+                className="nubb-btn-primary"
+              >
+                Explore the collection
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <span className="font-lekton text-sm font-bold tracking-wide">100% handcrafted in Davao</span>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+
+          <HeroShowcase products={heroProducts} onAdd={(product) => addItem(product, 1)} />
+        </section>
+
+        {/* Trust strip */}
+        <section aria-label="Why NUBB" className="bg-nubb-brown text-nubb-cream">
+          <div className="nubb-container py-7 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:justify-items-center">
+            {TRUST.map(({ icon: Icon, label, sub }) => (
+              <div key={label} className="flex items-center gap-3.5">
+                <span className="w-11 h-11 shrink-0 rounded-full border-[1.6px] border-nubb-mustard text-nubb-mustard flex items-center justify-center">
+                  <Icon className="w-5 h-5" strokeWidth={1.6} />
+                </span>
+                <span className="font-body text-[13px] font-bold leading-snug tracking-[0.06em] uppercase">
+                  {label}
+                  <br />
+                  {sub}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* Catalog */}
       <section id="catalog" className="nubb-container pt-16 sm:pt-20 space-y-8 scroll-mt-28">
