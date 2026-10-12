@@ -102,90 +102,88 @@ export default function ComingSoonPage() {
           </div>
         </motion.div>
 
-        {/* Right: signup on the orange panel */}
+        {/* Right: signup card, stamp pinned to its top-right corner */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative mb-10 lg:mb-0"
+          className="relative w-full max-w-xl justify-self-center lg:justify-self-end mt-8 lg:mt-0"
         >
-          <div className="bg-nubb-orange rounded-[160px_28px_28px_80px] sm:rounded-[240px_28px_28px_120px] p-6 sm:p-12 lg:p-14 flex items-center justify-center">
-            <div className="nubb-surface w-full max-w-md p-7 sm:p-9 space-y-5">
-              <div className="space-y-2">
-                <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] leading-none">Be the first to know.</h2>
-                <p className="font-lekton text-sm font-bold uppercase tracking-[0.1em] text-nubb-orange">
-                  We are getting the shop ready
-                </p>
-                <p className="font-body text-sm text-nubb-dark">
-                  Drop your email and get notified as soon as we launch.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="space-y-1.5">
-                  <label htmlFor="cs-name" className="nubb-label">Name</label>
-                  <input
-                    id="cs-name"
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={status === "loading"}
-                    required
-                    className="nubb-input"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="cs-email" className="nubb-label">Email</label>
-                  <input
-                    id="cs-email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={status === "loading"}
-                    required
-                    className="nubb-input"
-                  />
-                </div>
-                <button type="submit" disabled={status === "loading"} className="nubb-btn-primary w-full mt-2">
-                  {status === "loading" ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    "Notify me"
-                  )}
-                </button>
-              </form>
-
-              {/* Feedback Message */}
-              <AnimatePresence>
-                {message && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    role="status"
-                    className={`flex items-start gap-2 p-3.5 rounded-[12px] border-[1.5px] font-body text-sm font-bold ${
-                      status === "success"
-                        ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
-                        : "bg-nubb-crimson/10 text-nubb-crimson border-nubb-crimson"
-                    }`}
-                  >
-                    {status === "success" ? (
-                      <CheckCircle2 className="w-5 h-5 shrink-0" />
-                    ) : (
-                      <AlertCircle className="w-5 h-5 shrink-0" />
-                    )}
-                    <span>{message}</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          <div className="nubb-surface p-8 sm:p-12 space-y-7">
+            <div className="space-y-2">
+              <h2 className="font-display text-[clamp(2.25rem,4vw,3.25rem)] leading-[0.95] pr-16 sm:pr-20">Be the first to know.</h2>
+              <p className="font-lekton text-sm font-bold uppercase tracking-[0.1em] text-nubb-orange">
+                We are getting the shop ready
+              </p>
+              <p className="font-body text-sm text-nubb-dark">
+                Drop your email and get notified as soon as we launch.
+              </p>
             </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <label htmlFor="cs-name" className="nubb-label">Name</label>
+                <input
+                  id="cs-name"
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={status === "loading"}
+                  required
+                  className="nubb-input min-h-12"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label htmlFor="cs-email" className="nubb-label">Email</label>
+                <input
+                  id="cs-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "loading"}
+                  required
+                  className="nubb-input min-h-12"
+                />
+              </div>
+              <button type="submit" disabled={status === "loading"} className="nubb-btn-primary w-full min-h-[52px] mt-2">
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  "Notify me"
+                )}
+              </button>
+            </form>
+
+            {/* Feedback Message */}
+            <AnimatePresence>
+              {message && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  role="status"
+                  className={`flex items-start gap-2 p-3.5 rounded-[12px] border-[1.5px] font-body text-sm font-bold ${
+                    status === "success"
+                      ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
+                      : "bg-nubb-crimson/10 text-nubb-crimson border-nubb-crimson"
+                  }`}
+                >
+                  {status === "success" ? (
+                    <CheckCircle2 className="w-5 h-5 shrink-0" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 shrink-0" />
+                  )}
+                  <span>{message}</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <Stamp className="absolute -right-2 -bottom-10 hidden sm:block" />
+          <Stamp size={104} className="absolute -top-10 -right-2 sm:-right-8 rotate-[-8deg]" />
         </motion.div>
       </main>
     </div>

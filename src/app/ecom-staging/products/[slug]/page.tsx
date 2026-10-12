@@ -6,6 +6,7 @@ import { ShoppingBag, ArrowLeft, Check, Truck, Hand, Plus, Minus } from "lucide-
 import { useCart } from "@/components/store/CartContext";
 import { BrandLoader } from "@/components/common/BrandLoader";
 import { Stamp } from "@/components/store/Stamp";
+import { RelatedProducts, pickRelated } from "@/components/store/RelatedProducts";
 
 interface Product {
   id: number;
@@ -35,11 +36,18 @@ export default function ProductDetailPage({
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [addedAnimation, setAddedAnimation] = useState(false);
+  const [catalog, setCatalog] = useState<Product[]>([]);
 
   const { addItem } = useCart();
 
   useEffect(() => {
     async function loadProduct() {
+      // Related items come from the full catalog; fetched alongside so the page waits once.
+      fetch("/api/products")
+        .then((res) => res.json())
+        .then((data) => setCatalog(data.products || []))
+        .catch((err) => console.error("Failed to load related products", err));
+
       try {
         const res = await fetch(`/api/products/${slug}`);
         const data = await res.json();
@@ -82,6 +90,8 @@ export default function ProductDetailPage({
   const images: string[] = JSON.parse(product.images || "[]");
   const features: string[] = JSON.parse(product.features || "[]");
   const isOutOfStock = product.inventory <= 0;
+  const related = pickRelated(catalog, product);
+  const addRelated = (item: Product) => addItem(item, 1);
 
   const handleAddToCart = () => {
     if (isOutOfStock) return;
@@ -113,9 +123,11 @@ export default function ProductDetailPage({
         </span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      {/* Desktop: gallery + specs stack on the left, details span the right.
+          Phones: gallery, details (buy), then specs, so the buy button stays near the top. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-x-16 gap-y-12 items-start">
         {/* Gallery */}
-        <div className="space-y-5">
+        <div className="space-y-5 lg:col-start-1 lg:row-start-1">
           <div className="relative">
             <div className="relative aspect-square bg-nubb-orange rounded-[240px_28px_28px_120px] overflow-hidden flex items-center justify-center">
               {selectedImage ? (
@@ -168,7 +180,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Details */}
-        <div className="space-y-8 lg:pt-4">
+        <div className="space-y-8 lg:pt-4 lg:col-start-2 lg:row-start-1 lg:row-span-2">
           <div className="space-y-4">
             <p className="nubb-eyebrow">{product.category.replace("-", " ")}</p>
             <h1 className="font-display text-[clamp(2.75rem,5vw,4rem)] leading-[0.95] text-balance">
@@ -250,6 +262,15 @@ export default function ProductDetailPage({
             </div>
           </div>
 
+          <RelatedProducts
+            products={related}
+            onAdd={addRelated}
+            className="hidden lg:block pt-10 border-t border-nubb-brown/15"
+          />
+        </div>
+
+        {/* Craft specifications + trust strip */}
+        <div className="space-y-6 lg:col-start-1 lg:row-start-2">
           {/* Craft specifications */}
           {features.length > 0 && (
             <div className="nubb-surface p-6 space-y-4">
@@ -284,6 +305,9 @@ export default function ProductDetailPage({
             ))}
           </div>
         </div>
+
+        {/* Related items on phones/tablets: after the specs */}
+        <RelatedProducts products={related} onAdd={addRelated} className="lg:hidden" />
       </div>
     </div>
   );

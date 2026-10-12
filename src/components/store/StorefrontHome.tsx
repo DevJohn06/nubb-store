@@ -4,9 +4,9 @@ import React, { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Flame, Sparkles, ArrowRight, Tag, Plus, Hand, MapPin, Waves, LayoutGrid } from "lucide-react";
+import { ShoppingBag, Flame, Sparkles, ArrowRight, Tag, Plus, Hand, MapPin, Waves, LayoutGrid, ChevronDown } from "lucide-react";
 import { useCart } from "./CartContext";
-import { Stamp } from "./Stamp";
+import { HeroShowcase } from "./HeroShowcase";
 
 interface Product {
   id: number;
@@ -82,8 +82,9 @@ export function StorefrontHome() {
       ? allProducts
       : allProducts.filter((p) => p.category === selectedCategory);
 
-  const featured = allProducts.find((p) => p.is_featured) || allProducts[0];
-  const heroImage: string = featured ? (JSON.parse(featured.images || "[]")[0] || "") : "";
+  // Hero cycles through featured pieces; falls back to the first few products if none are featured.
+  const featuredProducts = allProducts.filter((p) => p.is_featured);
+  const heroProducts = featuredProducts.length ? featuredProducts : allProducts.slice(0, 3);
 
   return (
     <div className="pb-20 sm:pb-24">
@@ -111,26 +112,7 @@ export function StorefrontHome() {
           </div>
         </div>
 
-        <div className="relative min-h-[380px] sm:min-h-[520px] lg:min-h-[600px] mb-8 lg:mb-0">
-          <div className="absolute inset-0 bg-nubb-orange rounded-[240px_28px_28px_120px] overflow-hidden flex items-center justify-center">
-            {heroImage ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={heroImage}
-                alt={featured?.name || "NUBB"}
-                className="w-full h-full object-cover rounded-none"
-              />
-            ) : (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src="/brand/brand-mark-cream.svg"
-                alt=""
-                className="w-1/2 h-1/2 object-contain opacity-30 rounded-none"
-              />
-            )}
-          </div>
-          <Stamp className="absolute -right-2 -bottom-7" />
-        </div>
+        <HeroShowcase products={heroProducts} onAdd={(product) => addItem(product, 1)} />
       </section>
 
       {/* Trust strip */}
@@ -169,8 +151,31 @@ export function StorefrontHome() {
           </div>
         </div>
 
-        {/* Category chips */}
-        <div className="flex flex-wrap gap-2.5" role="group" aria-label="Filter by category">
+        {/* Category dropdown (phones) */}
+        <div className="sm:hidden relative">
+          <label htmlFor="category-select" className="nubb-label mb-1.5">
+            Category
+          </label>
+          <select
+            id="category-select"
+            value={selectedCategory}
+            onChange={(e) => handleCategorySelect(e.target.value)}
+            className="nubb-input min-h-12 appearance-none pr-11 font-bold cursor-pointer"
+          >
+            {CATEGORIES.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            className="pointer-events-none absolute right-4 bottom-4 w-4 h-4 text-nubb-brown"
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* Category chips (tablet and up) */}
+        <div className="hidden sm:flex flex-wrap gap-2.5" role="group" aria-label="Filter by category">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.id;
             const Icon = cat.icon;
