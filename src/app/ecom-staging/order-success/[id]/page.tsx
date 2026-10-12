@@ -19,17 +19,13 @@ export default function OrderSuccessPage({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
-<<<<<<< HEAD
         colors: ["#892F1A", "#640017", "#4D3F15", "#E8E6D8", "#F2BF4A"],
-=======
-        colors: ["#892F1A", "#4D3F15", "#624A41", "#E8E6D8"],
->>>>>>> refs/remotes/origin/main
       });
     } catch {}
   }, []);
 
   return (
-    <div className="py-12 max-w-2xl mx-auto space-y-8">
+    <div className="nubb-container py-12 sm:py-16 max-w-2xl space-y-8">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

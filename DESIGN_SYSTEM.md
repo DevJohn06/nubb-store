@@ -71,6 +71,7 @@ Bantayog licence: Befonts, commercial use allowed.
 | `nubb-input`         | Text input / select / textarea: Cream Light, 1.5px Brown line, 12px radius, Orange focus ring. |
 | `nubb-label`         | Lekton uppercase form label. |
 | `nubb-link`          | Uppercase underlined text link ("Shop all pieces"). |
+| `nubb-container`     | Page-width wrapper (max 1600px, fluid gutters). Full-bleed bands sit outside it and wrap their content in it. |
 | `nubb-chip`          | Pill filter. Active via `aria-pressed="true"` or `.is-active`. |
 | `nubb-badge`         | Pill label. Pair with a bg/text token: `nubb-badge bg-nubb-crimson text-nubb-cream`. |
 | `nubb-surface`       | Flat card: Cream Light, hairline, 20px radius. |
@@ -91,13 +92,13 @@ Done:
 - Storefront: header, footer, home, product and checkout pages rebuilt to the design; order-success, cart drawer and PIN gate on tokens, `nubb-surface` and `nubb-btn-*`.
 - Admin: brown sidebar with Mustard active state, header, login and all pages on tokens, fonts, `nubb-surface` cards, `nubb-btn-*` buttons, `nubb-input` fields, on-palette status colours.
 - Legacy `nubb-shadow*` classes removed from markup and CSS.
+- Storefront home widened to the "Applied · Storefront Home" PDF: full-bleed trust strip, 3-panel bottom band (`BrandBand`) and newsletter footer. Band and footer copy, photo and links are editable in Admin → Store Settings → Storefront Content (`src/lib/storefront-content.ts`).
+- Coming-soon page, admin login and staging PIN gate rebuilt on the hero language (orange rounded panel + stamp, `AuthSplitLayout`). Rubik Spray Paint removed.
+- Admin media library, gallery modal and product media manager moved to tokens.
 - Bantayog served as WOFF2 (`src/app/fonts/*.woff2`, ~30% smaller). The `.woff` originals stay in the folder as source files.
-
-Not touched on purpose:
-
-- `src/app/page.tsx` (live coming-soon page) keeps its original classes and Rubik Spray Paint. It does pick up the new body font, flat shadows and radii from `globals.css`.
 
 Next candidates:
 
 - Order-success page: rebuild to the home page layout (it only has the token-level pass).
+- About, Craft and Search are placeholders (`StorePlaceholder`).
 - Dense admin table row actions (small inline Orange buttons in the dashboard, orders and subscribers tables) are still ad-hoc; fold into a shared compact style if more appear.

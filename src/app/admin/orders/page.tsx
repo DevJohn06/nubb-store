@@ -336,13 +336,8 @@ export default function AdminOrdersPage({
                   <h3 className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-orange">
                     Ordered Items
                   </h3>
-<<<<<<< HEAD
                   <div className="divide-y divide-nubb-brown/10">
-                    {JSON.parse(selectedOrder.items || "[]").map((i: any, idx: number) => (
-=======
-                  <div className="divide-y divide-[#4D3F15]/10">
                     {(JSON.parse(selectedOrder.items || "[]") as OrderItem[]).map((i, idx) => (
->>>>>>> refs/remotes/origin/main
                       <div key={idx} className="py-2.5 flex items-center justify-between font-lekton font-bold">
                         <div className="flex items-center gap-3">
                           {i.image && (

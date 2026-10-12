@@ -17,9 +17,50 @@ import {
   QrCode,
   Eye,
   EyeOff,
-  ShieldAlert,
+  LayoutTemplate,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 import { BrandLoader } from "@/components/common/BrandLoader";
+import { MediaGalleryModal } from "@/components/admin/MediaGalleryModal";
+import {
+  STOREFRONT_DEFAULTS,
+  parseFooterLinks,
+  type FooterLink,
+  type StorefrontTextKey,
+} from "@/lib/storefront-content";
+
+// Field groups for the Storefront Content tab (bottom band + footer copy).
+const CONTENT_GROUPS: { title: string; hint: string; fields: { key: StorefrontTextKey; label: string }[] }[] = [
+  {
+    title: "Art × Utility panel",
+    hint: "Mustard panel on the left of the bottom band.",
+    fields: [
+      { key: "band_eyebrow", label: "Eyebrow" },
+      { key: "band_headline", label: "Headline" },
+      { key: "band_link_label", label: "Link label" },
+      { key: "band_link_url", label: "Link URL" },
+    ],
+  },
+  {
+    title: "Social panel",
+    hint: "Cream panel on the right of the bottom band.",
+    fields: [
+      { key: "social_handle", label: "Instagram handle" },
+      { key: "social_hashtag", label: "Hashtag" },
+      { key: "social_link_label", label: "Link label" },
+      { key: "social_url", label: "Link URL" },
+    ],
+  },
+  {
+    title: "Newsletter footer",
+    hint: "Shown at the bottom of every store page.",
+    fields: [
+      { key: "newsletter_title", label: "Title" },
+      { key: "newsletter_subtitle", label: "Subtitle" },
+    ],
+  },
+];
 
 interface AdminUser {
   id: number;
@@ -42,7 +83,7 @@ interface PaymentMethod {
 }
 
 export default function AdminSettingsPage() {
-  const [activeTab, setActiveTab] = useState<"users" | "payments" | "general">("users");
+  const [activeTab, setActiveTab] = useState<"users" | "payments" | "general" | "content">("users");
 
   // User Management state
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -68,6 +109,11 @@ export default function AdminSettingsPage() {
   const [savingSettings, setSavingSettings] = useState(false);
   const [settingsSaved, setSettingsSaved] = useState(false);
   const [togglingBanner, setTogglingBanner] = useState(false);
+  const [isPhotoPickerOpen, setIsPhotoPickerOpen] = useState(false);
+
+  const footerLinks: FooterLink[] = parseFooterLinks(settings.footer_links);
+  const setFooterLinks = (links: FooterLink[]) =>
+    setSettings({ ...settings, footer_links: JSON.stringify(links) });
 
   const loadUsers = async () => {
     setLoadingUsers(true);
@@ -303,6 +349,18 @@ export default function AdminSettingsPage() {
           <Sliders className="w-4 h-4" />
           <span>General & Staging PIN</span>
         </button>
+
+        <button
+          onClick={() => setActiveTab("content")}
+          className={`flex items-center gap-2 px-5 py-2.5 font-lekton font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer ${
+            activeTab === "content"
+              ? "bg-nubb-brown text-nubb-cream border border-nubb-brown"
+              : "bg-transparent text-nubb-brown hover:bg-nubb-cream/50"
+          }`}
+        >
+          <LayoutTemplate className="w-4 h-4" />
+          <span>Storefront Content</span>
+        </button>
       </div>
 
       {/* Tab 1: User Management */}
@@ -370,11 +428,7 @@ export default function AdminSettingsPage() {
                         <td className="p-4 text-right">
                           <button
                             onClick={() => handleDeleteUser(u.id)}
-<<<<<<< HEAD
                             className="p-1.5 bg-nubb-cream border border-nubb-brown hover:bg-nubb-crimson hover:text-nubb-cream hover:border-nubb-crimson transition-colors cursor-pointer"
-=======
-                            className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
->>>>>>> refs/remotes/origin/main
                             title="Delete user"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -741,27 +795,12 @@ export default function AdminSettingsPage() {
               </div>
             </div>
 
-<<<<<<< HEAD
-            <div className="space-y-1.5">
-              <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown block">
-                Storefront Top Announcement Banner
-              </label>
-              <input
-                type="text"
-                value={settings.store_announcement || ""}
-                onChange={(e) =>
-                  setSettings({ ...settings, store_announcement: e.target.value })
-                }
-                placeholder="HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"
-                className="nubb-input"
-              />
-=======
             {/* Storefront Top Announcement Banner with Hide / Unhide Controls */}
-            <div className="space-y-3 p-4 bg-[#E8E6D8]/25 border-2 border-[#4D3F15]">
+            <div className="space-y-3 p-4 rounded-[12px] bg-nubb-cream-light border border-nubb-brown/15">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15] block font-bold">
+                    <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown block font-bold">
                       Storefront Top Announcement Banner
                     </label>
                     <span
@@ -774,7 +813,7 @@ export default function AdminSettingsPage() {
                       {settings.store_announcement_enabled !== "false" ? "● Visible" : "○ Hidden"}
                     </span>
                   </div>
-                  <p className="font-arial text-xs text-[#4D3F15]/70 mt-0.5">
+                  <p className="font-body text-xs text-nubb-brown/70 mt-0.5">
                     Pinned black notification bar displayed at the very top of the storefront header.
                   </p>
                 </div>
@@ -784,10 +823,10 @@ export default function AdminSettingsPage() {
                   type="button"
                   onClick={handleToggleBannerVisibility}
                   disabled={togglingBanner}
-                  className={`px-3.5 py-1.5 font-lekton text-xs font-bold uppercase tracking-wider transition-all border-2 border-[#4D3F15] flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shrink-0 ${
+                  className={`px-3.5 py-1.5 font-lekton text-xs font-bold uppercase tracking-wider transition-all border-2 border-nubb-brown flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shrink-0 ${
                     settings.store_announcement_enabled !== "false"
-                      ? "bg-[#892F1A] text-[#E8E6D8] hover:bg-[#6e2515]"
-                      : "bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A]"
+                      ? "bg-nubb-orange text-nubb-cream hover:bg-nubb-crimson"
+                      : "bg-nubb-brown text-nubb-cream hover:bg-nubb-orange"
                   }`}
                   title={settings.store_announcement_enabled !== "false" ? "Hide banner from storefront" : "Unhide banner on storefront"}
                 >
@@ -815,30 +854,28 @@ export default function AdminSettingsPage() {
                     setSettings({ ...settings, store_announcement: e.target.value })
                   }
                   placeholder="HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"
-                  className="w-full px-4 py-2.5 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white text-sm font-lekton font-bold"
+                  className="nubb-input font-lekton font-bold"
                 />
               </div>
 
               {/* Live Preview */}
               <div className="pt-1 space-y-1">
-                <div className="flex items-center justify-between text-[11px] font-lekton text-[#4D3F15]/70 uppercase">
+                <div className="flex items-center justify-between text-[11px] font-lekton text-nubb-brown/70 uppercase">
                   <span>Storefront Banner Preview:</span>
                   <span>{settings.store_announcement_enabled !== "false" ? "Status: Active / Visible" : "Status: Inactive / Hidden"}</span>
                 </div>
                 <div
-                  className={`py-2 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2 border border-black transition-all ${
+                  className={`py-2 px-4 text-center font-lekton text-xs font-bold tracking-[0.14em] uppercase transition-all ${
                     settings.store_announcement_enabled === "false"
                       ? "bg-stone-300 text-stone-500 opacity-60 line-through"
-                      : "bg-black text-[#E8E6D8]"
+                      : "bg-nubb-brown text-nubb-cream"
                   }`}
                 >
-                  <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
                   <span>
                     {settings.store_announcement || "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"}
                   </span>
                 </div>
               </div>
->>>>>>> refs/remotes/origin/main
             </div>
 
             <div className="pt-4 flex items-center gap-4">
@@ -857,6 +894,157 @@ export default function AdminSettingsPage() {
               )}
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Tab 4: Storefront Content (bottom band + footer) */}
+      {activeTab === "content" && (
+        <div className="max-w-4xl">
+          <form onSubmit={handleSaveSettings} className="space-y-6">
+            <div className="nubb-surface p-6 sm:p-8 space-y-6">
+              <div className="border-b border-nubb-brown/20 pb-3">
+                <h2 className="font-lekton text-base font-bold uppercase tracking-wider text-nubb-brown">
+                  Storefront Home: Bottom Band
+                </h2>
+                <p className="font-body text-xs text-nubb-brown/70 mt-1">
+                  Leave a field empty to use the default shown as its placeholder.
+                </p>
+              </div>
+
+              {/* Lifestyle photo */}
+              <div className="space-y-3">
+                <label className="nubb-label">Lifestyle photo (center panel)</label>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div className="w-40 aspect-[4/3] rounded-[12px] bg-nubb-brown overflow-hidden flex items-center justify-center shrink-0">
+                    {settings.band_photo_url ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={settings.band_photo_url} alt="Lifestyle photo" className="w-full h-full object-cover rounded-none" />
+                    ) : (
+                      <ImageIcon className="w-8 h-8 text-nubb-cream/50" />
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" onClick={() => setIsPhotoPickerOpen(true)} className="nubb-btn-secondary nubb-btn-sm">
+                      <ImageIcon className="w-4 h-4" />
+                      {settings.band_photo_url ? "Change photo" : "Choose photo"}
+                    </button>
+                    {settings.band_photo_url && (
+                      <button
+                        type="button"
+                        onClick={() => setSettings({ ...settings, band_photo_url: "" })}
+                        className="nubb-btn-secondary nubb-btn-sm"
+                      >
+                        <X className="w-4 h-4" />
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {CONTENT_GROUPS.map((group) => (
+                <fieldset key={group.title} className="space-y-4 pt-5 border-t border-nubb-brown/15">
+                  <legend className="sr-only">{group.title}</legend>
+                  <div>
+                    <p className="font-lekton text-sm font-bold uppercase tracking-wider text-nubb-brown">{group.title}</p>
+                    <p className="font-body text-xs text-nubb-brown/70">{group.hint}</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {group.fields.map((field) => (
+                      <div key={field.key} className="space-y-1.5">
+                        <label htmlFor={`content-${field.key}`} className="nubb-label">
+                          {field.label}
+                        </label>
+                        <input
+                          id={`content-${field.key}`}
+                          type="text"
+                          value={settings[field.key] || ""}
+                          onChange={(e) => setSettings({ ...settings, [field.key]: e.target.value })}
+                          placeholder={STOREFRONT_DEFAULTS[field.key]}
+                          className="nubb-input"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
+
+              {/* Footer links */}
+              <fieldset className="space-y-4 pt-5 border-t border-nubb-brown/15">
+                <legend className="sr-only">Footer links</legend>
+                <div>
+                  <p className="font-lekton text-sm font-bold uppercase tracking-wider text-nubb-brown">Footer links</p>
+                  <p className="font-body text-xs text-nubb-brown/70">
+                    Right side of the footer. Use a full URL, a site path like /ecom-staging/craft, or mailto:.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  {footerLinks.map((link, idx) => (
+                    <div key={idx} className="grid grid-cols-[1fr_2fr_auto] gap-2 items-center">
+                      <input
+                        type="text"
+                        aria-label={`Link ${idx + 1} label`}
+                        value={link.label}
+                        onChange={(e) =>
+                          setFooterLinks(footerLinks.map((l, i) => (i === idx ? { ...l, label: e.target.value } : l)))
+                        }
+                        placeholder="Label"
+                        className="nubb-input"
+                      />
+                      <input
+                        type="text"
+                        aria-label={`Link ${idx + 1} URL`}
+                        value={link.url}
+                        onChange={(e) =>
+                          setFooterLinks(footerLinks.map((l, i) => (i === idx ? { ...l, url: e.target.value } : l)))
+                        }
+                        placeholder="https://… or /path"
+                        className="nubb-input"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setFooterLinks(footerLinks.filter((_, i) => i !== idx))}
+                        aria-label={`Remove link ${idx + 1}`}
+                        className="nubb-btn-icon"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFooterLinks([...footerLinks, { label: "", url: "" }])}
+                  className="nubb-btn-secondary nubb-btn-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add link
+                </button>
+              </fieldset>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <button type="submit" disabled={savingSettings} className="nubb-btn-primary">
+                {savingSettings ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                <span>Save Storefront Content</span>
+              </button>
+              {settingsSaved && (
+                <span className="font-lekton text-xs text-nubb-brown font-bold">Content saved. Reload the storefront to see it.</span>
+              )}
+            </div>
+          </form>
+
+          <MediaGalleryModal
+            isOpen={isPhotoPickerOpen}
+            onClose={() => setIsPhotoPickerOpen(false)}
+            onSelect={(urls) => {
+              setSettings({ ...settings, band_photo_url: urls[0] || "" });
+              setIsPhotoPickerOpen(false);
+            }}
+            initialSelectedUrls={settings.band_photo_url ? [settings.band_photo_url] : []}
+            multiple={false}
+            title="Choose lifestyle photo"
+          />
         </div>
       )}
     </div>

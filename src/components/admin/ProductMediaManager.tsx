@@ -121,15 +121,15 @@ export function ProductMediaManager({
   };
 
   return (
-    <div className="space-y-3 font-arial">
+    <div className="space-y-3 font-body">
       {/* Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#4D3F15]/20 pb-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-nubb-brown/20 pb-2">
         <div>
-          <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15] font-bold flex items-center gap-1.5">
-            <ImageIcon className="w-3.5 h-3.5 text-[#892F1A]" />
+          <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown font-bold flex items-center gap-1.5">
+            <ImageIcon className="w-3.5 h-3.5 text-nubb-orange" />
             <span>Product Media Gallery ({images.length} photos)</span>
           </label>
-          <p className="font-lekton text-[11px] text-[#4D3F15]/60 font-bold">
+          <p className="font-lekton text-[11px] text-nubb-brown/60 font-bold">
             First image is primary store cover. Local photos auto-upload to Cloudflare R2 upon save.
           </p>
         </div>
@@ -139,7 +139,7 @@ export function ProductMediaManager({
           <button
             type="button"
             onClick={() => setIsGalleryOpen(true)}
-            className="px-3 py-1.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center gap-1.5 cursor-pointer nubb-shadow-sm"
+            className="px-3 py-1.5 bg-nubb-brown text-nubb-cream font-lekton text-xs font-bold uppercase tracking-wider hover:bg-nubb-orange transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Browse Media Gallery</span>
@@ -150,7 +150,7 @@ export function ProductMediaManager({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={uploadingDirect}
-            className="px-3 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold uppercase tracking-wider hover:bg-[#E8E6D8] transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            className="px-3 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold uppercase tracking-wider hover:bg-nubb-cream transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
           >
             {uploadingDirect ? (
               <>
@@ -177,7 +177,7 @@ export function ProductMediaManager({
       </div>
 
       {hasLocalImages && (
-        <div className="p-2.5 bg-amber-50 border-2 border-amber-300 font-lekton text-xs font-bold text-amber-900 flex items-center gap-2">
+        <div className="p-2.5 bg-amber-50 border-[1.5px] border-amber-300 font-lekton text-xs font-bold text-amber-900 flex items-center gap-2">
           <HardDrive className="w-4 h-4 text-amber-700 shrink-0" />
           <span>
             One or more images are stored locally. They will be automatically migrated to Cloudflare R2 CDN when you save this product.
@@ -195,13 +195,13 @@ export function ProductMediaManager({
       {images.length === 0 ? (
         <div
           onClick={() => setIsGalleryOpen(true)}
-          className="border-2 border-dashed border-[#4D3F15]/50 bg-white/60 p-8 text-center cursor-pointer hover:bg-white transition-colors flex flex-col items-center justify-center gap-2 group"
+          className="border-[1.5px] border-dashed border-nubb-brown/50 bg-nubb-cream-light/60 p-8 text-center cursor-pointer hover:bg-nubb-cream-light transition-colors flex flex-col items-center justify-center gap-2 group"
         >
-          <div className="w-12 h-12 rounded-full bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center group-hover:scale-105 transition-transform">
-            <ImageIcon className="w-6 h-6 text-[#892F1A]" />
+          <div className="w-12 h-12 rounded-full bg-nubb-cream border border-nubb-brown flex items-center justify-center group-hover:scale-105 transition-transform">
+            <ImageIcon className="w-6 h-6 text-nubb-orange" />
           </div>
-          <p className="font-spray text-xl text-[#4D3F15]">No Product Images Attached</p>
-          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70">
+          <p className="font-display text-xl text-nubb-brown">No Product Images Attached</p>
+          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70">
             Click here to open Media Gallery or upload photos to Cloudflare R2
           </p>
         </div>
@@ -217,8 +217,8 @@ export function ProductMediaManager({
             return (
               <div
                 key={idx}
-                className={`relative aspect-square border-2 bg-white group overflow-hidden ${
-                  isCover ? "border-[#892F1A] ring-2 ring-[#892F1A]/30" : "border-[#4D3F15]"
+                className={`relative aspect-square border-[1.5px] bg-nubb-cream-light group overflow-hidden ${
+                  isCover ? "border-nubb-orange ring-2 ring-nubb-orange/30" : "border-nubb-brown"
                 }`}
               >
                 {/* Thumbnail Image */}
@@ -231,7 +231,7 @@ export function ProductMediaManager({
 
                 {/* Primary Cover Badge */}
                 {isCover ? (
-                  <div className="absolute top-1.5 left-1.5 px-2 py-0.5 bg-[#892F1A] text-white font-lekton text-[9px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                  <div className="absolute top-1.5 left-1.5 px-2 py-0.5 bg-nubb-orange text-white font-lekton text-[9px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm">
                     <Star className="w-2.5 h-2.5 fill-white" />
                     <span>Primary Cover</span>
                   </div>
@@ -239,7 +239,7 @@ export function ProductMediaManager({
                   <button
                     type="button"
                     onClick={() => handleSetCover(idx)}
-                    className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-black/60 hover:bg-[#892F1A] text-white font-lekton text-[9px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer flex items-center gap-1"
+                    className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-black/60 hover:bg-nubb-orange text-white font-lekton text-[9px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer flex items-center gap-1"
                     title="Set as Primary Cover photo"
                   >
                     <Star className="w-2.5 h-2.5" />
@@ -282,7 +282,7 @@ export function ProductMediaManager({
                     type="button"
                     disabled={idx === 0}
                     onClick={() => handleMoveLeft(idx)}
-                    className="p-0.5 hover:text-[#E8E6D8] disabled:opacity-30 disabled:hover:text-white cursor-pointer"
+                    className="p-0.5 hover:text-nubb-cream disabled:opacity-30 disabled:hover:text-white cursor-pointer"
                     title="Move Left"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -296,7 +296,7 @@ export function ProductMediaManager({
                     type="button"
                     disabled={idx === images.length - 1}
                     onClick={() => handleMoveRight(idx)}
-                    className="p-0.5 hover:text-[#E8E6D8] disabled:opacity-30 disabled:hover:text-white cursor-pointer"
+                    className="p-0.5 hover:text-nubb-cream disabled:opacity-30 disabled:hover:text-white cursor-pointer"
                     title="Move Right"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -310,10 +310,10 @@ export function ProductMediaManager({
           <button
             type="button"
             onClick={() => setIsGalleryOpen(true)}
-            className="aspect-square border-2 border-dashed border-[#4D3F15] bg-white/50 hover:bg-white flex flex-col items-center justify-center cursor-pointer transition-colors group"
+            className="aspect-square border-[1.5px] border-dashed border-nubb-brown bg-nubb-cream-light/50 hover:bg-nubb-cream-light flex flex-col items-center justify-center cursor-pointer transition-colors group"
           >
-            <Plus className="w-6 h-6 text-[#4D3F15]/60 group-hover:text-[#892F1A] mb-1 transition-colors" />
-            <span className="font-lekton text-[10px] font-bold uppercase text-[#4D3F15]">
+            <Plus className="w-6 h-6 text-nubb-brown/60 group-hover:text-nubb-orange mb-1 transition-colors" />
+            <span className="font-lekton text-[10px] font-bold uppercase text-nubb-brown">
               Add Photo
             </span>
           </button>
@@ -336,10 +336,10 @@ export function ProductMediaManager({
           onClick={() => setPreviewModalUrl(null)}
           className="fixed inset-0 z-60 bg-black/85 flex items-center justify-center p-4 cursor-zoom-out"
         >
-          <div className="relative max-w-4xl max-h-[90vh] bg-white border-3 border-[#4D3F15] p-2">
+          <div className="relative max-w-4xl max-h-[90vh] bg-nubb-cream-light border-[1.5px] border-nubb-brown p-2">
             <button
               onClick={() => setPreviewModalUrl(null)}
-              className="absolute top-4 right-4 p-2 bg-[#892F1A] text-white border-2 border-white cursor-pointer shadow-lg"
+              className="absolute top-4 right-4 p-2 bg-nubb-orange text-white border-[1.5px] border-white cursor-pointer shadow-lg"
             >
               <X className="w-5 h-5" />
             </button>

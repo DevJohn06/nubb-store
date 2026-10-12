@@ -316,20 +316,20 @@ export function MediaGalleryModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-xs font-arial">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-xs font-body">
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-5xl h-[92vh] max-h-[850px] bg-[#F6F5EE] border-3 border-[#4D3F15] nubb-shadow-lg flex flex-col overflow-hidden text-[#4D3F15]"
+          className="w-full max-w-5xl h-[92vh] max-h-[850px] bg-nubb-cream-light border-[1.5px] border-nubb-brown flex flex-col overflow-hidden text-nubb-brown"
         >
           {/* Header */}
-          <div className="p-4 sm:p-5 bg-[#E8E6D8] border-b-3 border-[#4D3F15] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
+          <div className="p-4 sm:p-5 bg-nubb-cream border-b-3 border-nubb-brown flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
             <div>
               <div className="flex items-center gap-2">
-                <ImageIcon className="w-5 h-5 text-[#892F1A]" />
-                <h2 className="font-spray text-2xl text-[#4D3F15] leading-none">{title}</h2>
+                <ImageIcon className="w-5 h-5 text-nubb-orange" />
+                <h2 className="font-display text-2xl text-nubb-brown leading-none">{title}</h2>
               </div>
               <div className="flex items-center gap-2 mt-1">
                 {storageStatus?.configured ? (
@@ -343,7 +343,7 @@ export function MediaGalleryModal({
                     Local Storage Fallback (/public/uploads)
                   </span>
                 )}
-                <span className="text-[11px] font-lekton text-[#4D3F15]/60 font-bold hidden sm:inline">
+                <span className="text-[11px] font-lekton text-nubb-brown/60 font-bold hidden sm:inline">
                   {mediaList.length} items total
                 </span>
               </div>
@@ -351,7 +351,7 @@ export function MediaGalleryModal({
 
             <button
               onClick={onClose}
-              className="self-end sm:self-center p-2 border-2 border-[#4D3F15] bg-white hover:bg-[#892F1A] hover:text-[#E8E6D8] transition-colors cursor-pointer"
+              className="self-end sm:self-center p-2 border-[1.5px] border-nubb-brown bg-nubb-cream-light hover:bg-nubb-orange hover:text-nubb-cream transition-colors cursor-pointer"
               title="Close Modal"
             >
               <X className="w-5 h-5" />
@@ -359,13 +359,13 @@ export function MediaGalleryModal({
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center border-b-2 border-[#4D3F15] bg-white px-4 shrink-0 font-lekton text-xs font-bold uppercase tracking-wider">
+          <div className="flex items-center border-b-2 border-nubb-brown bg-nubb-cream-light px-4 shrink-0 font-lekton text-xs font-bold uppercase tracking-wider">
             <button
               onClick={() => setActiveTab("library")}
               className={`px-4 py-3 border-b-3 transition-colors flex items-center gap-2 cursor-pointer ${
                 activeTab === "library"
-                  ? "border-[#892F1A] text-[#892F1A] bg-[#E8E6D8]/40"
-                  : "border-transparent text-[#4D3F15]/70 hover:text-[#4D3F15]"
+                  ? "border-nubb-orange text-nubb-orange bg-nubb-cream/40"
+                  : "border-transparent text-nubb-brown/70 hover:text-nubb-brown"
               }`}
             >
               <ImageIcon className="w-4 h-4" />
@@ -376,14 +376,14 @@ export function MediaGalleryModal({
               onClick={() => setActiveTab("upload")}
               className={`px-4 py-3 border-b-3 transition-colors flex items-center gap-2 cursor-pointer ${
                 activeTab === "upload"
-                  ? "border-[#892F1A] text-[#892F1A] bg-[#E8E6D8]/40"
-                  : "border-transparent text-[#4D3F15]/70 hover:text-[#4D3F15]"
+                  ? "border-nubb-orange text-nubb-orange bg-nubb-cream/40"
+                  : "border-transparent text-nubb-brown/70 hover:text-nubb-brown"
               }`}
             >
               <Upload className="w-4 h-4" />
               <span>Upload New</span>
               {pendingFiles.length > 0 && (
-                <span className="px-1.5 py-0.2 bg-[#892F1A] text-white text-[10px] rounded-full">
+                <span className="px-1.5 py-0.2 bg-nubb-orange text-white text-[10px] rounded-full">
                   {pendingFiles.length}
                 </span>
               )}
@@ -393,8 +393,8 @@ export function MediaGalleryModal({
               onClick={() => setActiveTab("url")}
               className={`px-4 py-3 border-b-3 transition-colors flex items-center gap-2 cursor-pointer ${
                 activeTab === "url"
-                  ? "border-[#892F1A] text-[#892F1A] bg-[#E8E6D8]/40"
-                  : "border-transparent text-[#4D3F15]/70 hover:text-[#4D3F15]"
+                  ? "border-nubb-orange text-nubb-orange bg-nubb-cream/40"
+                  : "border-transparent text-nubb-brown/70 hover:text-nubb-brown"
               }`}
             >
               <ExternalLink className="w-4 h-4" />
@@ -408,17 +408,17 @@ export function MediaGalleryModal({
             {activeTab === "library" && (
               <div className="flex-1 flex flex-col md:flex-row overflow-hidden min-h-0">
                 {/* Main Grid Area */}
-                <div className="flex-1 flex flex-col overflow-hidden min-h-0 border-r-0 md:border-r-2 border-[#4D3F15]/20">
+                <div className="flex-1 flex flex-col overflow-hidden min-h-0 border-r-0 md:border-r-2 border-nubb-brown/20">
                   {/* Toolbar with Search, Storage Filter & Folder Filter */}
-                  <div className="p-3 bg-[#E8E6D8]/40 border-b border-[#4D3F15]/20 flex flex-wrap items-center gap-2.5 shrink-0">
+                  <div className="p-3 bg-nubb-cream/40 border-b border-nubb-brown/20 flex flex-wrap items-center gap-2.5 shrink-0">
                     <div className="relative flex-1 min-w-[180px]">
-                      <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#4D3F15]/50" />
+                      <Search className="w-4 h-4 absolute left-3 top-2.5 text-nubb-brown/50" />
                       <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search images by name or key..."
-                        className="w-full pl-9 pr-4 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] placeholder-[#4D3F15]/40 focus:outline-none"
+                        className="w-full pl-9 pr-4 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown placeholder-nubb-brown/40 focus:outline-none"
                       />
                     </div>
 
@@ -427,7 +427,7 @@ export function MediaGalleryModal({
                       <select
                         value={storageFilter}
                         onChange={(e) => setStorageFilter(e.target.value as "all" | "r2" | "local")}
-                        className="px-2.5 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none"
+                        className="px-2.5 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none"
                       >
                         <option value="all">All Storage</option>
                         <option value="r2">Cloudflare R2</option>
@@ -440,7 +440,7 @@ export function MediaGalleryModal({
                       <select
                         value={folderFilter}
                         onChange={(e) => setFolderFilter(e.target.value)}
-                        className="px-2.5 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none"
+                        className="px-2.5 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none"
                       >
                         <option value="all">All Folders</option>
                         {Array.from(
@@ -462,7 +462,7 @@ export function MediaGalleryModal({
                     <button
                       onClick={fetchMedia}
                       disabled={loading}
-                      className="p-2 border-2 border-[#4D3F15] bg-white hover:bg-[#4D3F15] hover:text-[#E8E6D8] transition-colors cursor-pointer disabled:opacity-50"
+                      className="p-2 border-[1.5px] border-nubb-brown bg-nubb-cream-light hover:bg-nubb-brown hover:text-nubb-cream transition-colors cursor-pointer disabled:opacity-50"
                       title="Refresh library"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
@@ -473,23 +473,23 @@ export function MediaGalleryModal({
                   <div className="flex-1 overflow-y-auto p-4">
                     {loading && mediaList.length === 0 ? (
                       <div className="h-64 flex flex-col items-center justify-center gap-3">
-                        <Loader2 className="w-8 h-8 animate-spin text-[#892F1A]" />
-                        <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70">
+                        <Loader2 className="w-8 h-8 animate-spin text-nubb-orange" />
+                        <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70">
                           Loading Media Assets...
                         </p>
                       </div>
                     ) : mediaList.length === 0 ? (
-                      <div className="h-64 flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-[#4D3F15]/40 bg-white/60">
-                        <ImageIcon className="w-12 h-12 text-[#4D3F15]/30 mb-2" />
-                        <p className="font-spray text-xl text-[#4D3F15]">No Images Found</p>
-                        <p className="font-lekton text-xs text-[#4D3F15]/70 mt-1 max-w-sm">
+                      <div className="h-64 flex flex-col items-center justify-center text-center p-6 border-[1.5px] border-dashed border-nubb-brown/40 bg-nubb-cream-light/60">
+                        <ImageIcon className="w-12 h-12 text-nubb-brown/30 mb-2" />
+                        <p className="font-display text-xl text-nubb-brown">No Images Found</p>
+                        <p className="font-lekton text-xs text-nubb-brown/70 mt-1 max-w-sm">
                           {searchQuery
                             ? `No media items matching "${searchQuery}"`
                             : "Upload your first product photo or asset to build your gallery."}
                         </p>
                         <button
                           onClick={() => setActiveTab("upload")}
-                          className="mt-4 px-4 py-2 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center gap-2 cursor-pointer"
+                          className="mt-4 px-4 py-2 bg-nubb-brown text-nubb-cream font-lekton text-xs font-bold uppercase tracking-wider hover:bg-nubb-orange transition-colors flex items-center gap-2 cursor-pointer"
                         >
                           <Upload className="w-3.5 h-3.5" />
                           <span>Upload Images Now</span>
@@ -513,12 +513,12 @@ export function MediaGalleryModal({
                               <div
                                 key={item.key}
                                 onClick={() => toggleSelectUrl(item)}
-                                className={`group relative aspect-square bg-white border-2 transition-all cursor-pointer overflow-hidden ${
+                                className={`group relative aspect-square bg-nubb-cream-light border-[1.5px] transition-all cursor-pointer overflow-hidden ${
                                   isSelected
-                                    ? "border-[#892F1A] ring-3 ring-[#892F1A]/30 shadow-md"
+                                    ? "border-nubb-orange ring-3 ring-nubb-orange/30 shadow-md"
                                     : isActive
-                                    ? "border-[#4D3F15] ring-2 ring-[#4D3F15]/20"
-                                    : "border-[#4D3F15]/40 hover:border-[#4D3F15]"
+                                    ? "border-nubb-brown ring-2 ring-nubb-brown/20"
+                                    : "border-nubb-brown/40 hover:border-nubb-brown"
                                 }`}
                               >
                                 {/* Thumbnail */}
@@ -551,10 +551,10 @@ export function MediaGalleryModal({
                                 {/* Selection Indicator Checkbox */}
                                 <div className="absolute top-1.5 right-1.5">
                                   <div
-                                    className={`w-5 h-5 border-2 flex items-center justify-center transition-colors ${
+                                    className={`w-5 h-5 border-[1.5px] flex items-center justify-center transition-colors ${
                                       isSelected
-                                        ? "bg-[#892F1A] border-[#892F1A] text-white"
-                                        : "bg-white/80 border-[#4D3F15] text-transparent group-hover:text-[#4D3F15]/40"
+                                        ? "bg-nubb-orange border-nubb-orange text-white"
+                                        : "bg-nubb-cream-light/80 border-nubb-brown text-transparent group-hover:text-nubb-brown/40"
                                     }`}
                                   >
                                     <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -579,11 +579,11 @@ export function MediaGalleryModal({
                 </div>
 
                 {/* Detail & Inspector Sidebar */}
-                <div className="w-full md:w-80 bg-white border-t md:border-t-0 border-[#4D3F15]/20 flex flex-col overflow-y-auto shrink-0 p-4 font-arial text-xs">
+                <div className="w-full md:w-80 bg-nubb-cream-light border-t md:border-t-0 border-nubb-brown/20 flex flex-col overflow-y-auto shrink-0 p-4 font-body text-xs">
                   {activeItem ? (
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2">
-                        <span className="font-lekton font-bold uppercase text-[11px] text-[#892F1A]">
+                      <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2">
+                        <span className="font-lekton font-bold uppercase text-[11px] text-nubb-orange">
                           Selected Media Details
                         </span>
                         <span
@@ -598,7 +598,7 @@ export function MediaGalleryModal({
                       </div>
 
                       {/* Image Preview */}
-                      <div className="aspect-video w-full border-2 border-[#4D3F15] bg-[#E8E6D8]/30 overflow-hidden flex items-center justify-center">
+                      <div className="aspect-video w-full border-[1.5px] border-nubb-brown bg-nubb-cream/30 overflow-hidden flex items-center justify-center">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={activeItem.url}
@@ -609,7 +609,7 @@ export function MediaGalleryModal({
 
                       {/* Local File Notice & Manual R2 Migration Button */}
                       {activeItem.storage === "local" && (
-                        <div className="p-3 bg-amber-50 border-2 border-amber-300 space-y-2">
+                        <div className="p-3 bg-amber-50 border-[1.5px] border-amber-300 space-y-2">
                           <div className="flex items-start gap-1.5 text-amber-900">
                             <HardDrive className="w-4 h-4 mt-0.5 shrink-0 text-amber-700" />
                             <div className="font-lekton text-xs font-bold leading-snug">
@@ -623,7 +623,7 @@ export function MediaGalleryModal({
                             type="button"
                             onClick={() => handleMigrateToR2(activeItem)}
                             disabled={migratingKey === activeItem.key}
-                            className="w-full py-2 bg-[#892F1A] text-white font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#4D3F15] transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                            className="w-full py-2 bg-nubb-orange text-white font-lekton font-bold text-xs uppercase tracking-wider hover:bg-nubb-brown transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
                           >
                             {migratingKey === activeItem.key ? (
                               <>
@@ -643,37 +643,37 @@ export function MediaGalleryModal({
                       {/* Metadata Table */}
                       <div className="space-y-2 font-lekton text-xs">
                         <div>
-                          <span className="text-[#4D3F15]/60 font-bold block text-[10px] uppercase">
+                          <span className="text-nubb-brown/60 font-bold block text-[10px] uppercase">
                             Filename
                           </span>
-                          <span className="font-bold break-all text-[#4D3F15]">
+                          <span className="font-bold break-all text-nubb-brown">
                             {activeItem.filename}
                           </span>
                         </div>
 
                         <div>
-                          <span className="text-[#4D3F15]/60 font-bold block text-[10px] uppercase">
+                          <span className="text-nubb-brown/60 font-bold block text-[10px] uppercase">
                             File Key / Path
                           </span>
-                          <span className="font-mono text-[10px] break-all text-[#4D3F15]/80">
+                          <span className="font-mono text-[10px] break-all text-nubb-brown/80">
                             {activeItem.key}
                           </span>
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <span className="text-[#4D3F15]/60 font-bold block text-[10px] uppercase">
+                            <span className="text-nubb-brown/60 font-bold block text-[10px] uppercase">
                               File Size
                             </span>
-                            <span className="font-bold text-[#4D3F15]">
+                            <span className="font-bold text-nubb-brown">
                               {formatBytes(activeItem.size)}
                             </span>
                           </div>
                           <div>
-                            <span className="text-[#4D3F15]/60 font-bold block text-[10px] uppercase">
+                            <span className="text-nubb-brown/60 font-bold block text-[10px] uppercase">
                               Modified Date
                             </span>
-                            <span className="font-bold text-[#4D3F15]">
+                            <span className="font-bold text-nubb-brown">
                               {formatDate(activeItem.lastModified)}
                             </span>
                           </div>
@@ -681,11 +681,11 @@ export function MediaGalleryModal({
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="space-y-2 pt-2 border-t border-[#4D3F15]/20">
+                      <div className="space-y-2 pt-2 border-t border-nubb-brown/20">
                         <button
                           type="button"
                           onClick={() => handleCopyUrl(activeItem.url)}
-                          className="w-full py-2 bg-[#E8E6D8] border border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#4D3F15] hover:text-[#E8E6D8] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                          className="w-full py-2 bg-nubb-cream border border-nubb-brown font-lekton font-bold text-xs uppercase tracking-wider hover:bg-nubb-brown hover:text-nubb-cream transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           {copiedUrl === activeItem.url ? (
                             <>
@@ -704,7 +704,7 @@ export function MediaGalleryModal({
                           href={activeItem.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-full py-2 bg-white border border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider text-center hover:bg-[#4D3F15] hover:text-[#E8E6D8] transition-colors flex items-center justify-center gap-1.5"
+                          className="w-full py-2 bg-nubb-cream-light border border-nubb-brown font-lekton font-bold text-xs uppercase tracking-wider text-center hover:bg-nubb-brown hover:text-nubb-cream transition-colors flex items-center justify-center gap-1.5"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>Open in New Tab</span>
@@ -726,7 +726,7 @@ export function MediaGalleryModal({
                       </div>
                     </div>
                   ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#4D3F15]/50 space-y-2">
+                    <div className="h-full flex flex-col items-center justify-center text-center p-6 text-nubb-brown/50 space-y-2">
                       <Info className="w-8 h-8 opacity-40" />
                       <p className="font-lekton text-xs font-bold uppercase">
                         Select an image to inspect details, copy URL, or delete
@@ -742,9 +742,9 @@ export function MediaGalleryModal({
               <div className="flex-1 p-6 overflow-y-auto flex flex-col items-center justify-start">
                 <div className="w-full max-w-2xl space-y-5">
                   {/* Storage Destination & Folder Configuration */}
-                  <div className="bg-white border-2 border-[#4D3F15] p-4 space-y-3">
-                    <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2">
-                      <span className="font-lekton font-bold uppercase text-xs text-[#892F1A] flex items-center gap-1.5">
+                  <div className="bg-nubb-cream-light border-[1.5px] border-nubb-brown p-4 space-y-3">
+                    <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2">
+                      <span className="font-lekton font-bold uppercase text-xs text-nubb-orange flex items-center gap-1.5">
                         <HardDrive className="w-3.5 h-3.5" />
                         <span>Choose Upload Destination</span>
                       </span>
@@ -753,17 +753,17 @@ export function MediaGalleryModal({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Storage Target */}
                       <div className="space-y-1.5">
-                        <label className="font-lekton text-xs font-bold uppercase text-[#4D3F15]">
+                        <label className="font-lekton text-xs font-bold uppercase text-nubb-brown">
                           Storage Target
                         </label>
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             type="button"
                             onClick={() => setUploadStorage("r2")}
-                            className={`py-2 px-2.5 border-2 font-lekton text-xs font-bold uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                            className={`py-2 px-2.5 border-[1.5px] font-lekton text-xs font-bold uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
                               uploadStorage === "r2"
-                                ? "border-[#892F1A] bg-[#892F1A] text-white"
-                                : "border-[#4D3F15]/40 bg-white text-[#4D3F15] hover:border-[#4D3F15]"
+                                ? "border-nubb-orange bg-nubb-orange text-white"
+                                : "border-nubb-brown/40 bg-nubb-cream-light text-nubb-brown hover:border-nubb-brown"
                             }`}
                           >
                             <Cloud className="w-3.5 h-3.5" />
@@ -773,17 +773,17 @@ export function MediaGalleryModal({
                           <button
                             type="button"
                             onClick={() => setUploadStorage("local")}
-                            className={`py-2 px-2.5 border-2 font-lekton text-xs font-bold uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                            className={`py-2 px-2.5 border-[1.5px] font-lekton text-xs font-bold uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
                               uploadStorage === "local"
-                                ? "border-[#892F1A] bg-[#892F1A] text-white"
-                                : "border-[#4D3F15]/40 bg-white text-[#4D3F15] hover:border-[#4D3F15]"
+                                ? "border-nubb-orange bg-nubb-orange text-white"
+                                : "border-nubb-brown/40 bg-nubb-cream-light text-nubb-brown hover:border-nubb-brown"
                             }`}
                           >
                             <HardDrive className="w-3.5 h-3.5" />
                             <span>Local Folder</span>
                           </button>
                         </div>
-                        <p className="font-lekton text-[10px] text-[#4D3F15]/60">
+                        <p className="font-lekton text-[10px] text-nubb-brown/60">
                           {uploadStorage === "r2"
                             ? "Stores on Cloudflare R2 CDN bucket (media.nubb.store)."
                             : "Saves into local filesystem (/public/uploads/). Auto-uploads to R2 if used in a product."}
@@ -792,13 +792,13 @@ export function MediaGalleryModal({
 
                       {/* Folder Destination */}
                       <div className="space-y-1.5">
-                        <label className="font-lekton text-xs font-bold uppercase text-[#4D3F15]">
+                        <label className="font-lekton text-xs font-bold uppercase text-nubb-brown">
                           Destination Folder
                         </label>
                         <select
                           value={uploadFolder}
                           onChange={(e) => setUploadFolder(e.target.value)}
-                          className="w-full px-3 py-2 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none focus:bg-white"
+                          className="w-full px-3 py-2 bg-nubb-cream/30 border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none focus:bg-nubb-cream-light"
                         >
                           <option value="products">products (default)</option>
                           <option value="banners">banners</option>
@@ -813,7 +813,7 @@ export function MediaGalleryModal({
                             value={customFolderInput}
                             onChange={(e) => setCustomFolderInput(e.target.value)}
                             placeholder="e.g. summer-drop"
-                            className="w-full px-3 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none mt-1"
+                            className="w-full px-3 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none mt-1"
                           />
                         )}
                       </div>
@@ -827,26 +827,26 @@ export function MediaGalleryModal({
                     onDragOver={handleDrag}
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
-                    className={`border-3 border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-3 ${
+                    className={`border-[1.5px] border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-3 ${
                       dragActive
-                        ? "border-[#892F1A] bg-[#892F1A]/10 scale-[1.01]"
-                        : "border-[#4D3F15] bg-white hover:bg-[#E8E6D8]/30"
+                        ? "border-nubb-orange bg-nubb-orange/10 scale-[1.01]"
+                        : "border-nubb-brown bg-nubb-cream-light hover:bg-nubb-cream/30"
                     }`}
                   >
-                    <div className="w-14 h-14 rounded-full bg-[#E8E6D8] border-2 border-[#4D3F15] flex items-center justify-center">
-                      <Upload className="w-7 h-7 text-[#892F1A]" />
+                    <div className="w-14 h-14 rounded-full bg-nubb-cream border-[1.5px] border-nubb-brown flex items-center justify-center">
+                      <Upload className="w-7 h-7 text-nubb-orange" />
                     </div>
 
                     <div>
-                      <p className="font-spray text-2xl text-[#4D3F15]">
+                      <p className="font-display text-2xl text-nubb-brown">
                         Drop Images Here
                       </p>
-                      <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70 mt-1">
+                      <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70 mt-1">
                         Destination: {uploadStorage === "r2" ? "Cloudflare R2" : "Local Storage"} &rarr; /{uploadFolder === "custom" ? (customFolderInput || "custom") : uploadFolder}
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 text-[11px] font-lekton text-[#4D3F15]/60 font-bold mt-1">
+                    <div className="flex items-center gap-2 text-[11px] font-lekton text-nubb-brown/60 font-bold mt-1">
                       <span>PNG, JPG, WEBP, GIF, AVIF</span>
                       <span>&bull;</span>
                       <span>Up to 12MB each</span>
@@ -863,16 +863,16 @@ export function MediaGalleryModal({
                   </div>
 
                   {uploadError && (
-                    <div className="p-3 bg-rose-100 border-2 border-rose-800 text-rose-900 font-arial text-xs font-bold">
+                    <div className="p-3 bg-rose-100 border-[1.5px] border-rose-800 text-rose-900 font-body text-xs font-bold">
                       {uploadError}
                     </div>
                   )}
 
                   {/* Pending files preview */}
                   {pendingFiles.length > 0 && (
-                    <div className="bg-white border-2 border-[#4D3F15] p-4 space-y-4">
-                      <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2">
-                        <span className="font-lekton font-bold uppercase text-xs text-[#892F1A]">
+                    <div className="bg-nubb-cream-light border-[1.5px] border-nubb-brown p-4 space-y-4">
+                      <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2">
+                        <span className="font-lekton font-bold uppercase text-xs text-nubb-orange">
                           Ready to Upload ({pendingFiles.length} files)
                         </span>
                         <button
@@ -888,9 +888,9 @@ export function MediaGalleryModal({
                         {pendingFiles.map((file, idx) => (
                           <div
                             key={idx}
-                            className="relative border border-[#4D3F15] p-1.5 bg-[#E8E6D8]/20 flex items-center gap-2"
+                            className="relative border border-nubb-brown p-1.5 bg-nubb-cream/20 flex items-center gap-2"
                           >
-                            <div className="w-10 h-10 bg-white border border-[#4D3F15] shrink-0 overflow-hidden flex items-center justify-center">
+                            <div className="w-10 h-10 bg-nubb-cream-light border border-nubb-brown shrink-0 overflow-hidden flex items-center justify-center">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={URL.createObjectURL(file)}
@@ -902,7 +902,7 @@ export function MediaGalleryModal({
                               <p className="font-lekton text-[10px] font-bold truncate">
                                 {file.name}
                               </p>
-                              <p className="font-lekton text-[9px] text-[#4D3F15]/60">
+                              <p className="font-lekton text-[9px] text-nubb-brown/60">
                                 {formatBytes(file.size)}
                               </p>
                             </div>
@@ -924,7 +924,7 @@ export function MediaGalleryModal({
                         type="button"
                         onClick={handleStartUpload}
                         disabled={uploading}
-                        className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-sm uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50"
+                        className="w-full py-3.5 bg-nubb-brown text-nubb-cream font-lekton font-bold text-sm uppercase tracking-wider hover:bg-nubb-orange transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                       >
                         {uploading ? (
                           <>
@@ -947,16 +947,16 @@ export function MediaGalleryModal({
             {/* TAB 3: DIRECT URL */}
             {activeTab === "url" && (
               <div className="flex-1 p-6 overflow-y-auto flex flex-col items-center justify-center">
-                <div className="w-full max-w-xl bg-white border-3 border-[#4D3F15] p-6 sm:p-8 space-y-6">
+                <div className="w-full max-w-xl bg-nubb-cream-light border-[1.5px] border-nubb-brown p-6 sm:p-8 space-y-6">
                   <div>
-                    <h3 className="font-spray text-2xl text-[#4D3F15]">Add Image by Direct URL</h3>
-                    <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/60 mt-1">
+                    <h3 className="font-display text-2xl text-nubb-brown">Add Image by Direct URL</h3>
+                    <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/60 mt-1">
                       Paste a public image link (CDN or Cloudflare URL)
                     </p>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="font-lekton text-xs uppercase font-bold text-[#4D3F15]">
+                    <label className="font-lekton text-xs uppercase font-bold text-nubb-brown">
                       Image URL
                     </label>
                     <input
@@ -967,16 +967,16 @@ export function MediaGalleryModal({
                         setDirectUrlPreviewError(false);
                       }}
                       placeholder="https://pub-xxxx.r2.dev/products/image.jpg"
-                      className="w-full px-4 py-2.5 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none focus:bg-white"
+                      className="w-full px-4 py-2.5 bg-nubb-cream/30 border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none focus:bg-nubb-cream-light"
                     />
                   </div>
 
                   {directUrlInput && (
                     <div className="space-y-2">
-                      <span className="font-lekton text-xs font-bold uppercase text-[#4D3F15]/70">
+                      <span className="font-lekton text-xs font-bold uppercase text-nubb-brown/70">
                         Live Preview:
                       </span>
-                      <div className="aspect-video w-full border-2 border-[#4D3F15] bg-[#E8E6D8]/20 flex items-center justify-center overflow-hidden">
+                      <div className="aspect-video w-full border-[1.5px] border-nubb-brown bg-nubb-cream/20 flex items-center justify-center overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={directUrlInput}
@@ -997,7 +997,7 @@ export function MediaGalleryModal({
                     type="button"
                     onClick={handleAddDirectUrl}
                     disabled={!directUrlInput.trim()}
-                    className="w-full py-3 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3 bg-nubb-brown text-nubb-cream font-lekton font-bold text-xs uppercase tracking-wider hover:bg-nubb-orange transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Attach this Image URL</span>
@@ -1008,13 +1008,13 @@ export function MediaGalleryModal({
           </div>
 
           {/* Footer Bar */}
-          <div className="p-4 bg-[#E8E6D8] border-t-3 border-[#4D3F15] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+          <div className="p-4 bg-nubb-cream border-t-3 border-nubb-brown flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
             <div className="flex items-center gap-3">
-              <span className="font-lekton text-xs font-bold text-[#4D3F15]">
+              <span className="font-lekton text-xs font-bold text-nubb-brown">
                 {selectedUrls.length === 0 ? (
-                  <span className="text-[#4D3F15]/60">No images selected</span>
+                  <span className="text-nubb-brown/60">No images selected</span>
                 ) : (
-                  <span className="text-[#892F1A]">{selectedUrls.length} image(s) selected</span>
+                  <span className="text-nubb-orange">{selectedUrls.length} image(s) selected</span>
                 )}
               </span>
 
@@ -1022,7 +1022,7 @@ export function MediaGalleryModal({
                 <button
                   type="button"
                   onClick={() => setSelectedUrls([])}
-                  className="font-lekton text-xs font-bold text-[#4D3F15]/70 hover:text-rose-700 underline cursor-pointer"
+                  className="font-lekton text-xs font-bold text-nubb-brown/70 hover:text-rose-700 underline cursor-pointer"
                 >
                   Clear selection
                 </button>
@@ -1033,7 +1033,7 @@ export function MediaGalleryModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 sm:flex-none px-5 py-2.5 bg-white border-2 border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-colors cursor-pointer"
+                className="flex-1 sm:flex-none px-5 py-2.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -1042,7 +1042,7 @@ export function MediaGalleryModal({
                 type="button"
                 onClick={handleConfirmSelection}
                 disabled={selectedUrls.length === 0}
-                className="flex-1 sm:flex-none px-6 py-2.5 bg-[#892F1A] text-white border-2 border-[#4D3F15] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#4D3F15] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 sm:flex-none px-6 py-2.5 bg-nubb-orange text-white border-[1.5px] border-nubb-brown font-lekton font-bold text-xs uppercase tracking-wider hover:bg-nubb-brown transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <span>Insert {selectedUrls.length > 0 ? `(${selectedUrls.length})` : ""} Into Product</span>
                 <ArrowRight className="w-3.5 h-3.5" />

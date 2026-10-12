@@ -6,7 +6,8 @@ import { CartProvider } from "@/components/store/CartContext";
 import { StoreHeader } from "@/components/store/StoreHeader";
 import { StoreFooter } from "@/components/store/StoreFooter";
 import { CartDrawer } from "@/components/store/CartDrawer";
-import { getStoreSetting } from "@/lib/turso";
+import { getStoreSettings } from "@/lib/turso";
+import { resolveStorefrontContent } from "@/lib/storefront-content";
 
 export const metadata = {
   title: "NUBB Staging Store | Handmade Lighter Covers & Paracord Bracelets",
@@ -26,40 +27,34 @@ export default async function EcomStagingLayout({
     return <PinGateModal />;
   }
 
-  let announcement = "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE";
-  let announcementEnabled = "true";
-
+  let settings: Record<string, string> = {};
   try {
-    announcement = await getStoreSetting(
-      "store_announcement",
-      "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE"
-    );
-    announcementEnabled = await getStoreSetting(
-      "store_announcement_enabled",
-      "true"
-    );
+    settings = await getStoreSettings();
   } catch (err) {
-    console.warn("Could not fetch store announcement settings:", err);
+    console.warn("Could not fetch store settings:", err);
   }
+
+  const announcement = settings.store_announcement ?? "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE";
+  const announcementEnabled = settings.store_announcement_enabled ?? "true";
+  const content = resolveStorefrontContent(settings);
 
   const isBannerVisible = announcementEnabled !== "false" && Boolean(announcement?.trim());
 
   return (
     <CartProvider>
-<<<<<<< HEAD
       <div className="min-h-screen flex flex-col bg-nubb-cream text-nubb-brown selection:bg-nubb-orange selection:text-nubb-cream">
-        <StoreHeader />
-=======
-      <div className="min-h-screen flex flex-col bg-[#E8E6D8] text-[#4D3F15] selection:bg-[#892F1A] selection:text-[#E8E6D8]">
         <StoreHeader
           announcement={announcement}
           showAnnouncement={isBannerVisible}
         />
->>>>>>> refs/remotes/origin/main
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <main className="flex-1 w-full">
           {children}
         </main>
-        <StoreFooter />
+        <StoreFooter
+          newsletterTitle={content.newsletter_title}
+          newsletterSubtitle={content.newsletter_subtitle}
+          links={content.footer_links}
+        />
         <CartDrawer />
       </div>
     </CartProvider>

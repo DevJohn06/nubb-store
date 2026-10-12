@@ -161,7 +161,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="nubb-surface max-w-xl mx-auto text-center py-16 px-8 space-y-4">
+      <div className="nubb-surface max-w-xl mx-auto my-12 text-center py-16 px-8 space-y-4">
         <ShoppingBag className="w-10 h-10 mx-auto text-nubb-orange" strokeWidth={1.6} />
         <h1 className="font-display text-4xl leading-none">Your bag is empty.</h1>
         <p className="font-body text-[15px] text-nubb-dark">
@@ -196,7 +196,7 @@ export default function CheckoutPage() {
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="nubb-container py-8 sm:py-12 space-y-10">
       {/* Header */}
       <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 pb-7 border-b border-nubb-brown/15">
         <div className="space-y-3.5">
@@ -211,14 +211,10 @@ export default function CheckoutPage() {
       </div>
 
       {error && (
-<<<<<<< HEAD
         <div
           role="alert"
           className="p-4 rounded-[12px] bg-nubb-crimson/10 border-[1.5px] border-nubb-crimson text-nubb-crimson flex items-center gap-3 font-body text-sm font-bold"
         >
-=======
-        <div className="p-4 bg-rose-50 border-2 border-[#892F1A] text-[#892F1A] flex items-center gap-3 font-arial text-sm font-bold">
->>>>>>> refs/remotes/origin/main
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{error}</span>
         </div>
@@ -419,16 +415,7 @@ export default function CheckoutPage() {
               </div>
             </dl>
 
-<<<<<<< HEAD
             <button type="submit" disabled={loading} className="nubb-btn-primary w-full">
-=======
-            {/* Place Order Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
-            >
->>>>>>> refs/remotes/origin/main
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />

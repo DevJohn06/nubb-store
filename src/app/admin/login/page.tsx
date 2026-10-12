@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, User, KeyRound, ArrowRight, Loader2, AlertCircle } from "lucide-react";
+import { AuthSplitLayout } from "@/components/common/AuthSplitLayout";
+import { User, KeyRound, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -41,41 +42,21 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-nubb-cream text-nubb-brown flex flex-col items-center justify-center p-6 selection:bg-nubb-orange selection:text-nubb-cream">
+    <AuthSplitLayout eyebrow="NUBB Studio Operations" headline="Admin portal.">
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md nubb-surface p-8 sm:p-10 space-y-6"
+        className="nubb-surface p-8 sm:p-10 space-y-6"
       >
-        {/* Header & Emblem */}
-        <div className="flex flex-col items-center text-center space-y-3">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/brand-mark.svg?v=3"
-              alt="NUBB"
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
-
-          <div>
-            <h1 className="font-display text-3xl sm:text-4xl text-nubb-brown">Admin Portal</h1>
-            <p className="font-lekton text-xs font-bold text-nubb-orange uppercase tracking-wider mt-1">
-              Secure Operations & Management
-            </p>
-          </div>
+        <div className="space-y-2">
+          <h1 className="font-display text-3xl sm:text-4xl">Sign in</h1>
+          <p className="font-lekton text-xs font-bold text-nubb-orange uppercase tracking-wider">
+            Secure operations &amp; management
+          </p>
         </div>
 
         {error && (
-<<<<<<< HEAD
           <div className="p-3 rounded-[12px] bg-nubb-crimson/10 border-[1.5px] border-nubb-crimson text-nubb-crimson flex items-center gap-2 font-body text-xs font-bold">
-=======
-          <div className="p-3 bg-rose-50 border-2 border-[#892F1A] text-[#892F1A] flex items-center gap-2 font-arial text-xs font-bold rounded-[10px]">
->>>>>>> refs/remotes/origin/main
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -119,11 +100,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-<<<<<<< HEAD
             className="nubb-btn-primary w-full mt-2"
-=======
-            className="w-full py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-sm font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50 mt-2 rounded-[10px]"
->>>>>>> refs/remotes/origin/main
           >
             {loading ? (
               <>
@@ -148,6 +125,6 @@ export default function AdminLoginPage() {
           </p>
         </div>
       </motion.div>
-    </div>
+    </AuthSplitLayout>
   );
 }

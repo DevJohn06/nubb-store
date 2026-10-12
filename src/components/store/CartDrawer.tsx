@@ -116,11 +116,7 @@ export function CartDrawer() {
 
                           <button
                             onClick={() => removeItem(item.id)}
-<<<<<<< HEAD
                             className="text-nubb-brown/60 hover:text-nubb-crimson p-1 transition-colors cursor-pointer"
-=======
-                            className="text-[#4D3F15]/60 hover:text-[#892F1A] p-1 transition-colors cursor-pointer"
->>>>>>> refs/remotes/origin/main
                             title="Remove item"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -146,11 +142,7 @@ export function CartDrawer() {
                   <Link
                     href="/ecom-staging/checkout"
                     onClick={() => setIsCartOpen(false)}
-<<<<<<< HEAD
                     className="nubb-btn-primary w-full"
-=======
-                    className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer block text-center"
->>>>>>> refs/remotes/origin/main
                   >
                     Proceed to Checkout
                     <ArrowRight className="w-5 h-5" />

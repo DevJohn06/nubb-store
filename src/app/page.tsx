@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Stamp } from "@/components/store/Stamp";
 
 export default function ComingSoonPage() {
   const [name, setName] = useState("");
@@ -55,7 +56,7 @@ export default function ComingSoonPage() {
           particleCount: 90,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ["#892F1A", "#4D3F15", "#624A41", "#E8E6D8"],
+          colors: ["#892F1A", "#640017", "#4D3F15", "#E8E6D8", "#F2BF4A"],
         });
       } catch {}
     } catch (err: unknown) {
@@ -66,169 +67,127 @@ export default function ComingSoonPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#E8E6D8] text-[#4D3F15] flex items-center justify-center p-6 sm:p-12 md:p-16 lg:p-20 selection:bg-[#892F1A] selection:text-[#E8E6D8]">
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
-        
-        {/* Left Column: Brand Mark SVG, NUBB SVG Logo, Subtitle & Manifesto */}
+    <div className="min-h-screen w-full bg-nubb-cream text-nubb-brown flex flex-col selection:bg-nubb-orange selection:text-nubb-cream">
+      {/* Top bar */}
+      <header className="nubb-container h-20 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-dark-brown.svg?v=3" alt="NUBB" className="h-8 sm:h-9 w-auto object-contain rounded-none" />
+          <span className="font-lekton text-[11px] font-bold tracking-[0.18em] uppercase">— the things we carry —</span>
+        </div>
+      </header>
+
+      <main className="flex-1 nubb-container py-10 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Left: manifesto */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-start justify-end space-y-3"
+          className="space-y-6"
         >
-          {/* Perpetually Spinning SVG Brand Mark Emblem */}
-          <motion.div
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="cursor-pointer"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/brand-mark.svg?v=3"
-              alt="NUBB Brand Mark"
-              className="w-32 sm:w-40 md:w-44 h-auto block"
-            />
-          </motion.div>
-
-          {/* SVG NUBB Logo */}
-          <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/logo-dark-brown.svg?v=3"
-              alt="NUBB"
-              className="w-64 sm:w-80 md:w-[370px] h-auto block"
-            />
-          </div>
-
-          {/* Tagline */}
-          <p
-            className="font-lekton font-bold tracking-wider text-[#892F1A] lowercase"
-            style={{ fontSize: "30px", lineHeight: "1.1" }}
-          >
+          <p className="nubb-eyebrow">Handmade studio · Coming soon</p>
+          <h1 className="font-display text-[clamp(3.25rem,7vw,6.5rem)] leading-[0.92] text-balance">
             the things we carry.
-          </p>
-
-          {/* Brand Manifesto Paragraph */}
-          <div className="font-arial text-sm sm:text-base md:text-lg text-[#4D3F15] leading-relaxed max-w-lg space-y-3 font-bold pt-1">
+          </h1>
+          <span className="nubb-wave" aria-hidden="true" style={{ width: 150 }} />
+          <div className="font-body text-lg leading-relaxed max-w-[44ch] space-y-3">
             <p>
-              NUBB is about making small objects that become part of how you move through life. Handmade objects that blur the line between art and utility.
+              NUBB is about making small objects that become part of how you move through life. Handmade objects
+              that blur the line between art and utility.
             </p>
-            <p>
-              Every piece is made by hand, shaped by instinct, and designed to be used, carried, tied, clipped, worn, or displayed.
+            <p className="text-nubb-dark">
+              Every piece is made by hand, shaped by instinct, and designed to be used, carried, tied, clipped,
+              worn, or displayed.
             </p>
           </div>
         </motion.div>
 
-        {/* Right Column: Title, Subtitle, Description & Signup Form */}
+        {/* Right: signup on the orange panel */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="flex flex-col items-start justify-end space-y-5 md:pl-4"
+          className="relative mb-10 lg:mb-0"
         >
-          <div>
-            <h1
-              className="font-spray text-4xl sm:text-6xl md:text-7xl text-[#4D3F15] tracking-wide block"
-              style={{ lineHeight: "0.95" }}
-            >
-              Be the first to know.
-            </h1>
+          <div className="bg-nubb-orange rounded-[160px_28px_28px_80px] sm:rounded-[240px_28px_28px_120px] p-6 sm:p-12 lg:p-14 flex items-center justify-center">
+            <div className="nubb-surface w-full max-w-md p-7 sm:p-9 space-y-5">
+              <div className="space-y-2">
+                <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] leading-none">Be the first to know.</h2>
+                <p className="font-lekton text-sm font-bold uppercase tracking-[0.1em] text-nubb-orange">
+                  We are getting the shop ready
+                </p>
+                <p className="font-body text-sm text-nubb-dark">
+                  Drop your email and get notified as soon as we launch.
+                </p>
+              </div>
 
-            <h2
-              className="font-lekton font-bold text-[#4D3F15] tracking-wide block"
-              style={{ paddingTop: "8px", fontSize: "30px", lineHeight: "1.1" }}
-            >
-              We are getting the shop ready
-            </h2>
-
-            <p
-              className="font-arial font-bold text-[#4D3F15] text-base sm:text-lg block"
-              style={{ fontWeight: "bold", lineHeight: "1.25", paddingTop: "8px" }}
-            >
-              Drop your email and get notified as soon as we launch.
-            </p>
-          </div>
-
-          {/* Email Subscription Form */}
-          <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-lg pt-3">
-            <div>
-              <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={status === "loading"}
-                required
-                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40 rounded-[10px]"
-              />
-            </div>
-
-            <div>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={status === "loading"}
-                required
-                className="w-full px-5 py-4 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] focus:outline-none font-arial text-base sm:text-lg transition-colors placeholder-[#4D3F15]/40 rounded-[10px]"
-              />
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="px-10 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#892F1A] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75 rounded-[10px]"
-              >
-                {status === "loading" ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Submitting...
-                  </>
-                ) : (
-                  "Submit"
-                )}
-              </button>
-            </div>
-          </form>
-
-          {/* Feedback Message */}
-          <AnimatePresence>
-            {message && (
-              <motion.div
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                className="pt-2 w-full max-w-lg font-arial text-sm sm:text-base"
-              >
-                <div
-                  className={`flex items-start gap-2 p-3.5 border-2 rounded-[10px] ${
-                    status === "success"
-                      ? "bg-emerald-50 text-emerald-900 border-emerald-700"
-                      : "bg-rose-50 text-rose-900 border-[#892F1A]"
-                  }`}
-                >
-                  {status === "success" ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5 text-[#892F1A] shrink-0 mt-0.5" />
-                  )}
-                  <span>{message}</span>
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="space-y-1.5">
+                  <label htmlFor="cs-name" className="nubb-label">Name</label>
+                  <input
+                    id="cs-name"
+                    type="text"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={status === "loading"}
+                    required
+                    className="nubb-input"
+                  />
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                <div className="space-y-1.5">
+                  <label htmlFor="cs-email" className="nubb-label">Email</label>
+                  <input
+                    id="cs-email"
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={status === "loading"}
+                    required
+                    className="nubb-input"
+                  />
+                </div>
+                <button type="submit" disabled={status === "loading"} className="nubb-btn-primary w-full mt-2">
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    "Notify me"
+                  )}
+                </button>
+              </form>
 
+              {/* Feedback Message */}
+              <AnimatePresence>
+                {message && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    role="status"
+                    className={`flex items-start gap-2 p-3.5 rounded-[12px] border-[1.5px] font-body text-sm font-bold ${
+                      status === "success"
+                        ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
+                        : "bg-nubb-crimson/10 text-nubb-crimson border-nubb-crimson"
+                    }`}
+                  >
+                    {status === "success" ? (
+                      <CheckCircle2 className="w-5 h-5 shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 shrink-0" />
+                    )}
+                    <span>{message}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+          <Stamp className="absolute -right-2 -bottom-10 hidden sm:block" />
         </motion.div>
-
-      </div>
+      </main>
     </div>
   );
 }

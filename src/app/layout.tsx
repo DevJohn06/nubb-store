@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lekton, Rubik_Spray_Paint, DM_Sans } from "next/font/google";
+import { Lekton, DM_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -7,14 +7,6 @@ const lekton = Lekton({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-lekton",
-  display: "swap",
-});
-
-// Legacy: only the live coming-soon page (src/app/page.tsx) still uses this.
-const rubikSpray = Rubik_Spray_Paint({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-spray",
   display: "swap",
 });
 
@@ -66,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${lekton.variable} ${rubikSpray.variable} ${dmSans.variable} ${bantayog.variable}`}
+      className={`${lekton.variable} ${dmSans.variable} ${bantayog.variable}`}
     >
       <body className="antialiased selection:bg-nubb-orange selection:text-nubb-cream">
         {children}

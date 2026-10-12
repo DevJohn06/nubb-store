@@ -21,12 +21,7 @@
 
 @theme {
   --color-nubb-cream: #E8E6D8;
-<<<<<<< HEAD
   --color-nubb-cream-light: #F4F2EA;
-=======
-  --color-nubb-orange: #892F1A;
-  --color-nubb-crimson: #892F1A;
->>>>>>> refs/remotes/origin/main
   --color-nubb-brown: #4D3F15;
   --color-nubb-dark: #624A41;
   --color-nubb-orange: #892F1A;
@@ -38,10 +33,6 @@
   --font-body: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
   --font-sans: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
   --font-lekton: var(--font-lekton), "Courier New", monospace;
-
-  /* Legacy families, still used by the live coming-soon page (src/app/page.tsx) */
-  --font-spray: var(--font-spray), cursive, sans-serif;
-  --font-arial: "Arial Nova", "Arial", sans-serif;
 
   /* Radii */
   --radius-nubb-btn: 8px;
@@ -84,53 +75,9 @@ body {
   border-radius: var(--radius-nubb-card);
 }
 
-<<<<<<< HEAD
 /* ---------------------------------------------------------------
  * Base radii
  * ------------------------------------------------------------- */
-=======
-.nubb-shadow {
-  box-shadow: 4px 4px 0px var(--nubb-brown);
-  border-radius: 10px;
-}
-
-.nubb-shadow-lg {
-  box-shadow: 6px 6px 0px var(--nubb-brown);
-  border-radius: 10px;
-}
-
-.nubb-shadow-crimson {
-  box-shadow: 6px 6px 0px var(--nubb-crimson);
-  border-radius: 10px;
-}
-
-.nubb-shadow-orange {
-  box-shadow: 4px 4px 0px var(--nubb-orange);
-  border-radius: 10px;
-}
-
-.nubb-shadow-orange-lg {
-  box-shadow: 6px 6px 0px var(--nubb-orange);
-  border-radius: 10px;
-}
-
-.nubb-shadow-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 10px;
-}
-
-.nubb-shadow-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--nubb-brown);
-}
-
-.nubb-shadow-hover:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--nubb-brown);
-}
-
-/* Card components */
->>>>>>> refs/remotes/origin/main
 .nubb-card,
 .card {
   border-radius: var(--radius-nubb-card);
@@ -168,6 +115,14 @@ picture img {
 /* ---------------------------------------------------------------
  * Components (use these in new markup)
  * ------------------------------------------------------------- */
+
+/* Page-width container: wide, with fluid side gutters (bands go full-bleed outside it) */
+.nubb-container {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 2.75vw, 48px);
+}
 
 /* Small uppercase label above headings */
 .nubb-eyebrow {

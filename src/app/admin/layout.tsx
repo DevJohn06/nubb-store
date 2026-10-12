@@ -37,7 +37,7 @@ export default async function AdminLayout({
             role: session.role,
           }}
         />
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto max-w-7xl w-full">
+        <main className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto max-w-[1600px] w-full">
           {children}
         </main>
       </div>

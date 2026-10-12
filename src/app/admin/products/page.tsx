@@ -340,11 +340,7 @@ export default function AdminProductsPage() {
                         </button>
                         <button
                           onClick={() => handleDeleteProduct(p.id)}
-<<<<<<< HEAD
                           className="p-1.5 bg-nubb-cream border border-nubb-brown hover:bg-nubb-crimson hover:text-nubb-cream hover:border-nubb-crimson transition-colors cursor-pointer"
-=======
-                          className="p-1.5 bg-[#E8E6D8] border border-[#4D3F15] hover:bg-[#892F1A] hover:text-[#E8E6D8] hover:border-[#892F1A] transition-colors cursor-pointer"
->>>>>>> refs/remotes/origin/main
                           title="Archive Product"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -494,55 +490,8 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
 
-<<<<<<< HEAD
-                  {/* Cloudflare R2 Multi-Image Upload */}
-                  <div className="space-y-2">
-                    <label className="font-lekton text-xs uppercase tracking-wider text-nubb-brown block">
-                      Product Images (Cloudflare R2 Storage)
-                    </label>
-
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                      {images.map((img, idx) => (
-                        <div key={idx} className="relative aspect-square border border-nubb-brown/15 bg-nubb-cream-light group">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={img} alt="Upload" className="w-full h-full object-cover" />
-                          <button
-                            type="button"
-                            onClick={() => removeImage(idx)}
-                            className="absolute top-1 right-1 p-1 bg-nubb-crimson text-white rounded-full opacity-90 hover:opacity-100 cursor-pointer"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ))}
-
-                      {/* Add Image Box */}
-                      <label className="aspect-square rounded-[12px] border-[1.5px] border-dashed border-nubb-brown/45 bg-nubb-cream-light/50 flex flex-col items-center justify-center cursor-pointer hover:bg-nubb-cream-light transition-colors">
-                        {uploadingImage ? (
-                          <Loader2 className="w-6 h-6 animate-spin text-nubb-brown" />
-                        ) : (
-                          <>
-                            <Upload className="w-6 h-6 text-nubb-brown/60 mb-1" />
-                            <span className="font-lekton text-[10px] font-bold uppercase text-nubb-brown">
-                              Upload
-                            </span>
-                          </>
-                        )}
-                        <input
-                          type="file"
-                          multiple
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          disabled={uploadingImage}
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
-                  </div>
-=======
                   {/* Cloudflare R2 Product Media Manager */}
                   <ProductMediaManager images={images} onChange={setImages} />
->>>>>>> refs/remotes/origin/main
 
                   {/* Description */}
                   <div className="space-y-1.5">

@@ -65,7 +65,7 @@ export default function ProductDetailPage({
 
   if (!product) {
     return (
-      <div className="nubb-surface max-w-xl mx-auto text-center py-16 px-8 space-y-4">
+      <div className="nubb-surface max-w-xl mx-auto my-12 text-center py-16 px-8 space-y-4">
         <p className="nubb-eyebrow">Not found</p>
         <h1 className="font-display text-4xl leading-none">This piece has moved on.</h1>
         <p className="font-body text-[15px] text-nubb-dark">
@@ -91,7 +91,7 @@ export default function ProductDetailPage({
   };
 
   return (
-    <div className="space-y-10 sm:space-y-12">
+    <div className="nubb-container py-8 sm:py-12 space-y-10 sm:space-y-12">
       {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
@@ -217,16 +217,10 @@ export default function ProductDetailPage({
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex items-center justify-between sm:justify-start border-[1.5px] border-nubb-brown rounded-[8px] overflow-hidden">
                 <button
-<<<<<<< HEAD
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   disabled={quantity <= 1 || isOutOfStock}
                   aria-label="Decrease quantity"
                   className="w-12 h-12 inline-flex items-center justify-center rounded-none hover:bg-nubb-brown hover:text-nubb-cream transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-nubb-brown cursor-pointer disabled:cursor-not-allowed"
-=======
-                  onClick={handleAddToCart}
-                  disabled={isOutOfStock}
-                  className="flex-1 py-3.5 px-6 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-base uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#892F1A] transition-all flex items-center justify-center gap-2.5 nubb-shadow-hover cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
->>>>>>> refs/remotes/origin/main
                 >
                   <Minus className="w-4 h-4" />
                 </button>

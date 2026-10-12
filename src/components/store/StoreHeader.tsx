@@ -2,19 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, Search } from "lucide-react";
 import { useCart } from "./CartContext";
 
-<<<<<<< HEAD
 const NAV = [
-  { href: "/ecom-staging", label: "All Pieces" },
-  { href: "/ecom-staging?category=lighter-covers", label: "Lighter Covers" },
-  { href: "/ecom-staging?category=paracord-bracelets", label: "Paracord" },
-  { href: "/ecom-staging?category=accessories", label: "Accessories" },
+  { href: "/ecom-staging#catalog", label: "Shop" },
+  { href: "/ecom-staging/about", label: "About" },
+  { href: "/ecom-staging/craft", label: "Craft" },
 ];
 
-export function StoreHeader() {
-=======
+const SEARCH_HREF = "/ecom-staging/search";
+
 export interface StoreHeaderProps {
   announcement?: string;
   showAnnouncement?: boolean;
@@ -24,29 +22,19 @@ export function StoreHeader({
   announcement = "HANDCRAFTED IN SMALL BATCHES — STAGING PREVIEW ACTIVE",
   showAnnouncement = true,
 }: StoreHeaderProps) {
->>>>>>> refs/remotes/origin/main
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-<<<<<<< HEAD
     <header className="sticky top-0 z-40 w-full bg-nubb-cream/95 backdrop-blur-sm border-b border-nubb-brown/15">
-      {/* Staging notice */}
-      <div className="bg-nubb-brown text-nubb-cream py-1.5 px-4 text-center font-lekton text-xs font-bold tracking-[0.14em] uppercase">
-        Staging preview · Handmade in small batches
-      </div>
-=======
-    <header className="sticky top-0 z-40 w-full bg-[#E8E6D8] border-b-2 border-[#4D3F15]">
-      {/* Announcement Bar */}
+      {/* Announcement bar (admin-controlled via store settings) */}
       {showAnnouncement && Boolean(announcement?.trim()) && (
-        <div className="bg-black text-[#E8E6D8] py-1.5 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2 border-b border-[#4D3F15]/40">
-          <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
-          <span>{announcement}</span>
+        <div className="bg-nubb-brown text-nubb-cream py-1.5 px-4 text-center font-lekton text-xs font-bold tracking-[0.14em] uppercase">
+          {announcement}
         </div>
       )}
->>>>>>> refs/remotes/origin/main
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+      <div className="nubb-container h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
         {/* Desktop navigation (left) */}
         <nav
           aria-label="Main"
@@ -86,8 +74,16 @@ export function StoreHeader({
           </span>
         </Link>
 
-        {/* Bag (right) */}
-        <div className="justify-self-end flex items-center">
+        {/* Search + Bag (right) */}
+        <div className="justify-self-end flex items-center gap-5">
+          <Link
+            href={SEARCH_HREF}
+            aria-label="Search"
+            className="inline-flex items-center gap-2 min-h-11 px-2 font-body text-[13px] font-bold tracking-[0.08em] uppercase hover:text-nubb-orange transition-colors"
+          >
+            <Search className="w-4 h-4 sm:hidden" />
+            <span className="hidden sm:inline">Search</span>
+          </Link>
           <button
             onClick={() => setIsCartOpen(true)}
             className="inline-flex items-center gap-2 min-h-11 px-2 font-body text-[13px] font-bold tracking-[0.08em] uppercase hover:text-nubb-orange transition-colors cursor-pointer"
@@ -104,7 +100,7 @@ export function StoreHeader({
       {isMobileMenuOpen && (
         <nav
           aria-label="Main"
-          className="md:hidden border-t border-nubb-brown/15 bg-nubb-cream px-6 py-4 font-body font-bold tracking-[0.08em] uppercase text-sm"
+          className="md:hidden border-t border-nubb-brown/15 bg-nubb-cream px-4 py-4 font-body font-bold tracking-[0.08em] uppercase text-sm"
         >
           {NAV.map((item) => (
             <Link

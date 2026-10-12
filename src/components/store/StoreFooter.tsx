@@ -1,72 +1,55 @@
 import React from "react";
 import Link from "next/link";
+import { safeHref, isExternalHref, type FooterLink } from "@/lib/storefront-content";
+import { NewsletterForm } from "./NewsletterForm";
 
-export function StoreFooter() {
+export function StoreFooter({
+  newsletterTitle,
+  newsletterSubtitle,
+  links,
+}: {
+  newsletterTitle: string;
+  newsletterSubtitle: string;
+  links: FooterLink[];
+}) {
   return (
-    <footer className="border-t border-nubb-brown/15 bg-nubb-cream text-nubb-brown py-16 px-4 sm:px-6 lg:px-8 mt-24">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 items-start">
-        {/* Brand & manifesto */}
-        <div className="md:col-span-2 space-y-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/logo-dark-brown.svg?v=3"
-            alt="NUBB"
-            className="h-8 w-auto object-contain rounded-none"
-          />
-          <p className="font-display text-2xl leading-tight">the things we carry.</p>
-          <span className="nubb-wave" aria-hidden="true" style={{ width: 96 }} />
-          <p className="font-body text-sm text-nubb-dark max-w-md leading-relaxed">
-            NUBB makes small objects that become part of how you move through life. Handmade objects
-            that blur the line between art and utility.
-          </p>
+    <footer className="bg-nubb-cream text-nubb-brown border-t border-nubb-brown/15">
+      <div className="nubb-container py-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+        <div>
+          <p className="font-body text-[13px] font-bold tracking-[0.08em] uppercase">{newsletterTitle}</p>
+          <p className="font-body text-sm text-nubb-dark mt-0.5">{newsletterSubtitle}</p>
         </div>
 
-        {/* Catalog */}
-        <div className="space-y-3">
-          <h4 className="nubb-eyebrow">Catalog</h4>
-          <ul className="space-y-2 font-body text-sm font-bold">
-            <li>
-              <Link href="/ecom-staging" className="hover:text-nubb-orange transition-colors">
-                All Products
-              </Link>
-            </li>
-            <li>
-              <Link href="/ecom-staging?category=lighter-covers" className="hover:text-nubb-orange transition-colors">
-                Handcrafted Lighter Covers
-              </Link>
-            </li>
-            <li>
-              <Link href="/ecom-staging?category=paracord-bracelets" className="hover:text-nubb-orange transition-colors">
-                Paracord Bracelets
-              </Link>
-            </li>
-            <li>
-              <Link href="/ecom-staging?category=accessories" className="hover:text-nubb-orange transition-colors">
-                EDC Accessories
-              </Link>
-            </li>
-          </ul>
+        <div className="lg:justify-self-center w-full max-w-md">
+          <NewsletterForm />
         </div>
 
-        {/* Studio */}
-        <div className="space-y-3">
-          <h4 className="nubb-eyebrow">Studio</h4>
-          <ul className="space-y-2 font-body text-sm font-bold">
-            <li>
-              <Link href="/" className="hover:text-nubb-orange transition-colors">
-                Coming Soon Page
-              </Link>
-            </li>
-            <li className="pt-2 text-xs font-normal text-nubb-dark">
-              Handcrafted in small batches &bull; Davao
-            </li>
+        <nav aria-label="Footer" className="lg:justify-self-end">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 font-body text-[13px] font-bold tracking-[0.08em] uppercase">
+            {links.map((link, i) => {
+              const href = safeHref(link.url);
+              return (
+                <li key={`${link.label}-${i}`}>
+                  {isExternalHref(href) ? (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-nubb-orange transition-colors">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={href} className="hover:text-nubb-orange transition-colors">
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
-        </div>
+        </nav>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-nubb-brown/15 flex flex-col sm:flex-row items-center justify-between text-xs font-lekton font-bold text-nubb-dark gap-4">
-        <p>&copy; {new Date().getFullYear()} NUBB STORE. All Rights Reserved.</p>
-        <p>Built with Craft &amp; Utility.</p>
+      <div className="nubb-container pb-6">
+        <p className="pt-5 border-t border-nubb-brown/10 font-lekton text-xs font-bold text-nubb-dark">
+          &copy; {new Date().getFullYear()} NUBB. Handcrafted in small batches · Davao.
+        </p>
       </div>
     </footer>
   );

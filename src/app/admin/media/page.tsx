@@ -222,17 +222,17 @@ export default function AdminMediaPage() {
   });
 
   return (
-    <div className="space-y-6 font-arial">
+    <div className="space-y-6 font-body">
       {/* Header & Storage Status */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#4D3F15] pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-nubb-brown pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-spray text-3xl sm:text-4xl text-[#4D3F15]">Media Studio</h1>
-            <span className="px-2.5 py-0.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold uppercase">
+            <h1 className="font-display text-3xl sm:text-4xl text-nubb-brown">Media Studio</h1>
+            <span className="px-2.5 py-0.5 bg-nubb-brown text-nubb-cream font-lekton text-xs font-bold uppercase">
               R2 Object Storage
             </span>
           </div>
-          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#892F1A] mt-1">
+          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-orange mt-1">
             Manage Cloudflare R2 images, view asset metadata & copy public URLs
           </p>
         </div>
@@ -241,7 +241,7 @@ export default function AdminMediaPage() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploadingFiles}
-            className="px-4 py-2.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-xs uppercase tracking-wider hover:bg-[#892F1A] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer disabled:opacity-50"
+            className="px-4 py-2.5 bg-nubb-brown text-nubb-cream font-lekton font-bold text-xs uppercase tracking-wider hover:bg-nubb-orange transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {uploadingFiles ? (
               <>
@@ -259,10 +259,10 @@ export default function AdminMediaPage() {
           <button
             onClick={fetchMedia}
             disabled={loading}
-            className="p-2.5 bg-white border-2 border-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer"
+            className="p-2.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown hover:bg-nubb-cream transition-colors cursor-pointer"
             title="Refresh Library"
           >
-            <RefreshCw className={`w-4 h-4 text-[#4D3F15] ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-4 h-4 text-nubb-brown ${loading ? "animate-spin" : ""}`} />
           </button>
 
           <input
@@ -280,43 +280,43 @@ export default function AdminMediaPage() {
 
       {/* Storage Information Banner */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 bg-white border-2 border-[#4D3F15] nubb-shadow-sm flex items-center gap-3.5">
-          <div className="w-10 h-10 bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center shrink-0">
-            <Cloud className="w-5 h-5 text-[#892F1A]" />
+        <div className="p-4 bg-nubb-cream-light border-[1.5px] border-nubb-brown flex items-center gap-3.5">
+          <div className="w-10 h-10 bg-nubb-cream border border-nubb-brown flex items-center justify-center shrink-0">
+            <Cloud className="w-5 h-5 text-nubb-orange" />
           </div>
           <div className="min-w-0 flex-1 font-lekton">
-            <span className="text-[10px] uppercase font-bold text-[#4D3F15]/60 block">
+            <span className="text-[10px] uppercase font-bold text-nubb-brown/60 block">
               Storage Backend
             </span>
-            <span className="text-sm font-bold text-[#4D3F15] block truncate">
+            <span className="text-sm font-bold text-nubb-brown block truncate">
               {storageStatus?.configured ? "Cloudflare R2 Connected" : "Local Storage (/public/uploads)"}
             </span>
           </div>
         </div>
 
-        <div className="p-4 bg-white border-2 border-[#4D3F15] nubb-shadow-sm flex items-center gap-3.5">
-          <div className="w-10 h-10 bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center shrink-0">
-            <Layers className="w-5 h-5 text-[#892F1A]" />
+        <div className="p-4 bg-nubb-cream-light border-[1.5px] border-nubb-brown flex items-center gap-3.5">
+          <div className="w-10 h-10 bg-nubb-cream border border-nubb-brown flex items-center justify-center shrink-0">
+            <Layers className="w-5 h-5 text-nubb-orange" />
           </div>
           <div className="min-w-0 flex-1 font-lekton">
-            <span className="text-[10px] uppercase font-bold text-[#4D3F15]/60 block">
+            <span className="text-[10px] uppercase font-bold text-nubb-brown/60 block">
               Total Assets
             </span>
-            <span className="text-sm font-bold text-[#4D3F15] block">
+            <span className="text-sm font-bold text-nubb-brown block">
               {mediaList.length} Files
             </span>
           </div>
         </div>
 
-        <div className="p-4 bg-white border-2 border-[#4D3F15] nubb-shadow-sm flex items-center gap-3.5">
-          <div className="w-10 h-10 bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center shrink-0">
-            <ExternalLink className="w-5 h-5 text-[#892F1A]" />
+        <div className="p-4 bg-nubb-cream-light border-[1.5px] border-nubb-brown flex items-center gap-3.5">
+          <div className="w-10 h-10 bg-nubb-cream border border-nubb-brown flex items-center justify-center shrink-0">
+            <ExternalLink className="w-5 h-5 text-nubb-orange" />
           </div>
           <div className="min-w-0 flex-1 font-lekton">
-            <span className="text-[10px] uppercase font-bold text-[#4D3F15]/60 block">
+            <span className="text-[10px] uppercase font-bold text-nubb-brown/60 block">
               Public CDN Endpoint
             </span>
-            <span className="text-xs font-mono font-bold text-[#4D3F15] block truncate">
+            <span className="text-xs font-mono font-bold text-nubb-brown block truncate">
               {storageStatus?.publicUrl || "Local Server CDN"}
             </span>
           </div>
@@ -324,13 +324,13 @@ export default function AdminMediaPage() {
       </div>
 
       {/* Destination Configuration Card */}
-      <div className="bg-white border-2 border-[#4D3F15] p-4 nubb-shadow-sm space-y-3 font-lekton">
-        <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2">
-          <span className="font-bold uppercase text-xs text-[#892F1A] flex items-center gap-1.5">
+      <div className="bg-nubb-cream-light border-[1.5px] border-nubb-brown p-4 space-y-3 font-lekton">
+        <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2">
+          <span className="font-bold uppercase text-xs text-nubb-orange flex items-center gap-1.5">
             <HardDrive className="w-3.5 h-3.5" />
             <span>Upload Destination Settings</span>
           </span>
-          <span className="text-[11px] text-[#4D3F15]/70 font-bold">
+          <span className="text-[11px] text-nubb-brown/70 font-bold">
             Target: {uploadStorage === "r2" ? "Cloudflare R2 (media.nubb.store)" : "Local Filesystem (/public/uploads)"} &rarr; /{uploadFolder === "custom" ? (customFolderInput || "custom") : uploadFolder}
           </span>
         </div>
@@ -338,17 +338,17 @@ export default function AdminMediaPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-bold">
           {/* Storage Destination Toggle */}
           <div className="space-y-1.5">
-            <label className="text-xs uppercase text-[#4D3F15] block">
+            <label className="text-xs uppercase text-nubb-brown block">
               Storage Target
             </label>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setUploadStorage("r2")}
-                className={`py-2 px-3 border-2 uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                className={`py-2 px-3 border-[1.5px] uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
                   uploadStorage === "r2"
-                    ? "border-[#892F1A] bg-[#892F1A] text-white"
-                    : "border-[#4D3F15]/40 bg-white text-[#4D3F15] hover:border-[#4D3F15]"
+                    ? "border-nubb-orange bg-nubb-orange text-white"
+                    : "border-nubb-brown/40 bg-nubb-cream-light text-nubb-brown hover:border-nubb-brown"
                 }`}
               >
                 <Cloud className="w-3.5 h-3.5" />
@@ -358,17 +358,17 @@ export default function AdminMediaPage() {
               <button
                 type="button"
                 onClick={() => setUploadStorage("local")}
-                className={`py-2 px-3 border-2 uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                className={`py-2 px-3 border-[1.5px] uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
                   uploadStorage === "local"
-                    ? "border-[#892F1A] bg-[#892F1A] text-white"
-                    : "border-[#4D3F15]/40 bg-white text-[#4D3F15] hover:border-[#4D3F15]"
+                    ? "border-nubb-orange bg-nubb-orange text-white"
+                    : "border-nubb-brown/40 bg-nubb-cream-light text-nubb-brown hover:border-nubb-brown"
                 }`}
               >
                 <HardDrive className="w-3.5 h-3.5" />
                 <span>Local Storage</span>
               </button>
             </div>
-            <p className="text-[10px] text-[#4D3F15]/60">
+            <p className="text-[10px] text-nubb-brown/60">
               {uploadStorage === "r2"
                 ? "Stores directly on Cloudflare R2 bucket with custom CDN URL."
                 : "Saves locally into /public/uploads/. Auto-migrates to R2 when attached to a product."}
@@ -377,13 +377,13 @@ export default function AdminMediaPage() {
 
           {/* Folder Target */}
           <div className="space-y-1.5">
-            <label className="text-xs uppercase text-[#4D3F15] block">
+            <label className="text-xs uppercase text-nubb-brown block">
               Destination Folder
             </label>
             <select
               value={uploadFolder}
               onChange={(e) => setUploadFolder(e.target.value)}
-              className="w-full px-3 py-2 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] text-xs font-bold text-[#4D3F15] focus:outline-none focus:bg-white"
+              className="w-full px-3 py-2 bg-nubb-cream/30 border-[1.5px] border-nubb-brown text-xs font-bold text-nubb-brown focus:outline-none focus:bg-nubb-cream-light"
             >
               <option value="products">products (default)</option>
               <option value="banners">banners</option>
@@ -398,7 +398,7 @@ export default function AdminMediaPage() {
                 value={customFolderInput}
                 onChange={(e) => setCustomFolderInput(e.target.value)}
                 placeholder="e.g. promotional-2026"
-                className="w-full px-3 py-1.5 bg-white border-2 border-[#4D3F15] text-xs font-bold text-[#4D3F15] focus:outline-none mt-1"
+                className="w-full px-3 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown text-xs font-bold text-nubb-brown focus:outline-none mt-1"
               />
             )}
           </div>
@@ -412,43 +412,43 @@ export default function AdminMediaPage() {
         onDragOver={handleDrag}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2 ${
+        className={`border-[1.5px] border-dashed p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2 ${
           dragActive
-            ? "border-[#892F1A] bg-[#892F1A]/10 scale-[1.005]"
-            : "border-[#4D3F15]/40 bg-white/50 hover:bg-white hover:border-[#4D3F15]"
+            ? "border-nubb-orange bg-nubb-orange/10 scale-[1.005]"
+            : "border-nubb-brown/40 bg-nubb-cream-light/50 hover:bg-nubb-cream-light hover:border-nubb-brown"
         }`}
       >
-        <div className="w-12 h-12 rounded-full bg-[#E8E6D8] border-2 border-[#4D3F15] flex items-center justify-center">
-          <Upload className="w-6 h-6 text-[#892F1A]" />
+        <div className="w-12 h-12 rounded-full bg-nubb-cream border-[1.5px] border-nubb-brown flex items-center justify-center">
+          <Upload className="w-6 h-6 text-nubb-orange" />
         </div>
-        <span className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]">
+        <span className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown">
           Drag & Drop Images here to upload to {uploadStorage === "r2" ? "Cloudflare R2" : "Local Storage"} &rarr; /{uploadFolder === "custom" ? (customFolderInput || "custom") : uploadFolder}
         </span>
-        <span className="font-lekton text-[10px] text-[#4D3F15]/60">
+        <span className="font-lekton text-[10px] text-nubb-brown/60">
           or click to browse files from your computer
         </span>
       </div>
 
       {/* Search, Filter & Bulk Actions Bar */}
-      <div className="p-3 bg-white border-2 border-[#4D3F15] flex flex-col sm:flex-row items-center justify-between gap-3 font-lekton text-xs font-bold">
+      <div className="p-3 bg-nubb-cream-light border-[1.5px] border-nubb-brown flex flex-col sm:flex-row items-center justify-between gap-3 font-lekton text-xs font-bold">
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#4D3F15]/50" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-nubb-brown/50" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by filename or path..."
-            className="w-full pl-9 pr-4 py-1.5 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white text-[#4D3F15]"
+            className="w-full pl-9 pr-4 py-1.5 bg-nubb-cream/30 border-[1.5px] border-nubb-brown focus:outline-none focus:bg-nubb-cream-light text-nubb-brown"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
           {/* Storage Filter */}
-          <div className="flex items-center gap-1 border-2 border-[#4D3F15] p-0.5 bg-[#E8E6D8]/30">
+          <div className="flex items-center gap-1 border-[1.5px] border-nubb-brown p-0.5 bg-nubb-cream/30">
             <button
               onClick={() => setStorageFilter("all")}
               className={`px-2.5 py-1 uppercase transition-colors cursor-pointer ${
-                storageFilter === "all" ? "bg-[#4D3F15] text-[#E8E6D8]" : "text-[#4D3F15]"
+                storageFilter === "all" ? "bg-nubb-brown text-nubb-cream" : "text-nubb-brown"
               }`}
             >
               All ({mediaList.length})
@@ -456,7 +456,7 @@ export default function AdminMediaPage() {
             <button
               onClick={() => setStorageFilter("r2")}
               className={`px-2.5 py-1 uppercase transition-colors cursor-pointer ${
-                storageFilter === "r2" ? "bg-[#4D3F15] text-[#E8E6D8]" : "text-[#4D3F15]"
+                storageFilter === "r2" ? "bg-nubb-brown text-nubb-cream" : "text-nubb-brown"
               }`}
             >
               R2 ({mediaList.filter((m) => m.storage === "r2").length})
@@ -464,7 +464,7 @@ export default function AdminMediaPage() {
             <button
               onClick={() => setStorageFilter("local")}
               className={`px-2.5 py-1 uppercase transition-colors cursor-pointer ${
-                storageFilter === "local" ? "bg-[#4D3F15] text-[#E8E6D8]" : "text-[#4D3F15]"
+                storageFilter === "local" ? "bg-nubb-brown text-nubb-cream" : "text-nubb-brown"
               }`}
             >
               Local ({mediaList.filter((m) => m.storage === "local").length})
@@ -475,7 +475,7 @@ export default function AdminMediaPage() {
           <select
             value={folderFilter}
             onChange={(e) => setFolderFilter(e.target.value)}
-            className="px-2.5 py-1.5 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] focus:outline-none"
+            className="px-2.5 py-1.5 bg-nubb-cream-light border-[1.5px] border-nubb-brown font-lekton text-xs font-bold text-nubb-brown focus:outline-none"
           >
             <option value="all">All Folders</option>
             {Array.from(
@@ -512,10 +512,10 @@ export default function AdminMediaPage() {
             <BrandLoader label="Loading Media Assets..." />
           </div>
         ) : filteredMedia.length === 0 ? (
-          <div className="p-12 text-center bg-white border-2 border-dashed border-[#4D3F15]/40 space-y-3">
-            <ImageIcon className="w-12 h-12 text-[#4D3F15]/30 mx-auto" />
-            <h3 className="font-spray text-2xl text-[#4D3F15]">No Images Found</h3>
-            <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/60 max-w-sm mx-auto">
+          <div className="p-12 text-center bg-nubb-cream-light border-[1.5px] border-dashed border-nubb-brown/40 space-y-3">
+            <ImageIcon className="w-12 h-12 text-nubb-brown/30 mx-auto" />
+            <h3 className="font-display text-2xl text-nubb-brown">No Images Found</h3>
+            <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/60 max-w-sm mx-auto">
               {searchQuery
                 ? `No photos matching "${searchQuery}"`
                 : "Upload photos to manage your store assets."}
@@ -529,10 +529,10 @@ export default function AdminMediaPage() {
               return (
                 <div
                   key={item.key}
-                  className={`group relative aspect-square bg-white border-2 transition-all overflow-hidden ${
+                  className={`group relative aspect-square bg-nubb-cream-light border-[1.5px] transition-all overflow-hidden ${
                     isSelected
-                      ? "border-[#892F1A] ring-3 ring-[#892F1A]/30 shadow-md"
-                      : "border-[#4D3F15]/40 hover:border-[#4D3F15]"
+                      ? "border-nubb-orange ring-3 ring-nubb-orange/30 shadow-md"
+                      : "border-nubb-brown/40 hover:border-nubb-brown"
                   }`}
                 >
                   {/* Thumbnail */}
@@ -569,10 +569,10 @@ export default function AdminMediaPage() {
                     className="absolute top-1.5 right-1.5 cursor-pointer"
                   >
                     <div
-                      className={`w-5 h-5 border-2 flex items-center justify-center transition-colors ${
+                      className={`w-5 h-5 border-[1.5px] flex items-center justify-center transition-colors ${
                         isSelected
-                          ? "bg-[#892F1A] border-[#892F1A] text-white"
-                          : "bg-white/80 border-[#4D3F15] text-transparent group-hover:text-[#4D3F15]/40"
+                          ? "bg-nubb-orange border-nubb-orange text-white"
+                          : "bg-nubb-cream-light/80 border-nubb-brown text-transparent group-hover:text-nubb-brown/40"
                       }`}
                     >
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -655,10 +655,10 @@ export default function AdminMediaPage() {
           onClick={() => setPreviewModalUrl(null)}
           className="fixed inset-0 z-60 bg-black/85 flex items-center justify-center p-4 cursor-zoom-out"
         >
-          <div className="relative max-w-4xl max-h-[90vh] bg-white border-3 border-[#4D3F15] p-2">
+          <div className="relative max-w-4xl max-h-[90vh] bg-nubb-cream-light border-[1.5px] border-nubb-brown p-2">
             <button
               onClick={() => setPreviewModalUrl(null)}
-              className="absolute top-4 right-4 p-2 bg-[#892F1A] text-white border-2 border-white cursor-pointer shadow-lg"
+              className="absolute top-4 right-4 p-2 bg-nubb-orange text-white border-[1.5px] border-white cursor-pointer shadow-lg"
             >
               <X className="w-5 h-5" />
             </button>
