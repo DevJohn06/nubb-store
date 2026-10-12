@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Lekton, Rubik_Spray_Paint, Inter } from "next/font/google";
+import { Lekton, Rubik_Spray_Paint, DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const lekton = Lekton({
@@ -9,6 +10,7 @@ const lekton = Lekton({
   display: "swap",
 });
 
+// Legacy: only the live coming-soon page (src/app/page.tsx) still uses this.
 const rubikSpray = Rubik_Spray_Paint({
   weight: "400",
   subsets: ["latin"],
@@ -16,9 +18,20 @@ const rubikSpray = Rubik_Spray_Paint({
   display: "swap",
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+// Display face. Licence: Befonts, commercial use allowed.
+const bantayog = localFont({
+  src: [
+    { path: "./fonts/bantayog-light.woff2", weight: "300", style: "normal" },
+    { path: "./fonts/bantayog-regular.woff2", weight: "400", style: "normal" },
+  ],
+  variable: "--font-bantayog",
   display: "swap",
 });
 
@@ -51,8 +64,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lekton.variable} ${rubikSpray.variable} ${inter.variable}`}>
-      <body className="antialiased selection:bg-[#892F1A] selection:text-[#E8E6D8]">
+    <html
+      lang="en"
+      className={`${lekton.variable} ${rubikSpray.variable} ${dmSans.variable} ${bantayog.variable}`}
+    >
+      <body className="antialiased selection:bg-nubb-orange selection:text-nubb-cream">
         {children}
       </body>
     </html>

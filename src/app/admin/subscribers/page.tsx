@@ -367,16 +367,16 @@ export default function AdminSubscribersPage() {
       {/* Toast Alert */}
       {toastMessage && (
         <div
-          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 border-2 nubb-shadow font-arial text-sm font-bold animate-in fade-in slide-in-from-bottom-5 ${
+          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-[12px] border-[1.5px] font-body text-sm font-bold animate-in fade-in slide-in-from-bottom-5 ${
             toastMessage.type === "success"
-              ? "bg-emerald-50 text-emerald-900 border-emerald-700"
-              : "bg-rose-50 text-rose-900 border-[#640017]"
+              ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
+              : "bg-nubb-crimson/10 text-nubb-crimson border-nubb-crimson"
           }`}
         >
           {toastMessage.type === "success" ? (
-            <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-nubb-brown shrink-0" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-[#640017] shrink-0" />
+            <AlertCircle className="w-5 h-5 text-nubb-crimson shrink-0" />
           )}
           <span>{toastMessage.text}</span>
           <button
@@ -389,12 +389,12 @@ export default function AdminSubscribersPage() {
       )}
 
       {/* Header & Main Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-[#4D3F15] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-nubb-brown pb-4">
         <div>
-          <h1 className="font-spray text-3xl sm:text-4xl text-[#4D3F15]">
+          <h1 className="font-display text-3xl sm:text-4xl text-nubb-brown">
             Subscribers
           </h1>
-          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-[#892F1A] mt-1">
+          <p className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-orange mt-1">
             Early Access & Store Launch Audience
           </p>
         </div>
@@ -403,7 +403,7 @@ export default function AdminSubscribersPage() {
           {/* Send "We Have Launched!" Broadcast Button */}
           <button
             onClick={() => setIsLaunchModalOpen(true)}
-            className="px-4 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
+            className="nubb-btn-primary nubb-btn-sm"
           >
             <Rocket className="w-4 h-4" />
             <span>Send Launch Announcement</span>
@@ -411,7 +411,7 @@ export default function AdminSubscribersPage() {
 
           <button
             onClick={handleExportCSV}
-            className="px-4 py-2.5 bg-white border-2 border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors flex items-center gap-2 cursor-pointer"
+            className="nubb-btn-secondary nubb-btn-sm"
           >
             <Download className="w-4 h-4" />
             <span>Export CSV</span>
@@ -419,7 +419,7 @@ export default function AdminSubscribersPage() {
 
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="px-4 py-2.5 bg-[#4D3F15] text-[#E8E6D8] hover:bg-[#892F1A] transition-colors flex items-center gap-2 nubb-shadow cursor-pointer"
+            className="nubb-btn-primary nubb-btn-sm"
           >
             <Plus className="w-4 h-4" />
             <span>Add Subscriber</span>
@@ -430,79 +430,79 @@ export default function AdminSubscribersPage() {
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Total Subscribers */}
-        <div className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2">
+        <div className="nubb-surface p-6 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70">
+            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70">
               Total Subscribers
             </span>
-            <div className="p-2 bg-[#E8E6D8] border border-[#4D3F15]">
-              <Users className="w-4 h-4 text-[#4D3F15]" />
+            <div className="p-2 bg-nubb-cream border border-nubb-brown">
+              <Users className="w-4 h-4 text-nubb-brown" />
             </div>
           </div>
-          <div className="font-lekton font-bold text-3xl text-[#4D3F15]">
+          <div className="font-lekton font-bold text-3xl text-nubb-brown">
             {stats.total}
           </div>
-          <p className="font-arial text-xs text-[#4D3F15]/70 font-bold">
+          <p className="font-body text-xs text-nubb-brown/70 font-bold">
             All registered contacts
           </p>
         </div>
 
         {/* Active Subscribers */}
-        <div className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2">
+        <div className="nubb-surface p-6 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70">
+            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70">
               Active Subscribers
             </span>
-            <div className="p-2 bg-emerald-50 border border-emerald-700">
-              <UserCheck className="w-4 h-4 text-emerald-700" />
+            <div className="p-2 bg-nubb-brown/10 border border-nubb-brown">
+              <UserCheck className="w-4 h-4 text-nubb-brown" />
             </div>
           </div>
-          <div className="font-lekton font-bold text-3xl text-emerald-800">
+          <div className="font-lekton font-bold text-3xl text-nubb-brown">
             {stats.active}
           </div>
-          <p className="font-arial text-xs text-[#4D3F15]/70 font-bold">
+          <p className="font-body text-xs text-nubb-brown/70 font-bold">
             Receiving store updates & launch email
           </p>
         </div>
 
         {/* Resend Verified Custom Domain Status */}
-        <div className="bg-white border-2 border-[#4D3F15] p-6 nubb-shadow space-y-2">
+        <div className="nubb-surface p-6 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-[#4D3F15]/70">
+            <span className="font-lekton text-xs font-bold uppercase tracking-wider text-nubb-brown/70">
               Email Dispatch
             </span>
-            <div className="p-2 bg-[#E8E6D8] border border-[#4D3F15]">
-              <Sparkles className="w-4 h-4 text-[#892F1A]" />
+            <div className="p-2 bg-nubb-cream border border-nubb-brown">
+              <Sparkles className="w-4 h-4 text-nubb-orange" />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-lekton font-bold text-base text-[#4D3F15]">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-nubb-brown animate-pulse" />
+            <span className="font-lekton font-bold text-base text-nubb-brown">
               hello@nubb.store
             </span>
           </div>
-          <p className="font-arial text-xs text-[#4D3F15]/70 font-bold">
+          <p className="font-body text-xs text-nubb-brown/70 font-bold">
             Resend custom domain active
           </p>
         </div>
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="bg-white border-2 border-[#4D3F15] p-4 nubb-shadow flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="nubb-surface p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Search Input */}
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4D3F15]/50" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-nubb-brown/50" />
           <input
             type="text"
             placeholder="Search by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2.5 border-2 border-[#4D3F15] font-arial text-sm text-[#4D3F15] focus:outline-none placeholder-[#4D3F15]/40"
+            className="nubb-input pl-10 pr-10"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4D3F15]/60 hover:text-[#4D3F15]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-nubb-brown/60 hover:text-nubb-brown"
             >
               <X className="w-4 h-4" />
             </button>
@@ -511,7 +511,7 @@ export default function AdminSubscribersPage() {
 
         {/* Status Filter Tabs & Refresh */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-lekton text-xs font-bold text-[#4D3F15]/70 uppercase mr-1">
+          <span className="font-lekton text-xs font-bold text-nubb-brown/70 uppercase mr-1">
             Status:
           </span>
           {(["all", "active", "unsubscribed"] as const).map((tab) => (
@@ -520,8 +520,8 @@ export default function AdminSubscribersPage() {
               onClick={() => setStatusFilter(tab)}
               className={`px-3 py-1.5 font-lekton text-xs font-bold uppercase transition-colors cursor-pointer border ${
                 statusFilter === tab
-                  ? "bg-[#4D3F15] text-[#E8E6D8] border-[#4D3F15]"
-                  : "bg-white text-[#4D3F15] border-[#4D3F15] hover:bg-[#E8E6D8]"
+                  ? "bg-nubb-brown text-nubb-cream border-nubb-brown"
+                  : "bg-nubb-cream-light text-nubb-brown border-nubb-brown hover:bg-nubb-cream"
               }`}
             >
               {tab}
@@ -532,7 +532,7 @@ export default function AdminSubscribersPage() {
             onClick={loadSubscribers}
             disabled={loading}
             title="Refresh list"
-            className="p-2 border border-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer ml-2 disabled:opacity-50"
+            className="p-2 border border-nubb-brown hover:bg-nubb-cream transition-colors cursor-pointer ml-2 disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           </button>
@@ -540,7 +540,7 @@ export default function AdminSubscribersPage() {
       </div>
 
       {/* Subscribers Table */}
-      <div className="bg-white border-2 border-[#4D3F15] nubb-shadow overflow-hidden">
+      <div className="nubb-surface overflow-hidden">
         {loading ? (
           <BrandLoader
             size="lg"
@@ -549,14 +549,14 @@ export default function AdminSubscribersPage() {
           />
         ) : filteredSubscribers.length === 0 ? (
           <div className="py-20 px-6 text-center space-y-4">
-            <div className="w-12 h-12 bg-[#E8E6D8] border-2 border-[#4D3F15] flex items-center justify-center mx-auto text-[#4D3F15]">
+            <div className="w-12 h-12 bg-nubb-cream border border-nubb-brown/15 flex items-center justify-center mx-auto text-nubb-brown">
               <Mail className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-lekton font-bold text-lg text-[#4D3F15]">
+              <h3 className="font-lekton font-bold text-lg text-nubb-brown">
                 No subscribers found
               </h3>
-              <p className="font-arial text-sm text-[#4D3F15]/70 max-w-sm mx-auto mt-1">
+              <p className="font-body text-sm text-nubb-brown/70 max-w-sm mx-auto mt-1">
                 {searchQuery || statusFilter !== "all"
                   ? "No subscriber records matched your active filter or search query."
                   : "No one has joined the subscribers list yet."}
@@ -568,7 +568,7 @@ export default function AdminSubscribersPage() {
                   setSearchQuery("");
                   setStatusFilter("all");
                 }}
-                className="px-4 py-2 border-2 border-[#4D3F15] font-lekton text-xs font-bold hover:bg-[#E8E6D8] transition-colors cursor-pointer"
+                className="nubb-btn-secondary nubb-btn-sm"
               >
                 Clear Filters
               </button>
@@ -578,7 +578,7 @@ export default function AdminSubscribersPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#E8E6D8] border-b-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] uppercase tracking-wider">
+                <tr className="bg-nubb-cream border-b-2 border-nubb-brown font-lekton text-xs font-bold text-nubb-brown uppercase tracking-wider">
                   <th className="p-4 pl-6">Subscriber</th>
                   <th className="p-4">Email</th>
                   <th className="p-4">Date Joined</th>
@@ -586,30 +586,30 @@ export default function AdminSubscribersPage() {
                   <th className="p-4 pr-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y-2 divide-[#4D3F15]/10 font-arial text-sm text-[#4D3F15]">
+              <tbody className="divide-y-2 divide-nubb-brown/10 font-body text-sm text-nubb-brown">
                 {filteredSubscribers.map((sub) => {
                   const isActionActive = actionInProgressId === sub.id;
 
                   return (
                     <tr
                       key={sub.id}
-                      className="hover:bg-[#F6F5EE] transition-colors group"
+                      className="hover:bg-nubb-cream-light transition-colors group"
                     >
                       {/* Subscriber Name & Avatar */}
                       <td className="p-4 pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 bg-[#4D3F15] text-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center font-lekton font-bold text-xs shrink-0">
+                          <div className="w-9 h-9 bg-nubb-brown text-nubb-cream border border-nubb-brown flex items-center justify-center font-lekton font-bold text-xs shrink-0">
                             {getInitials(sub.name, sub.email)}
                           </div>
                           <div>
-                            <div className="font-bold text-[#4D3F15] text-sm">
+                            <div className="font-bold text-nubb-brown text-sm">
                               {sub.name || (
-                                <span className="text-[#4D3F15]/40 italic font-normal">
+                                <span className="text-nubb-brown/40 italic font-normal">
                                   Not specified
                                 </span>
                               )}
                             </div>
-                            <div className="font-lekton text-[11px] text-[#4D3F15]/60">
+                            <div className="font-lekton text-[11px] text-nubb-brown/60">
                               ID #{sub.id}
                             </div>
                           </div>
@@ -621,17 +621,17 @@ export default function AdminSubscribersPage() {
                         <div className="flex items-center gap-2">
                           <a
                             href={`mailto:${sub.email}`}
-                            className="hover:text-[#892F1A] hover:underline font-bold text-sm"
+                            className="hover:text-nubb-orange hover:underline font-bold text-sm"
                           >
                             {sub.email}
                           </a>
                           <button
                             onClick={() => handleCopyEmail(sub.email)}
                             title="Copy email"
-                            className="p-1 text-[#4D3F15]/40 hover:text-[#4D3F15] transition-colors cursor-pointer"
+                            className="p-1 text-nubb-brown/40 hover:text-nubb-brown transition-colors cursor-pointer"
                           >
                             {copiedEmail === sub.email ? (
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <Check className="w-3.5 h-3.5 text-nubb-brown" />
                             ) : (
                               <Copy className="w-3.5 h-3.5" />
                             )}
@@ -640,7 +640,7 @@ export default function AdminSubscribersPage() {
                       </td>
 
                       {/* Date Joined */}
-                      <td className="p-4 font-lekton text-xs font-bold text-[#4D3F15]/80">
+                      <td className="p-4 font-lekton text-xs font-bold text-nubb-brown/80">
                         {new Date(sub.created_at).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
@@ -655,15 +655,15 @@ export default function AdminSubscribersPage() {
                         <span
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-lekton font-bold uppercase border ${
                             sub.status === "active"
-                              ? "bg-emerald-50 text-emerald-900 border-emerald-700"
-                              : "bg-amber-50 text-amber-900 border-amber-700"
+                              ? "bg-nubb-brown/10 text-nubb-brown border-nubb-brown"
+                              : "bg-nubb-mustard/25 text-nubb-orange border-nubb-orange"
                           }`}
                         >
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
                               sub.status === "active"
-                                ? "bg-emerald-600"
-                                : "bg-amber-600"
+                                ? "bg-nubb-brown"
+                                : "bg-nubb-orange"
                             }`}
                           />
                           {sub.status}
@@ -678,7 +678,7 @@ export default function AdminSubscribersPage() {
                             onClick={() => handleSendLaunchSingle(sub)}
                             disabled={isActionActive}
                             title="Send Store Launch announcement to this subscriber"
-                            className="px-2.5 py-1.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                            className="px-2.5 py-1.5 bg-nubb-orange text-nubb-cream hover:bg-nubb-crimson transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
                           >
                             {isActionActive && actionType === "launch_single" ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -693,7 +693,7 @@ export default function AdminSubscribersPage() {
                             onClick={() => handleResendWelcome(sub)}
                             disabled={isActionActive}
                             title="Resend welcome email via Resend"
-                            className="px-2.5 py-1.5 bg-white border border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                            className="px-2.5 py-1.5 bg-nubb-cream-light border border-nubb-brown text-nubb-brown hover:bg-nubb-cream transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
                           >
                             {isActionActive && actionType === "resend" ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -712,14 +712,14 @@ export default function AdminSubscribersPage() {
                                 ? "Mark as unsubscribed"
                                 : "Reactivate subscriber"
                             }
-                            className="p-1.5 bg-white border border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer disabled:opacity-50"
+                            className="p-1.5 bg-nubb-cream-light border border-nubb-brown text-nubb-brown hover:bg-nubb-cream transition-colors cursor-pointer disabled:opacity-50"
                           >
                             {isActionActive && actionType === "toggle" ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
                             ) : sub.status === "active" ? (
-                              <UserX className="w-3.5 h-3.5 text-[#892F1A]" />
+                              <UserX className="w-3.5 h-3.5 text-nubb-orange" />
                             ) : (
-                              <UserCheck className="w-3.5 h-3.5 text-emerald-700" />
+                              <UserCheck className="w-3.5 h-3.5 text-nubb-brown" />
                             )}
                           </button>
 
@@ -727,7 +727,7 @@ export default function AdminSubscribersPage() {
                           <button
                             onClick={() => setDeleteConfirmSubscriber(sub)}
                             title="Delete subscriber"
-                            className="p-1.5 bg-white border border-[#4D3F15] text-[#892F1A] hover:bg-[#892F1A] hover:text-[#E8E6D8] transition-colors cursor-pointer"
+                            className="p-1.5 bg-nubb-cream-light border border-nubb-brown text-nubb-orange hover:bg-nubb-orange hover:text-nubb-cream transition-colors cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -745,70 +745,70 @@ export default function AdminSubscribersPage() {
       {/* BROADCAST LAUNCH ANNOUNCEMENT MODAL */}
       {isLaunchModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#F6F5EE] border-3 border-[#4D3F15] max-w-lg w-full p-6 nubb-shadow space-y-6">
-            <div className="flex items-center justify-between border-b-2 border-[#4D3F15] pb-3">
+          <div className="nubb-surface max-w-lg w-full p-6 space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-nubb-brown pb-3">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-[#892F1A] text-[#E8E6D8]">
+                <div className="p-2 bg-nubb-orange text-nubb-cream">
                   <Rocket className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-spray text-2xl text-[#4D3F15]">
+                  <h3 className="font-display text-2xl text-nubb-brown">
                     Broadcast Launch Announcement
                   </h3>
-                  <p className="font-lekton text-xs font-bold text-[#892F1A] uppercase tracking-wider">
+                  <p className="font-lekton text-xs font-bold text-nubb-orange uppercase tracking-wider">
                     Notify All Subscribers
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setIsLaunchModalOpen(false)}
-                className="text-[#4D3F15] hover:text-[#892F1A] cursor-pointer"
+                className="text-nubb-brown hover:text-nubb-orange cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 bg-white border-2 border-[#4D3F15] space-y-3">
-                <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2 font-lekton text-xs font-bold text-[#4D3F15]">
+              <div className="p-4 bg-nubb-cream-light border border-nubb-brown/15 space-y-3">
+                <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2 font-lekton text-xs font-bold text-nubb-brown">
                   <span>Recipients:</span>
-                  <span className="text-[#892F1A]">
+                  <span className="text-nubb-orange">
                     {stats.active} Active Subscriber{stats.active === 1 ? "" : "s"}
                   </span>
                 </div>
-                <div className="flex items-center justify-between border-b border-[#4D3F15]/20 pb-2 font-lekton text-xs font-bold text-[#4D3F15]">
+                <div className="flex items-center justify-between border-b border-nubb-brown/20 pb-2 font-lekton text-xs font-bold text-nubb-brown">
                   <span>Sender Address:</span>
                   <span>hello@nubb.store</span>
                 </div>
-                <div className="space-y-1 font-arial text-xs text-[#4D3F15]">
-                  <span className="font-lekton font-bold uppercase text-[11px] text-[#4D3F15]/70 block">
+                <div className="space-y-1 font-body text-xs text-nubb-brown">
+                  <span className="font-lekton font-bold uppercase text-[11px] text-nubb-brown/70 block">
                     Email Subject:
                   </span>
-                  <p className="font-bold bg-[#F6F5EE] p-2 border border-[#4D3F15]/30">
+                  <p className="font-bold bg-nubb-cream-light p-2 border border-nubb-brown/30">
                     We are Live! NUBB Store is Officially Open
                   </p>
                 </div>
-                <div className="space-y-1 font-arial text-xs text-[#4D3F15]">
-                  <span className="font-lekton font-bold uppercase text-[11px] text-[#4D3F15]/70 block">
+                <div className="space-y-1 font-body text-xs text-nubb-brown">
+                  <span className="font-lekton font-bold uppercase text-[11px] text-nubb-brown/70 block">
                     Included CTA:
                   </span>
-                  <p className="text-[#4D3F15]/80 bg-[#F6F5EE] p-2 border border-[#4D3F15]/30">
+                  <p className="text-nubb-brown/80 bg-nubb-cream-light p-2 border border-nubb-brown/30">
                     Links directly to <strong>https://nubb.store</strong> to browse and purchase available pieces.
                   </p>
                 </div>
               </div>
 
-              <p className="font-arial text-xs text-[#4D3F15]/80 leading-relaxed font-bold">
+              <p className="font-body text-xs text-nubb-brown/80 leading-relaxed font-bold">
                 ⚠️ This will trigger automated email dispatch through the Resend API to all {stats.active} verified subscribers on your list.
               </p>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-[#4D3F15]/20 font-lekton text-xs font-bold">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-nubb-brown/20 font-lekton text-xs font-bold">
               <button
                 type="button"
                 onClick={() => setIsLaunchModalOpen(false)}
                 disabled={broadcastingLaunch}
-                className="px-4 py-2.5 bg-white border-2 border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer"
+                className="nubb-btn-secondary nubb-btn-sm"
               >
                 Cancel
               </button>
@@ -816,7 +816,7 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleBroadcastLaunch}
                 disabled={broadcastingLaunch || stats.active === 0}
-                className="px-6 py-2.5 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors cursor-pointer flex items-center gap-2 nubb-shadow disabled:opacity-50"
+                className="nubb-btn-primary nubb-btn-sm"
               >
                 {broadcastingLaunch ? (
                   <>
@@ -838,19 +838,19 @@ export default function AdminSubscribersPage() {
       {/* ADD SUBSCRIBER MODAL */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#F6F5EE] border-3 border-[#4D3F15] max-w-md w-full p-6 nubb-shadow space-y-6">
-            <div className="flex items-center justify-between border-b-2 border-[#4D3F15] pb-3">
+          <div className="nubb-surface max-w-md w-full p-6 space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-nubb-brown pb-3">
               <div>
-                <h3 className="font-spray text-2xl text-[#4D3F15]">
+                <h3 className="font-display text-2xl text-nubb-brown">
                   Add Subscriber
                 </h3>
-                <p className="font-lekton text-xs font-bold text-[#892F1A] uppercase tracking-wider">
+                <p className="font-lekton text-xs font-bold text-nubb-orange uppercase tracking-wider">
                   Manual Registration
                 </p>
               </div>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="text-[#4D3F15] hover:text-[#892F1A] cursor-pointer"
+                className="text-nubb-brown hover:text-nubb-orange cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -858,7 +858,7 @@ export default function AdminSubscribersPage() {
 
             <form onSubmit={handleAddSubscriberSubmit} className="space-y-4">
               <div>
-                <label className="block font-lekton font-bold text-xs uppercase tracking-wider text-[#4D3F15] mb-1.5">
+                <label className="block font-lekton font-bold text-xs uppercase tracking-wider text-nubb-brown mb-1.5">
                   Full Name (Optional)
                 </label>
                 <input
@@ -866,12 +866,12 @@ export default function AdminSubscribersPage() {
                   placeholder="e.g. Maya Chen"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-white border-2 border-[#4D3F15] font-arial text-sm text-[#4D3F15] focus:outline-none"
+                  className="nubb-input"
                 />
               </div>
 
               <div>
-                <label className="block font-lekton font-bold text-xs uppercase tracking-wider text-[#4D3F15] mb-1.5">
+                <label className="block font-lekton font-bold text-xs uppercase tracking-wider text-nubb-brown mb-1.5">
                   Email Address *
                 </label>
                 <input
@@ -880,7 +880,7 @@ export default function AdminSubscribersPage() {
                   placeholder="e.g. maya@example.com"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-white border-2 border-[#4D3F15] font-arial text-sm text-[#4D3F15] focus:outline-none"
+                  className="nubb-input"
                 />
               </div>
 
@@ -890,28 +890,28 @@ export default function AdminSubscribersPage() {
                   id="sendWelcome"
                   checked={sendWelcomeOnAdd}
                   onChange={(e) => setSendWelcomeOnAdd(e.target.checked)}
-                  className="w-4 h-4 accent-[#4D3F15] cursor-pointer"
+                  className="w-4 h-4 accent-nubb-brown cursor-pointer"
                 />
                 <label
                   htmlFor="sendWelcome"
-                  className="font-arial text-xs font-bold text-[#4D3F15] cursor-pointer"
+                  className="font-body text-xs font-bold text-nubb-brown cursor-pointer"
                 >
                   Send welcome email immediately via Resend
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-[#4D3F15]/20">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-nubb-brown/20">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 bg-white border-2 border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer"
+                  className="nubb-btn-secondary nubb-btn-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingAdd}
-                  className="px-5 py-2 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-xs font-bold hover:bg-[#892F1A] transition-colors cursor-pointer flex items-center gap-2 nubb-shadow disabled:opacity-50"
+                  className="nubb-btn-primary nubb-btn-sm"
                 >
                   {submittingAdd ? (
                     <>
@@ -931,26 +931,26 @@ export default function AdminSubscribersPage() {
       {/* DELETE CONFIRMATION MODAL */}
       {deleteConfirmSubscriber && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border-3 border-[#4D3F15] max-w-md w-full p-6 nubb-shadow space-y-4">
-            <div className="flex items-center gap-3 text-[#892F1A]">
+          <div className="nubb-surface max-w-md w-full p-6 space-y-4">
+            <div className="flex items-center gap-3 text-nubb-orange">
               <AlertCircle className="w-6 h-6 shrink-0" />
-              <h3 className="font-spray text-2xl text-[#4D3F15]">
+              <h3 className="font-display text-2xl text-nubb-brown">
                 Confirm Deletion
               </h3>
             </div>
 
-            <p className="font-arial text-sm text-[#4D3F15] leading-relaxed">
+            <p className="font-body text-sm text-nubb-brown leading-relaxed">
               Are you sure you want to remove{" "}
               <strong>{deleteConfirmSubscriber.email}</strong> from the subscriber
               list? This action cannot be undone.
             </p>
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-[#4D3F15]/20 font-lekton text-xs font-bold">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t-2 border-nubb-brown/20 font-lekton text-xs font-bold">
               <button
                 type="button"
                 onClick={() => setDeleteConfirmSubscriber(null)}
                 disabled={isDeleting}
-                className="px-4 py-2 bg-white border-2 border-[#4D3F15] text-[#4D3F15] hover:bg-[#E8E6D8] transition-colors cursor-pointer"
+                className="nubb-btn-secondary nubb-btn-sm"
               >
                 Cancel
               </button>
@@ -958,7 +958,7 @@ export default function AdminSubscribersPage() {
                 type="button"
                 onClick={handleDeleteSubscriber}
                 disabled={isDeleting}
-                className="px-5 py-2 bg-[#892F1A] text-[#E8E6D8] hover:bg-[#640017] transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
+                className="nubb-btn-primary nubb-btn-sm"
               >
                 {isDeleting ? (
                   <>

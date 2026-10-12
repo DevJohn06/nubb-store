@@ -20,25 +20,25 @@ export function AdminHeader({
   };
 
   return (
-    <header className="h-16 bg-white border-b-2 border-[#4D3F15] px-6 flex items-center justify-between shrink-0">
+    <header className="h-16 bg-nubb-cream border-b border-nubb-brown/15 px-6 flex items-center justify-between shrink-0">
       <div className="flex items-center gap-3">
-        <div className="px-2.5 py-1 bg-[#E8E6D8] border border-[#4D3F15] font-lekton text-xs font-bold text-[#4D3F15] uppercase tracking-wider flex items-center gap-1.5">
-          <Shield className="w-3.5 h-3.5 text-[#892F1A]" />
+        <div className="nubb-badge bg-nubb-cream-light border border-nubb-brown/15 text-nubb-brown gap-1.5">
+          <Shield className="w-3.5 h-3.5 text-nubb-orange" />
           <span>Role: {user.role || "Admin"}</span>
         </div>
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 font-lekton text-xs font-bold text-[#4D3F15]">
-          <div className="w-7 h-7 rounded-full bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center">
-            <User className="w-4 h-4 text-[#4D3F15]" />
+        <div className="flex items-center gap-2 font-lekton text-xs font-bold text-nubb-brown">
+          <div className="w-8 h-8 rounded-full bg-nubb-brown text-nubb-cream flex items-center justify-center">
+            <User className="w-4 h-4" />
           </div>
           <span className="hidden sm:inline">{user.name || user.username}</span>
         </div>
 
         <button
           onClick={handleLogout}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E8E6D8] border border-[#4D3F15] text-[#4D3F15] font-lekton text-xs font-bold hover:bg-[#640017] hover:text-[#E8E6D8] hover:border-[#640017] transition-colors cursor-pointer"
+          className="nubb-btn-secondary nubb-btn-sm hover:bg-nubb-crimson hover:border-nubb-crimson"
           title="Sign Out"
         >
           <LogOut className="w-3.5 h-3.5" />

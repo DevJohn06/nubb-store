@@ -41,7 +41,7 @@ export function BrandLoader({
         />
       </div>
       {label && (
-        <p className="font-lekton font-bold uppercase tracking-widest text-xs text-[#4D3F15]/80 animate-pulse">
+        <p className="font-lekton font-bold uppercase tracking-widest text-xs text-nubb-brown/80 animate-pulse">
           {label}
         </p>
       )}

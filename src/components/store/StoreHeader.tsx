@@ -2,132 +2,98 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ShoppingBag, Menu, X, ShieldAlert } from "lucide-react";
+import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "./CartContext";
+
+const NAV = [
+  { href: "/ecom-staging", label: "All Pieces" },
+  { href: "/ecom-staging?category=lighter-covers", label: "Lighter Covers" },
+  { href: "/ecom-staging?category=paracord-bracelets", label: "Paracord" },
+  { href: "/ecom-staging?category=accessories", label: "Accessories" },
+];
 
 export function StoreHeader() {
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#E8E6D8] border-b-2 border-[#4D3F15]">
-      {/* Announcement Bar */}
-      <div className="bg-[#4D3F15] text-[#E8E6D8] py-1.5 px-4 text-center font-lekton text-xs tracking-wider flex items-center justify-center gap-2">
-        <ShieldAlert className="w-3.5 h-3.5 text-[#892F1A] shrink-0" />
-        <span>NUBB E-COMMERCE STAGING PREVIEW — HANDMADE IN SMALL BATCHES</span>
+    <header className="sticky top-0 z-40 w-full bg-nubb-cream/95 backdrop-blur-sm border-b border-nubb-brown/15">
+      {/* Staging notice */}
+      <div className="bg-nubb-brown text-nubb-cream py-1.5 px-4 text-center font-lekton text-xs font-bold tracking-[0.14em] uppercase">
+        Staging preview · Handmade in small batches
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand / Logo */}
-        <div className="flex items-center gap-4">
-          <Link href="/ecom-staging" className="flex items-center gap-3 group">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              className="w-10 h-10 shrink-0"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/brand/brand-mark.svg?v=3"
-                alt="NUBB"
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/logo-dark-brown.svg?v=3"
-              alt="NUBB"
-              className="h-7 w-auto object-contain hidden sm:block group-hover:opacity-85 transition-opacity"
-            />
-          </Link>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 font-lekton text-sm font-bold tracking-wider uppercase">
-          <Link
-            href="/ecom-staging"
-            className="hover:text-[#892F1A] transition-colors py-1 border-b-2 border-transparent hover:border-[#892F1A]"
-          >
-            All Pieces
-          </Link>
-          <Link
-            href="/ecom-staging?category=lighter-covers"
-            className="hover:text-[#892F1A] transition-colors py-1 border-b-2 border-transparent hover:border-[#892F1A]"
-          >
-            Lighter Covers
-          </Link>
-          <Link
-            href="/ecom-staging?category=paracord-bracelets"
-            className="hover:text-[#892F1A] transition-colors py-1 border-b-2 border-transparent hover:border-[#892F1A]"
-          >
-            Paracord Bracelets
-          </Link>
-          <Link
-            href="/ecom-staging?category=accessories"
-            className="hover:text-[#892F1A] transition-colors py-1 border-b-2 border-transparent hover:border-[#892F1A]"
-          >
-            Accessories
-          </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+        {/* Desktop navigation (left) */}
+        <nav
+          aria-label="Main"
+          className="hidden md:flex items-center gap-7 font-body text-[13px] font-bold tracking-[0.08em] uppercase"
+        >
+          {NAV.map((item) => (
+            <Link key={item.href} href={item.href} className="hover:text-nubb-orange transition-colors py-1">
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* Actions (Cart Drawer Trigger) */}
-        <div className="flex items-center gap-4">
+        {/* Mobile menu toggle (left on phones) */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden justify-self-start w-11 h-11 inline-flex items-center justify-center text-nubb-brown"
+          aria-label="Toggle menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+
+        {/* Logo (center) */}
+        <Link
+          href="/ecom-staging"
+          aria-label="NUBB home"
+          className="flex flex-col items-center gap-1 group"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/logo-dark-brown.svg?v=3"
+            alt=""
+            className="h-8 sm:h-9 w-auto object-contain rounded-none group-hover:opacity-85 transition-opacity"
+          />
+          <span className="hidden sm:block font-lekton text-[11px] font-bold tracking-[0.18em] uppercase">
+            — the things we carry —
+          </span>
+        </Link>
+
+        {/* Bag (right) */}
+        <div className="justify-self-end flex items-center">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#FFFFFF] border-2 border-[#4D3F15] text-[#4D3F15] font-lekton font-bold text-sm nubb-shadow-hover cursor-pointer"
-            aria-label="Open cart drawer"
+            className="inline-flex items-center gap-2 min-h-11 px-2 font-body text-[13px] font-bold tracking-[0.08em] uppercase hover:text-nubb-orange transition-colors cursor-pointer"
+            aria-label={`Open bag, ${totalCount} item${totalCount === 1 ? "" : "s"}`}
           >
-            <ShoppingBag className="w-4 h-4" />
-            <span className="hidden sm:inline uppercase">Bag</span>
-            <span className="bg-[#892F1A] text-[#E8E6D8] px-2 py-0.5 text-xs font-bold rounded-xs">
-              {totalCount}
-            </span>
-          </button>
-
-          {/* Mobile menu toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 border-2 border-[#4D3F15] bg-[#FFFFFF] text-[#4D3F15]"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <ShoppingBag className="w-4 h-4 sm:hidden" />
+            <span className="hidden sm:inline">Bag ({totalCount})</span>
+            {totalCount > 0 && <span className="w-2.5 h-2.5 rounded-full bg-nubb-orange" aria-hidden="true" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t-2 border-[#4D3F15] bg-[#E8E6D8] p-6 space-y-4 font-lekton font-bold tracking-wider uppercase text-base">
-          <Link
-            href="/ecom-staging"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 hover:text-[#892F1A] border-b border-[#4D3F15]/20"
-          >
-            All Pieces
-          </Link>
-          <Link
-            href="/ecom-staging?category=lighter-covers"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 hover:text-[#892F1A] border-b border-[#4D3F15]/20"
-          >
-            Lighter Covers
-          </Link>
-          <Link
-            href="/ecom-staging?category=paracord-bracelets"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 hover:text-[#892F1A] border-b border-[#4D3F15]/20"
-          >
-            Paracord Bracelets
-          </Link>
-          <Link
-            href="/ecom-staging?category=accessories"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 hover:text-[#892F1A] border-b border-[#4D3F15]/20"
-          >
-            Accessories
-          </Link>
-        </div>
+        <nav
+          aria-label="Main"
+          className="md:hidden border-t border-nubb-brown/15 bg-nubb-cream px-6 py-4 font-body font-bold tracking-[0.08em] uppercase text-sm"
+        >
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block py-3 hover:text-nubb-orange border-b border-nubb-brown/10 last:border-b-0"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       )}
     </header>
   );

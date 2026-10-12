@@ -27,7 +27,7 @@ export default async function EcomStagingLayout({
 
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col bg-[#E8E6D8] text-[#4D3F15] selection:bg-[#892F1A] selection:text-[#E8E6D8]">
+      <div className="min-h-screen flex flex-col bg-nubb-cream text-nubb-brown selection:bg-nubb-orange selection:text-nubb-cream">
         <StoreHeader />
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           {children}

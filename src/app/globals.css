@@ -1,30 +1,52 @@
 @import "tailwindcss";
 
+/*
+ * NUBB design system — tokens
+ * Palette follows the NUBB Brand Guideline (Color Guide) + Mustard accent.
+ * Full spec: DESIGN_SYSTEM.md at the repo root.
+ */
+
 @layer base {
   :root {
-    --nubb-cream: #E8E6D8;
-    --nubb-orange: #892F1A;
-    --nubb-crimson: #640017;
-    --nubb-brown: #4D3F15;
-    --nubb-dark: #624A41;
+    --nubb-cream: #E8E6D8;        /* page ground, text on dark fields */
+    --nubb-cream-light: #F4F2EA;  /* tint of Cream: cards, inputs, image wells */
+    --nubb-brown: #4D3F15;        /* "Dark Grey Brown": headlines, body, dark bands */
+    --nubb-dark: #624A41;         /* "Dark": secondary text, captions */
+    --nubb-orange: #892F1A;       /* "Something Orange": primary action, eyebrows, links */
+    --nubb-crimson: #640017;      /* "Dark Crimson": hover/pressed, sold out, deep panels */
+    --nubb-mustard: #F2BF4A;      /* accent: stamp, featured, highlights. Use sparingly */
+    --nubb-hairline: rgba(77, 63, 21, 0.14);
   }
 }
 
 @theme {
   --color-nubb-cream: #E8E6D8;
-  --color-nubb-orange: #892F1A;
-  --color-nubb-crimson: #640017;
+  --color-nubb-cream-light: #F4F2EA;
   --color-nubb-brown: #4D3F15;
   --color-nubb-dark: #624A41;
+  --color-nubb-orange: #892F1A;
+  --color-nubb-crimson: #640017;
+  --color-nubb-mustard: #F2BF4A;
 
+  /* Type: Bantayog (display) · DM Sans (body) · Lekton (labels, prices) */
+  --font-display: var(--font-bantayog), Georgia, serif;
+  --font-body: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-lekton: var(--font-lekton), "Courier New", monospace;
+
+  /* Legacy families, still used by the live coming-soon page (src/app/page.tsx) */
   --font-spray: var(--font-spray), cursive, sans-serif;
-  --font-lekton: var(--font-lekton), monospace;
   --font-arial: "Arial Nova", "Arial", sans-serif;
-  --font-sans: "Arial Nova", "Arial", sans-serif;
+
+  /* Radii */
+  --radius-nubb-btn: 8px;
+  --radius-nubb-input: 12px;
+  --radius-nubb-card: 20px;
 }
 
+@layer base {
 .font-main {
-  font-family: var(--font-spray);
+  font-family: var(--font-display);
 }
 
 .font-subtitle {
@@ -32,72 +54,45 @@
 }
 
 .font-body {
-  font-family: var(--font-arial);
+  font-family: var(--font-body);
 }
 
 body {
   background-color: var(--nubb-cream);
   color: var(--nubb-brown);
-  font-family: var(--font-arial);
+  font-family: var(--font-body);
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Custom Utilities for Brutalist / Tactile UI Aesthetics */
+/* Display headings: Bantayog regular, slightly tight */
+.font-display {
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/* ---------------------------------------------------------------
+ * Surfaces — flat. Color fields separate, not drop shadows.
+ * ------------------------------------------------------------- */
 .nubb-border {
-  border: 2px solid var(--nubb-brown);
-  border-radius: 10px;
+  border: 1px solid var(--nubb-hairline);
+  border-radius: var(--radius-nubb-card);
 }
 
-.nubb-shadow {
-  box-shadow: 4px 4px 0px var(--nubb-brown);
-  border-radius: 10px;
-}
-
-.nubb-shadow-lg {
-  box-shadow: 6px 6px 0px var(--nubb-brown);
-  border-radius: 10px;
-}
-
-.nubb-shadow-crimson {
-  box-shadow: 6px 6px 0px var(--nubb-crimson);
-  border-radius: 10px;
-}
-
-.nubb-shadow-orange {
-  box-shadow: 6px 6px 0px var(--nubb-orange);
-  border-radius: 10px;
-}
-
-.nubb-shadow-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 10px;
-}
-
-.nubb-shadow-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--nubb-brown);
-}
-
-.nubb-shadow-hover:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--nubb-brown);
-}
-
-/* Card components */
+/* ---------------------------------------------------------------
+ * Base radii
+ * ------------------------------------------------------------- */
 .nubb-card,
-.card,
-[class*="card"] {
-  border-radius: 10px;
+.card {
+  border-radius: var(--radius-nubb-card);
 }
 
-/* Base elements 10px border-radius */
 button,
 [role="button"],
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-  border-radius: 10px;
+  border-radius: var(--radius-nubb-btn);
 }
 
 input[type="text"],
@@ -109,13 +104,226 @@ input[type="tel"],
 input[type="url"],
 textarea,
 select {
-  border-radius: 10px;
+  border-radius: var(--radius-nubb-input);
 }
 
 img,
 video,
 picture img {
   border-radius: 10px;
+}
+
+}
+
+@layer components {
+/* ---------------------------------------------------------------
+ * Components (use these in new markup)
+ * ------------------------------------------------------------- */
+
+/* Small uppercase label above headings */
+.nubb-eyebrow {
+  font-family: var(--font-lekton);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nubb-orange);
+}
+
+/* Primary action: Orange, Crimson on hover/press */
+.nubb-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  padding: 0 1.375rem;
+  border-radius: var(--radius-nubb-btn);
+  background: var(--nubb-orange);
+  color: var(--nubb-cream);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+.nubb-btn-primary:hover,
+.nubb-btn-primary:active {
+  background: var(--nubb-crimson);
+}
+.nubb-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Secondary: Brown outline */
+.nubb-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  padding: 0 1.375rem;
+  border: 2px solid var(--nubb-brown);
+  border-radius: var(--radius-nubb-btn);
+  background: transparent;
+  color: var(--nubb-brown);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+.nubb-btn-secondary:hover {
+  background: var(--nubb-brown);
+  color: var(--nubb-cream);
+}
+
+/* Compact size for dense admin toolbars. Pair with nubb-btn-primary/-secondary. */
+.nubb-btn-sm {
+  min-height: 44px;
+  padding: 0 1rem;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+/* Icon-only square button, e.g. table row actions */
+.nubb-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--nubb-brown);
+  border-radius: var(--radius-nubb-btn);
+  background: transparent;
+  color: var(--nubb-brown);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+.nubb-btn-icon:hover {
+  background: var(--nubb-orange);
+  border-color: var(--nubb-orange);
+  color: var(--nubb-cream);
+}
+
+/* Form field label */
+.nubb-label {
+  display: block;
+  font-family: var(--font-lekton);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nubb-brown);
+}
+
+/* Text inputs, selects, textareas: Cream Light, 1.5px Brown line, 12px radius */
+.nubb-input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.875rem;
+  border: 1.5px solid rgba(77, 63, 21, 0.45);
+  border-radius: var(--radius-nubb-input);
+  background: var(--nubb-cream-light);
+  color: var(--nubb-brown);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  transition: border-color 0.15s ease;
+}
+.nubb-input::placeholder {
+  color: rgba(77, 63, 21, 0.45);
+}
+.nubb-input:hover {
+  border-color: var(--nubb-brown);
+}
+.nubb-input:focus {
+  outline: 2px solid var(--nubb-orange);
+  outline-offset: 1px;
+  border-color: var(--nubb-orange);
+}
+.nubb-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Underlined text link, e.g. "Shop all pieces" */
+.nubb-link {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 4px;
+  transition: color 0.15s ease;
+}
+.nubb-link:hover {
+  color: var(--nubb-orange);
+}
+
+/* Category chips */
+.nubb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  padding: 0 1.125rem;
+  border: 2px solid var(--nubb-brown);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--nubb-brown);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+.nubb-chip:hover {
+  background: var(--nubb-cream-light);
+}
+.nubb-chip[aria-pressed="true"],
+.nubb-chip.is-active {
+  background: var(--nubb-brown);
+  color: var(--nubb-cream);
+}
+
+/* Pill badges: pair with a bg-/text- token */
+.nubb-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-lekton);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Flat card on the Cream page */
+.nubb-surface {
+  background: var(--nubb-cream-light);
+  border: 1px solid var(--nubb-hairline);
+  border-radius: var(--radius-nubb-card);
+}
+
+/* Wavy rule under headlines. Color follows currentColor. */
+.nubb-wave {
+  display: block;
+  width: 132px;
+  height: 12px;
+  color: var(--nubb-orange);
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='12' viewBox='0 0 132 12'%3E%3Cpath d='M2 6 Q 10 0 18 6 T 34 6 T 50 6 T 66 6 T 82 6 T 98 6 T 114 6 T 130 6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='12' viewBox='0 0 132 12'%3E%3Cpath d='M2 6 Q 10 0 18 6 T 34 6 T 50 6 T 66 6 T 82 6 T 98 6 T 114 6 T 130 6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center / contain;
+}
+
 }
 
 /* Subtle background grain texture */

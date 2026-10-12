@@ -14,7 +14,6 @@ import {
   Loader2,
   Truck,
   QrCode,
-  CreditCard,
 } from "lucide-react";
 
 interface PaymentMethod {
@@ -160,189 +159,124 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="py-20 max-w-xl mx-auto text-center bg-white border-3 border-[#4D3F15] p-8 nubb-shadow-lg space-y-4">
-        <ShoppingBag className="w-12 h-12 mx-auto text-[#4D3F15]/40" />
-        <h2 className="font-spray text-3xl">Your Bag is Empty</h2>
-        <p className="font-arial text-sm text-[#4D3F15]/80">
-          Add some handcrafted items to your bag before checking out.
+      <div className="nubb-surface max-w-xl mx-auto text-center py-16 px-8 space-y-4">
+        <ShoppingBag className="w-10 h-10 mx-auto text-nubb-orange" strokeWidth={1.6} />
+        <h1 className="font-display text-4xl leading-none">Your bag is empty.</h1>
+        <p className="font-body text-[15px] text-nubb-dark">
+          Add some handcrafted pieces to your bag before checking out.
         </p>
-        <Link
-          href="/ecom-staging"
-          className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#4D3F15] text-[#E8E6D8] font-lekton font-bold text-sm hover:bg-[#892F1A] transition-colors"
-        >
+        <Link href="/ecom-staging" className="nubb-btn-primary">
           <ArrowLeft className="w-4 h-4" />
-          Explore Storefront
+          Explore the collection
         </Link>
       </div>
     );
   }
 
+  const fields: {
+    label: string;
+    type: string;
+    value: string;
+    set: (v: string) => void;
+    placeholder: string;
+    required?: boolean;
+    autoComplete?: string;
+    wide?: boolean;
+  }[] = [
+    { label: "Full name", type: "text", value: name, set: setName, placeholder: "e.g. Juan dela Cruz", required: true, autoComplete: "name", wide: true },
+    { label: "Email address", type: "email", value: email, set: setEmail, placeholder: "name@domain.com", required: true, autoComplete: "email" },
+    { label: "Mobile phone", type: "tel", value: phone, set: setPhone, placeholder: "0917-XXX-XXXX", required: true, autoComplete: "tel" },
+    { label: "Street address / unit / building", type: "text", value: address, set: setAddress, placeholder: "House #, Street, Barangay", required: true, autoComplete: "street-address", wide: true },
+    { label: "City / municipality", type: "text", value: city, set: setCity, placeholder: "e.g. Davao City", required: true, autoComplete: "address-level2" },
+    { label: "Province / region", type: "text", value: province, set: setProvince, placeholder: "e.g. Davao del Sur", required: true, autoComplete: "address-level1" },
+    { label: "Postal code", type: "text", value: postalCode, set: setPostalCode, placeholder: "e.g. 8000", autoComplete: "postal-code" },
+    { label: "Delivery notes", type: "text", value: notes, set: setNotes, placeholder: "Instructions for the rider" },
+  ];
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="flex items-center justify-between border-b-2 border-[#4D3F15] pb-4">
-        <div>
-          <h1 className="font-spray text-3xl sm:text-4xl text-[#4D3F15]">Secure Checkout</h1>
-          <p className="font-lekton text-xs font-bold text-[#892F1A] uppercase tracking-wider mt-1">
-            Studio Order Dispatch
-          </p>
+      <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 pb-7 border-b border-nubb-brown/15">
+        <div className="space-y-3.5">
+          <p className="nubb-eyebrow">Checkout</p>
+          <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-none">Almost yours.</h1>
+          <span className="nubb-wave" aria-hidden="true" style={{ width: 96 }} />
         </div>
-        <Link
-          href="/ecom-staging"
-          className="font-lekton text-xs font-bold text-[#4D3F15]/80 hover:text-[#892F1A] flex items-center gap-1.5 transition-colors"
-        >
+        <Link href="/ecom-staging" className="nubb-link inline-flex items-center gap-1.5">
           <ArrowLeft className="w-4 h-4" />
-          Continue Browsing
+          Continue browsing
         </Link>
       </div>
 
       {error && (
-        <div className="p-4 bg-rose-50 border-2 border-[#640017] text-[#640017] flex items-center gap-3 font-arial text-sm font-bold">
+        <div
+          role="alert"
+          className="p-4 rounded-[12px] bg-nubb-crimson/10 border-[1.5px] border-nubb-crimson text-nubb-crimson flex items-center gap-3 font-body text-sm font-bold"
+        >
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
-      <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        {/* Left Column: Shipping & Payment (7 cols) */}
+      <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         <div className="lg:col-span-7 space-y-8">
-          {/* 1. Customer & Shipping Details */}
-          <div className="bg-white border-3 border-[#4D3F15] p-6 sm:p-8 nubb-shadow space-y-6">
-            <div className="flex items-center gap-2 font-lekton text-lg font-bold border-b border-[#4D3F15]/20 pb-3 uppercase">
-              <Truck className="w-5 h-5 text-[#892F1A]" />
-              <span>1. Shipping Destination</span>
+          {/* 1. Shipping */}
+          <section className="nubb-surface p-6 sm:p-8 space-y-6" aria-labelledby="checkout-shipping">
+            <div className="flex items-center gap-3.5">
+              <span className="w-11 h-11 shrink-0 rounded-full bg-nubb-brown text-nubb-cream font-lekton font-bold flex items-center justify-center">
+                01
+              </span>
+              <h2 id="checkout-shipping" className="font-display text-3xl leading-none">
+                Shipping
+              </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-arial text-sm font-bold">
-              <div className="sm:col-span-2 space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. John Torralba"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@domain.com"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Mobile Phone *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="0917-XXX-XXXX"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="sm:col-span-2 space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Street Address / Unit / Building *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="House #, Street, Barangay"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  City / Municipality *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="e.g. Davao City / Makati"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Province / Region *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={province}
-                  onChange={(e) => setProvince(e.target.value)}
-                  placeholder="e.g. Davao del Sur / Metro Manila"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Postal Code
-                </label>
-                <input
-                  type="text"
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  placeholder="e.g. 1100"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-lekton text-xs uppercase tracking-wider text-[#4D3F15]">
-                  Delivery Instructions / Notes
-                </label>
-                <input
-                  type="text"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Special instructions for rider"
-                  className="w-full px-4 py-3 bg-[#E8E6D8]/30 border-2 border-[#4D3F15] focus:outline-none focus:bg-white"
-                />
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5">
+              {fields.map((f) => {
+                const id = `checkout-${f.label.split(" ")[0].toLowerCase()}`;
+                return (
+                  <div key={f.label} className={`space-y-2 ${f.wide ? "sm:col-span-2" : ""}`}>
+                    <label htmlFor={id} className="nubb-label">
+                      {f.label}
+                      {f.required && <span className="text-nubb-orange"> *</span>}
+                    </label>
+                    <input
+                      id={id}
+                      type={f.type}
+                      required={f.required}
+                      autoComplete={f.autoComplete}
+                      value={f.value}
+                      onChange={(e) => f.set(e.target.value)}
+                      placeholder={f.placeholder}
+                      className="nubb-input"
+                    />
+                  </div>
+                );
+              })}
             </div>
-          </div>
+          </section>
 
-          {/* 2. Payment Method Selector */}
-          <div className="bg-white border-3 border-[#4D3F15] p-6 sm:p-8 nubb-shadow space-y-6">
-            <div className="flex items-center gap-2 font-lekton text-lg font-bold border-b border-[#4D3F15]/20 pb-3 uppercase">
-              <CreditCard className="w-5 h-5 text-[#892F1A]" />
-              <span>2. Payment Option</span>
+          {/* 2. Payment */}
+          <section className="nubb-surface p-6 sm:p-8 space-y-6" aria-labelledby="checkout-payment">
+            <div className="flex items-center gap-3.5">
+              <span className="w-11 h-11 shrink-0 rounded-full bg-nubb-brown text-nubb-cream font-lekton font-bold flex items-center justify-center">
+                02
+              </span>
+              <h2 id="checkout-payment" className="font-display text-3xl leading-none">
+                Payment
+              </h2>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3" role="radiogroup" aria-labelledby="checkout-payment">
               {paymentMethods.map((method) => {
                 const isSelected = selectedMethod === method.id;
                 return (
                   <label
                     key={method.id}
-                    className={`flex items-start gap-4 p-4 border-2 cursor-pointer transition-all ${
+                    className={`flex items-start gap-4 p-4 rounded-[12px] border-[1.5px] cursor-pointer transition-colors ${
                       isSelected
-                        ? "border-[#892F1A] bg-[#E8E6D8]/40 nubb-shadow"
-                        : "border-[#4D3F15]/40 hover:border-[#4D3F15] bg-white"
+                        ? "border-nubb-orange bg-nubb-cream"
+                        : "border-nubb-brown/25 hover:border-nubb-brown"
                     }`}
                   >
                     <input
@@ -351,15 +285,13 @@ export default function CheckoutPage() {
                       value={method.id}
                       checked={isSelected}
                       onChange={() => setSelectedMethod(method.id)}
-                      className="mt-1 accent-[#892F1A]"
+                      className="mt-1 w-4 h-4 accent-nubb-orange"
                     />
                     <div className="flex-1 space-y-1">
-                      <div className="font-lekton font-bold text-base text-[#4D3F15]">
-                        {method.name}
-                      </div>
+                      <div className="font-body font-bold text-[15px] uppercase tracking-[0.06em]">{method.name}</div>
                       {method.account_number && (
-                        <div className="font-mono text-xs text-[#4D3F15]/80">
-                          {method.account_name} &bull; {method.account_number}
+                        <div className="font-lekton text-sm text-nubb-dark">
+                          {method.account_name} · {method.account_number}
                         </div>
                       )}
                     </div>
@@ -368,45 +300,35 @@ export default function CheckoutPage() {
               })}
             </div>
 
-            {/* Payment Details & Instructions */}
             {activeMethod && (
-              <div className="p-5 bg-[#E8E6D8]/60 border-2 border-[#4D3F15] space-y-4">
-                <h4 className="font-lekton text-xs font-bold uppercase tracking-wider text-[#892F1A]">
-                  Payment Instructions
-                </h4>
-                <p className="font-arial text-xs font-bold leading-relaxed text-[#4D3F15]">
+              <div className="p-5 rounded-[12px] bg-nubb-cream space-y-4">
+                <p className="nubb-eyebrow">How to pay</p>
+                <p className="font-body text-[15px] leading-relaxed">
                   {activeMethod.instructions || "Please transfer the exact total."}
                 </p>
 
                 {activeMethod.qr_code_url && (
-                  <div className="space-y-2 pt-2">
-                    <span className="font-lekton text-xs font-bold flex items-center gap-1.5 text-[#4D3F15]">
-                      <QrCode className="w-4 h-4 text-[#892F1A]" />
-                      Scan Official Payment QR:
+                  <div className="space-y-2">
+                    <span className="nubb-label flex items-center gap-1.5">
+                      <QrCode className="w-4 h-4 text-nubb-orange" />
+                      Scan to pay
                     </span>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={activeMethod.qr_code_url}
-                      alt={`${activeMethod.name} QR`}
-                      className="w-48 h-48 object-contain border-2 border-[#4D3F15] bg-white p-2"
+                      alt={`${activeMethod.name} QR code`}
+                      className="w-48 h-48 object-contain bg-nubb-cream-light border border-nubb-brown/15 rounded-[12px] p-2"
                     />
                   </div>
                 )}
 
-                {/* Upload Receipt / Proof */}
                 {selectedMethod !== "cod" && (
-                  <div className="space-y-2 pt-3 border-t border-[#4D3F15]/20">
-                    <label className="font-lekton text-xs font-bold uppercase tracking-wider block text-[#4D3F15]">
-                      Attach Proof of Payment (Screenshot / Receipt)
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <label className="px-4 py-2.5 bg-white border-2 border-[#4D3F15] text-[#4D3F15] font-lekton text-xs font-bold hover:bg-[#892F1A] hover:text-[#E8E6D8] transition-colors cursor-pointer flex items-center gap-2">
-                        {uploadingProof ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Upload className="w-4 h-4" />
-                        )}
-                        <span>{uploadingProof ? "Uploading..." : "Upload Receipt"}</span>
+                  <div className="space-y-3 pt-4 border-t border-nubb-brown/15">
+                    <span className="nubb-label">Proof of payment (screenshot or receipt)</span>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <label className="nubb-btn-secondary nubb-btn-sm">
+                        {uploadingProof ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                        <span>{uploadingProof ? "Uploading..." : "Upload receipt"}</span>
                         <input
                           type="file"
                           accept="image/*"
@@ -416,9 +338,9 @@ export default function CheckoutPage() {
                         />
                       </label>
                       {proofUrl && (
-                        <span className="font-lekton text-xs text-emerald-800 font-bold flex items-center gap-1">
+                        <span className="nubb-badge bg-nubb-brown/10 text-nubb-brown gap-1.5">
                           <CheckCircle2 className="w-4 h-4" />
-                          Receipt Attached!
+                          Receipt attached
                         </span>
                       )}
                     </div>
@@ -426,94 +348,91 @@ export default function CheckoutPage() {
                 )}
               </div>
             )}
-          </div>
+          </section>
         </div>
 
-        {/* Right Column: Order Summary (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white border-3 border-[#4D3F15] p-6 sm:p-8 nubb-shadow-lg space-y-6">
-            <h3 className="font-lekton text-lg font-bold uppercase tracking-wider border-b border-[#4D3F15]/20 pb-3">
-              Order Summary ({items.length} pieces)
-            </h3>
-
-            {/* Line Items */}
-            <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
-              {items.map((item) => (
-                <div key={item.id} className="flex gap-3 items-center py-2 border-b border-[#4D3F15]/10">
-                  {item.image ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-14 h-14 object-cover border border-[#4D3F15] shrink-0"
-                    />
-                  ) : (
-                    <div className="w-14 h-14 bg-[#E8E6D8] border border-[#4D3F15] flex items-center justify-center shrink-0">
-                      <ShoppingBag className="w-5 h-5 text-[#4D3F15]/40" />
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0 font-lekton font-bold">
-                    <p className="text-sm line-clamp-1 text-[#4D3F15]">{item.name}</p>
-                    <p className="text-xs text-[#4D3F15]/60">Qty: {item.quantity}</p>
-                  </div>
-                  <div className="font-lekton font-bold text-sm text-[#892F1A]">
-                    ₱{(item.price * item.quantity).toLocaleString()}
-                  </div>
-                </div>
-              ))}
+        {/* Order summary */}
+        <aside className="lg:col-span-5 lg:sticky lg:top-28 space-y-4" aria-labelledby="checkout-summary">
+          <div className="nubb-surface p-6 sm:p-8 space-y-6">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 id="checkout-summary" className="font-display text-3xl leading-none">
+                Your bag
+              </h2>
+              <span className="font-lekton text-sm font-bold text-nubb-dark">
+                {items.length} {items.length === 1 ? "piece" : "pieces"}
+              </span>
             </div>
 
-            {/* Cost Breakdown */}
-            <div className="space-y-2.5 pt-2 font-lekton text-sm font-bold border-t border-[#4D3F15]/20">
+            <ul className="space-y-3 max-h-72 overflow-y-auto pr-1">
+              {items.map((item, index) => (
+                <li key={item.id} className="flex gap-3.5 items-center">
+                  <div
+                    className={`w-14 h-14 shrink-0 rounded-[12px] overflow-hidden flex items-center justify-center ${
+                      ["bg-nubb-brown", "bg-nubb-mustard", "bg-nubb-orange"][index % 3]
+                    }`}
+                  >
+                    {item.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={item.image} alt="" className="w-full h-full object-cover rounded-none" />
+                    ) : (
+                      <ShoppingBag className="w-5 h-5 text-nubb-cream/60" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-body font-bold text-sm uppercase tracking-[0.06em] line-clamp-1">{item.name}</p>
+                    <p className="font-lekton text-xs font-bold text-nubb-dark">Qty {item.quantity}</p>
+                  </div>
+                  <div className="font-lekton font-bold">₱{(item.price * item.quantity).toLocaleString()}</div>
+                </li>
+              ))}
+            </ul>
+
+            <dl className="space-y-2.5 pt-5 font-lekton text-sm font-bold border-t border-nubb-brown/15">
               <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>₱{subtotal.toLocaleString()}</span>
+                <dt>Subtotal</dt>
+                <dd>₱{subtotal.toLocaleString()}</dd>
               </div>
               <div className="flex justify-between items-center">
-                <span>Standard Shipping</span>
-                <span>
+                <dt>Shipping</dt>
+                <dd>
                   {shippingFee === 0 ? (
-                    <span className="text-emerald-800 uppercase font-bold">FREE</span>
+                    <span className="nubb-badge bg-nubb-mustard text-nubb-brown">Free</span>
                   ) : (
                     `₱${shippingFee.toLocaleString()}`
                   )}
-                </span>
+                </dd>
               </div>
-              {subtotal >= 2000 && (
-                <p className="font-arial text-xs text-emerald-800 font-bold">
-                  ✓ Qualified for Free Studio Delivery (orders over ₱2,000)
+              {shippingFee > 0 && (
+                <p className="font-body text-[13px] font-normal text-nubb-dark">
+                  Free shipping on orders over ₱2,000.
                 </p>
               )}
-              <div className="flex justify-between text-xl font-bold pt-3 border-t-2 border-[#4D3F15]">
-                <span>Total Due</span>
-                <span className="text-[#892F1A]">₱{total.toLocaleString()}</span>
+              <div className="flex justify-between items-baseline pt-4 mt-1 border-t border-nubb-brown/15">
+                <dt className="uppercase tracking-[0.1em]">Total</dt>
+                <dd className="text-2xl">₱{total.toLocaleString()}</dd>
               </div>
-            </div>
+            </dl>
 
-            {/* Place Order Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-lg font-bold uppercase tracking-wider hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50"
-            >
+            <button type="submit" disabled={loading} className="nubb-btn-primary w-full">
               {loading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Securing Order...
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Placing order...
                 </>
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  Confirm & Place Order
+                  Place order · ₱{total.toLocaleString()}
                 </>
               )}
             </button>
-
-            <p className="font-arial text-xs text-center text-[#4D3F15]/70 font-bold">
-              Your order is recorded instantly in the NUBB studio registry.
-            </p>
           </div>
-        </div>
+
+          <div className="flex items-center gap-3 px-2 font-body text-[13px] text-nubb-dark">
+            <Truck className="w-4 h-4 text-nubb-orange shrink-0" />
+            <span>Packed by hand and shipped from our Davao studio.</span>
+          </div>
+        </aside>
       </form>
     </div>
   );

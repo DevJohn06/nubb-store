@@ -27,22 +27,22 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-[#E8E6D8] border-r-3 border-[#4D3F15] flex flex-col justify-between shrink-0 min-h-screen">
+    <aside className="w-64 bg-nubb-brown text-nubb-cream flex flex-col justify-between shrink-0 min-h-screen">
       <div>
         {/* Brand Header */}
-        <div className="p-6 border-b-2 border-[#4D3F15]">
+        <div className="p-6 border-b border-nubb-cream/15">
           <Link href="/admin" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/brand-mark.svg?v=3"
-              alt="NUBB"
-              className="w-8 h-8 object-contain"
+              src="/brand/brand-mark-cream.svg"
+              alt=""
+              className="w-9 h-9 object-contain rounded-none"
             />
             <div>
-              <span className="font-spray text-xl text-[#4D3F15] block leading-none">
-                NUBB ADMIN
+              <span className="font-display text-2xl text-nubb-cream block leading-none">
+                NUBB Admin
               </span>
-              <span className="font-lekton text-[10px] font-bold text-[#892F1A] uppercase tracking-widest block mt-0.5">
+              <span className="font-lekton text-[11px] font-bold text-nubb-mustard uppercase tracking-[0.14em] block mt-1">
                 Studio Operations
               </span>
             </div>
@@ -50,7 +50,7 @@ export function AdminSidebar() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="p-4 space-y-1 font-lekton font-bold text-sm">
+        <nav className="p-4 space-y-1 font-body font-bold text-sm" aria-label="Admin">
           {links.map((link) => {
             const isActive = link.exact
               ? pathname === link.href
@@ -61,10 +61,11 @@ export function AdminSidebar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-3 border-2 transition-all ${
+                aria-current={isActive ? "page" : undefined}
+                className={`flex items-center gap-3 px-4 min-h-11 rounded-[8px] transition-colors ${
                   isActive
-                    ? "bg-[#4D3F15] text-[#E8E6D8] border-[#4D3F15] nubb-shadow"
-                    : "border-transparent text-[#4D3F15] hover:bg-white hover:border-[#4D3F15]"
+                    ? "bg-nubb-mustard text-nubb-brown"
+                    : "text-nubb-cream/85 hover:bg-nubb-cream/10 hover:text-nubb-cream"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -76,16 +77,16 @@ export function AdminSidebar() {
       </div>
 
       {/* Footer Info & Quick Link to Staging Store */}
-      <div className="p-4 border-t-2 border-[#4D3F15] bg-[#E8E6D8] space-y-2">
+      <div className="p-4 border-t border-nubb-cream/15 space-y-2">
         <Link
           href="/ecom-staging"
           target="_blank"
-          className="flex items-center justify-between px-3.5 py-2.5 bg-white border-2 border-[#4D3F15] text-[#4D3F15] font-lekton text-xs font-bold hover:bg-[#892F1A] hover:text-[#E8E6D8] transition-colors"
+          className="flex items-center justify-between px-3.5 min-h-11 rounded-[8px] border-2 border-nubb-cream/40 text-nubb-cream font-body text-xs font-bold uppercase tracking-[0.06em] hover:bg-nubb-orange hover:border-nubb-orange transition-colors"
         >
           <span>View Staging Store</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </Link>
-        <div className="text-[11px] font-lekton text-[#4D3F15]/60 text-center font-bold">
+        <div className="text-[11px] font-lekton text-nubb-cream/60 text-center font-bold">
           Cloudflare R2 & Turso Active
         </div>
       </div>

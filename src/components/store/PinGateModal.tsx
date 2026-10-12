@@ -47,11 +47,11 @@ export function PinGateModal() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#E8E6D8] text-[#4D3F15] flex flex-col items-center justify-center p-6 selection:bg-[#892F1A] selection:text-[#E8E6D8]">
+    <div className="min-h-screen w-full bg-nubb-cream text-nubb-brown flex flex-col items-center justify-center p-6 selection:bg-nubb-orange selection:text-nubb-cream">
       <motion.div
         animate={isShaking ? { x: [-10, 10, -8, 8, -4, 4, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-[#FFFFFF] border-3 border-[#4D3F15] p-8 nubb-shadow-lg rounded-[10px]"
+        className="w-full max-w-md nubb-surface p-8"
       >
         {/* Emblem & Title */}
         <div className="flex flex-col items-center text-center space-y-4 mb-6">
@@ -69,14 +69,14 @@ export function PinGateModal() {
           </motion.div>
 
           <div className="space-y-1">
-            <h1 className="font-spray text-3xl sm:text-4xl text-[#4D3F15] tracking-wide">
+            <h1 className="font-display text-3xl sm:text-4xl text-nubb-brown tracking-wide">
               Staging Access
             </h1>
-            <p className="font-lekton text-sm font-bold text-[#892F1A] uppercase tracking-wider">
+            <p className="font-lekton text-sm font-bold text-nubb-orange uppercase tracking-wider">
               Developer & Client Preview Only
             </p>
           </div>
-          <p className="font-arial text-sm text-[#4D3F15]/80">
+          <p className="font-body text-sm text-nubb-brown/80">
             Please enter the designated developer PIN to preview the NUBB e-commerce staging environment.
           </p>
         </div>
@@ -84,7 +84,7 @@ export function PinGateModal() {
         {/* PIN Form */}
         <form onSubmit={handleVerify} className="space-y-5">
           <div>
-            <label className="font-lekton text-xs font-bold uppercase tracking-wider block mb-2 text-[#4D3F15]">
+            <label className="font-lekton text-xs font-bold uppercase tracking-wider block mb-2 text-nubb-brown">
               Developer PIN
             </label>
             <div className="relative">
@@ -98,12 +98,12 @@ export function PinGateModal() {
                 placeholder="Enter PIN (e.g. nubb2026)"
                 autoFocus
                 disabled={loading}
-                className="w-full px-4 py-3.5 bg-[#E8E6D8]/40 border-2 border-[#4D3F15] font-lekton text-lg font-bold text-[#4D3F15] focus:outline-none focus:bg-white placeholder-[#4D3F15]/40 rounded-[10px]"
+                className="nubb-input min-h-12 font-lekton text-lg font-bold"
               />
-              <KeyRound className="absolute right-3.5 top-3.5 w-5 h-5 text-[#4D3F15]/50" />
+              <KeyRound className="absolute right-3.5 top-3.5 w-5 h-5 text-nubb-brown/50" />
             </div>
             {error && (
-              <p className="font-arial text-xs font-bold text-[#640017] mt-2 flex items-center gap-1.5">
+              <p className="font-body text-xs font-bold text-nubb-crimson mt-2 flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 shrink-0" />
                 {error}
               </p>
@@ -113,7 +113,7 @@ export function PinGateModal() {
           <button
             type="submit"
             disabled={loading || !pin}
-            className="w-full py-4 bg-[#4D3F15] text-[#E8E6D8] font-lekton text-base sm:text-lg font-bold hover:bg-[#892F1A] active:bg-[#640017] transition-all flex items-center justify-center gap-3 nubb-shadow-hover cursor-pointer disabled:opacity-50 rounded-[10px]"
+            className="nubb-btn-primary w-full"
           >
             {loading ? (
               <>
@@ -129,10 +129,10 @@ export function PinGateModal() {
           </button>
         </form>
 
-        <div className="mt-8 pt-4 border-t border-[#4D3F15]/20 text-center">
+        <div className="mt-8 pt-4 border-t border-nubb-brown/20 text-center">
           <a
             href="/"
-            className="font-lekton text-xs font-bold text-[#4D3F15]/70 hover:text-[#892F1A] transition-colors underline"
+            className="font-lekton text-xs font-bold text-nubb-brown/70 hover:text-nubb-orange transition-colors underline"
           >
             &larr; Return to Coming Soon Page
           </a>
