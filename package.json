@@ -2,6 +2,9 @@
   "name": "nubb-store",
   "version": "0.1.0",
   "private": true,
+    "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "node node_modules/next/dist/bin/next dev",
     "build": "node node_modules/next/dist/bin/next build",
@@ -32,4 +35,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   }
+  
 }
