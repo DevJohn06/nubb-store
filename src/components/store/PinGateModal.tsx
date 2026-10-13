@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Lock, ArrowRight, Loader2, KeyRound, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { AuthSplitLayout } from "@/components/common/AuthSplitLayout";
+import { AuthLayout } from "@/components/common/AuthLayout";
 
 export function PinGateModal() {
   const [pin, setPin] = useState("");
@@ -47,7 +47,7 @@ export function PinGateModal() {
   };
 
   return (
-    <AuthSplitLayout eyebrow="Handmade studio · Batch No. 01" headline="the things we carry.">
+    <AuthLayout>
       <motion.div
         animate={isShaking ? { x: [-10, 10, -8, 8, -4, 4, 0] } : {}}
         transition={{ duration: 0.4 }}
@@ -128,6 +128,6 @@ export function PinGateModal() {
           </Link>
         </div>
       </motion.div>
-    </AuthSplitLayout>
+    </AuthLayout>
   );
 }

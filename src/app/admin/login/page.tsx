@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { AuthSplitLayout } from "@/components/common/AuthSplitLayout";
+import { AuthLayout } from "@/components/common/AuthLayout";
 import { User, KeyRound, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 
 export default function AdminLoginPage() {
@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <AuthSplitLayout eyebrow="NUBB Studio Operations" headline="Admin portal.">
+    <AuthLayout>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -125,6 +125,6 @@ export default function AdminLoginPage() {
           </p>
         </div>
       </motion.div>
-    </AuthSplitLayout>
+    </AuthLayout>
   );
 }
